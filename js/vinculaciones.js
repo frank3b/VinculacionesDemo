@@ -64,23 +64,30 @@ function salir(){
 }
 
 function guardar(){
-	var tipo_documento = $('#tipo_documento').val("");
-	var numero_documento = $('#numero_documento').val("");
-	if(tipo_documento == null || tipo_documento != ''){
+	
+	$.mobile.loading('show');
+	$("#mensajeVinculacion").removeClass("error");
+	$('#mensajeVinculacion').hide();
+	$('#mensajeVinculacion').text( ' ' );
+	
+	var tipo_documento = $('#tipoDocumento').val();
+	var numero_documento = $('#numeroDocumento').val();
+	
+	if(tipo_documento == null || tipo_documento == ''){
 		$('#mensajeVinculacion').addClass('error');
 		$('#mensajeVinculacion').show();
 		$('#mensajeVinculacion').text('El tipo de documento es requerido.');
-	} else if(numero_documento == null || numero_documento != ''){
+	} else if(numero_documento == null || numero_documento == ''){
 		$('#mensajeVinculacion').addClass('error');
 		$('#mensajeVinculacion').show();
 		$('#mensajeVinculacion').text('El numero de documento es requerido.');
 	} else {
-		$('#mensajeVinculacion').show();
 		$('#mensajeVinculacion').addClass('success');
+		$('#mensajeVinculacion').show();
 		$('#mensajeVinculacion').text( 'La informaci\u00F3n se ha almacenado correctamente.' );
 	}
 	
-	
+	$.mobile.loading('hide');
 }
 
 function segmentar(){
@@ -106,16 +113,12 @@ function validarListasControl(){
 	$('#mensajeVinculacion').text('No se encuentra en listas de control.');
 }
 
-function vincular(){
-	$('#mensajeVinculacion').show();
-	$('#mensajeVinculacion').addClass('info');
-	$('#mensajeVinculacion').text('Vinculaci\u00F3n ejecutada exitosamente.');
-}
+
 
 function consultarVinculados() {
 	
 	var data = getViculados();
-	console.log("getViculados...");
+	
 	if(data != null){
 		
 		var clientes = data.respuesta.clientes;
@@ -136,6 +139,28 @@ function consultarVinculados() {
 	}
 	
 	
+}
+
+
+function consultarVinculado(){
+	var queryDoc = new Kinvey.Query();
+	var queryTipoDoc = new Kinvey.Query();
+    queryDoc.equalTo('tipo_documento', usuario);
+	queryTipoDoc.equalTo('tipo_documento', usuario);
+	queryDoc.and(queryTipoDoc);
+	alert("consultarVinculado...");
+    Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
+        success: function(response) {                
+           $('#mensaje').show();
+	       $('#mensaje').text( 'Encontro el vinculado...' + response[0].primer_nombre );
+        },
+        error: function(error){
+			console.log(error);
+			$('#mensaje').show();
+	        $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+	        
+		}
+    });
 }
 
 function getViculados() {
