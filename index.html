@@ -50,14 +50,17 @@
 	              }
 		
 	          }, function(error) {
-	             loginError.text('Problemas conectando con el backend. Por favor intente mas tarde');
+	        	  $('#mensaje').text('Problemas conectando con el backend. Por favor intente mas tarde');
+	        	  
 	    	}); 
 	      		
 	      $( "#ingresar" ).on( "click", function() {
 	    	  validarIngreso();
 		  });
 	      
-	      
+	      $(document).on("pageshow", "#vinculacion", function () {
+	    	  $('#resetButton').closest('.ui-btn').hide();
+		  });
 	}
 </script>
 
@@ -98,7 +101,7 @@
 		<div id="vinculacionPageHeader" data-theme="b" data-role="header">
 			<a href="#logon" data-icon="delete" onclick="salir();">Salir</a>
 			<h3 id="headerVinculacion">Vinculación Simplificada</h3>
-			<a href="#" data-icon="check" onclick="guardar();">Save</a>
+			<a href="#" data-icon="check" onclick="guardar();">Guardar</a>
 		</div>
 		<div data-role="content">
 		<div data-controltype="textblock" id="bienvenidaText">

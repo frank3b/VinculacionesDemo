@@ -65,10 +65,12 @@ function guardar(){
 	var tipo_documento = $('#tipo_documento').val("");
 	var numero_documento = $('#numero_documento').val("");
 	if(tipo_documento == null || tipo_documento != ''){
-		$('#mensajeVinculacion').addClass('warning');
+		$('#mensajeVinculacion').addClass('error');
+		$('#mensajeVinculacion').show();
 		$('#mensajeVinculacion').text('El tipo de documento es requerido.');
 	} else if(numero_documento == null || numero_documento != ''){
-		$('#mensajeVinculacion').addClass('warning');
+		$('#mensajeVinculacion').addClass('error');
+		$('#mensajeVinculacion').show();
 		$('#mensajeVinculacion').text('El numero de documento es requerido.');
 	} else {
 		$('#mensajeVinculacion').show();
@@ -177,8 +179,6 @@ function getViculados() {
 }
 
 function iniciarCampos(){
-	
-	$('#resetButton').closest('.ui-btn').hide();
 	
 	$("#mensaje").hide();
 	$("#mensajeVinculacion").hide();
