@@ -151,13 +151,15 @@ function consultarVinculado(){
 	alert("consultarVinculado...");
     Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
         success: function(response) {                
-           $('#mensaje').show();
-	       $('#mensaje').text( 'Encontro el vinculado...' + response[0].primer_nombre );
+           $('#mensajeVinculacion').show();
+           $('#mensajeVinculacion').addClass('warning');
+	       $('#mensajeVinculacion').text( 'Encontro el vinculado...' + response[0].primer_nombre );
         },
         error: function(error){
 			console.log(error);
-			$('#mensaje').show();
-	        $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+			$('#mensajeVinculacion').show();
+			$('#mensajeVinculacion').addClass('warning');
+	        $('#mensajeVinculacion').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
 	        
 		}
     });

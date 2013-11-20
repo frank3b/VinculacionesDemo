@@ -124,16 +124,16 @@
                                 Tipo de Documento:
                             </label>
                             <select id="tipoDocumento" name="" data-mini="true">
-                                <option value="1">
+                                <option value="CC">
                                     Cedula
                                 </option>
-                                <option value="2">
+                                <option value="CE">
                                     Cedula de extranjeria
                                 </option>
-                                <option value="3">
+                                <option value="NI">
                                     Nit
                                 </option>
-                                <option value="4">
+                                <option value="TI">
                                     TI
                                 </option>
                             </select>
@@ -145,7 +145,7 @@
                                 Numero Documento
                             </label>
                             <input name="numeroDocumento" id="numeroDocumento" placeholder="" value=""
-                             	type="text" onblur="consultarVinculado();">
+                             	type="text">
                         </div>
                     </div>
                 </div>
@@ -797,6 +797,12 @@
     <div data-theme="b" data-role="footer" data-position="fixed">
         <div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
             <ul>
+            	<li>
+                    <a href="#" data-transition="fade" onclick="consultarVinculado();"
+                    	data-theme="b" data-icon="">
+                        Consultar
+                    </a>
+                </li>
                 <li>
                     <a href="#" data-transition="fade" onclick="validarListasControl();"
                     	data-theme="b" data-icon="">
