@@ -143,10 +143,13 @@ function consultarVinculados() {
 
 
 function consultarVinculado(){
+	var tipo_documento = $('#tipoDocumento').val();
+	var numero_documento = $('#numeroDocumento').val();
+	
 	var queryDoc = new Kinvey.Query();
 	var queryTipoDoc = new Kinvey.Query();
-    queryDoc.equalTo('tipo_documento', usuario);
-	queryTipoDoc.equalTo('tipo_documento', usuario);
+    queryDoc.equalTo('numero_documento', numero_documento);
+	queryTipoDoc.equalTo('tipo_documento', tipo_documento);
 	queryDoc.and(queryTipoDoc);
 	alert("consultarVinculado...");
     Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
