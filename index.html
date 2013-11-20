@@ -29,10 +29,6 @@
 		document.addEventListener("deviceready", onDeviceReady, true);
 		iniciarCampos();
 		
-		$(document).on("pageinit", "#vinculacion", function () {
-			$( "#resetButton" ).click();
-		});
-		
 		/********Init Connection with kinvey Back End********/
 	      var promise = Kinvey.init({
 	           appKey    : 'kid_TPEkUaJmB9',
@@ -118,7 +114,6 @@
                 
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                    	
                     
                         <div data-role="fieldcontain" data-controltype="selectmenu" data-type="horizontal">
                         
@@ -793,7 +788,7 @@
                 <input id="determinarCiiu" type="submit" value="Determinar CIIU">
             </div>
         </div>
-        <input type="reset" value="Reset Button" id="resetButton" />
+        <input type="reset" value="Reset Button" id="resetButton" style="display:none;"/>
         </form>
     </div>
     <div data-theme="b" data-role="footer" data-position="fixed">

@@ -8,7 +8,7 @@ function validarIngreso(){
 	var usuario = $('#usuario').val();
     var password = $('#password').val();
     
-    if(usuario != null && password != null){
+    if(usuario != null && password != null && usuario != '' && password != ''){
         
         var query = new Kinvey.Query();
         query.equalTo('login', usuario);
@@ -24,6 +24,8 @@ function validarIngreso(){
                     
                     var txtBienv = "Bienvenido: " + response[0].nombre;
     				$('#bienvenidaText').text(txtBienv);
+    				
+    				$( "#resetButton" ).click();
                 } else {
                     $('#mensaje').show();
                     $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
@@ -60,9 +62,21 @@ function salir(){
 }
 
 function guardar(){
-	$('#mensajeVinculacion').show();
-	$('#mensajeVinculacion').addClass('success');
-	$('#mensajeVinculacion').text( 'La informaci\u00F3n se ha almacenado correctamente.' );
+	var tipo_documento = $('#tipo_documento').val("");
+	var numero_documento = $('#numero_documento').val("");
+	if(tipo_documento == null || tipo_documento != ''){
+		$('#mensajeVinculacion').addClass('warning');
+		$('#mensajeVinculacion').text('El tipo de documento es requerido.');
+	} else if(numero_documento == null || numero_documento != ''){
+		$('#mensajeVinculacion').addClass('warning');
+		$('#mensajeVinculacion').text('El numero de documento es requerido.');
+	} else {
+		$('#mensajeVinculacion').show();
+		$('#mensajeVinculacion').addClass('success');
+		$('#mensajeVinculacion').text( 'La informaci\u00F3n se ha almacenado correctamente.' );
+	}
+	
+	
 }
 
 function segmentar(){
@@ -164,6 +178,8 @@ function getViculados() {
 
 function iniciarCampos(){
 	
+	$('#resetButton').closest('.ui-btn').hide();
+	
 	$("#mensaje").hide();
 	$("#mensajeVinculacion").hide();
 	
@@ -171,7 +187,5 @@ function iniciarCampos(){
 	$("#subsegmento").attr('readonly', true);
 	$("#tamanoComercial").attr('readonly', true);
 	$("#llaveCRM").attr('readonly', true);
-	
-	$('#resetButton').closest('.ui-btn').hide();
 	
 }
