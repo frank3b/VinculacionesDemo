@@ -4,6 +4,8 @@
 
 function validarIngreso(){	
 	$.mobile.loading('show');
+	$('#mensaje').hide();
+	$('#mensaje').text( '' );
 	
 	var usuario = $('#usuario').val();
     var password = $('#password').val();
