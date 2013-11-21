@@ -178,16 +178,17 @@ function consultarVinculado(){
 	queryDoc.and(queryTipoDoc);
     Kinvey.DataStore.find('VINCULACIONES', null, {
         success: function(response) {
-           //alert("Encontro Vinculado?... " + response.length); 
            
            if(response.length > 0){
                $.each(response, function(index, obj) {
                     	editarVinculacion(obj);
-                        //$('#mensajeVinculacion').show();
-                        //$('#mensajeVinculacion').addClass('warning');
-                        //$('#mensajeVinculacion').text( 'Encontro el vinculado...' + response[0].primer_nombre );
                });               
                 
+           } else {
+        	 $('#mensajeVinculacion').show();
+             $('#mensajeVinculacion').addClass('warning');
+             $('#mensajeVinculacion').text( 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento );
+             limpiarCamposVinculacion();
            }
           
         },
@@ -260,6 +261,55 @@ function editarVinculacion(data){
 		} else {
 			$("#generof").attr("checked", true).checkboxradio("refresh");
 		}
+		
+		$('#profesionSelect').val(data.profesion).selectmenu('refresh');
+		$('#estratoSelect').val(data.estrato).selectmenu('refresh');
+		$('#cargoSelect').val(data.cargo).selectmenu('refresh');
+		$('#empresa').val(data.empresa_labora);
+		$('#tipoContratoSelect').val(data.tipo_contrato).selectmenu('refresh');
+		$('#fechaIngreso').val(data.fecha_ingreso);
+		$('#segmento').val(data.segmento);
+		$('#tamanoComercial').val(data.tamano_comercial);
+		$('#subsegmento').val(data.subsegmento);
+		$('#paisSelect').val(data.pais).selectmenu('refresh');
+		$('#ciudadSelect').val(data.ciudad).selectmenu('refresh');
+		$('#direccion').val(data.direccion);
+		$('#deptoSelect').val(data.depto).selectmenu('refresh');
+		$('#barrio').val(data.barrio);
+		$('#codigoPostal').val(data.codigo_postal);
+		$('#fechaInicioVigencia').val(data.fecha_ini_vigencia);
+		$('#fechaFinVigencia').val(data.fecha_fin_vigencia);
+		$('#telefonoFijo').val(data.tel_fijo);
+		$('#email').val(data.email);
+		$('#celular').val(data.tel_movil);
+		$('#sitioWeb').val(data.sitio_web);
+		$('#mes').val(data.fecha_financieros);
+		$('#tipoMonedaSelect').val(data.tipo_moneda).selectmenu('refresh');
+		$('#fuenteRecursosSelect').val(data.fuente_recursos).selectmenu('refresh');
+		$('#declarante').val(data.declarante).slider('refresh'); //- select - slider
+		$('#fuenteBienesSelect').val(data.fuente_bienes).selectmenu('refresh');
+		$('#paisOrigenRecursosSelect').val(data.pais_recursos).selectmenu('refresh');
+		$('#ciudadOrigenRecursosSelect').val(data.ciudad_recursos).selectmenu('refresh');
+		$('#deptoOrigenRecursosSelect').val(data.depto_recursos).selectmenu('refresh');
+		$('#ingresosMensuales').val(data.ingresos_mensuales);
+		$('#otrosIngresos').val(data.otros_ingresos);
+		$('#totalIngresos').val(data.total_ingresos);
+		$('#totalEgresos').val(data.total_egresos);
+		$('#totalActivos').val(data.total_activos);
+		$('#totalPasivos').val(data.total_pasivos);
+		$('#totalPatrimonio').val(data.total_patrimonio);
+		$('#volVentasAnuales').val(data.vol_ventas_anual);
+		$('#fechaVentasAnuales').val(data.fecha_ventas_anual);
+		$('#codigoCIIU').val(data.codigo_ciiu);
+		$('#codigosubCIIU').val(data.codigo_subciiu);
+		$('#descCiiu').val(data.desc_ciiu);
+		$('#descsubCIIU').val(data.desc_subciiu);
+		
+		$('#calificacionInterna').val(data.calificacion_interna);
+		$('#fechaVigenciaCalif').val(data.fecha_vigencia_calif);
+		$('#personaBloqueada').val(data.persona_bloqueada).slider('refresh');
+		$('#estado').val(data.estado);
+		
 	} catch (e) {
 		alert(e);
 	}

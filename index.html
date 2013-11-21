@@ -99,7 +99,6 @@
 
 	</div>
 	
-
 	<!--Vinculacion-->
 
 	<div data-role="page" data-control-title="Vinculacion" data-theme="b"
@@ -111,9 +110,7 @@
 		</div>
 		<div data-role="content">
 		<div data-controltype="textblock" id="bienvenidaText">
-        <a href="#" data-role="button" data-rel="dialog" data-transition="pop"
-						id="limpiar" onclick="limpiarCampos();">Ingresar</a>    
-        </div>
+        
 		<div id="mensajeVinculacion" data-controltype="textblock"></div>
 		<form action="">
         <div id="identificacion" data-role="collapsible-set" data-theme="b" data-content-theme="b">
@@ -152,7 +149,7 @@
                                 Numero Documento
                             </label>
                             <input name="numeroDocumento" id="numeroDocumento" placeholder="" value=""
-                             	type="text" onsubmit="consultarVinculado();">
+                             	type="text" onchange="consultarVinculado();">
                         </div>
                     </div>
                 </div>
