@@ -55,13 +55,13 @@
 	    	}); 
 	      		
 	      $( "#ingresar" ).on( "click", function() {
-	    	  //validarIngreso();
+	    	  validarIngreso();
 	    	  //FIXME - descomentar
-	    	  $.mobile.changePage("#vinculacion", {
-                  transition: "pop",
-                  reverse: false,
-      	        changeHash: false
-      		});
+	    	  //$.mobile.changePage("#vinculacion", {
+              //    transition: "pop",
+              //    reverse: false,
+      	      //  changeHash: false
+      		 //});
 		  });
 	      
 	      //$(document).on("pageshow", "#vinculacion", function () {
@@ -109,11 +109,11 @@
 			<a href="#" data-icon="check" onclick="guardar();">Guardar</a>
 		</div>
 		<div data-role="content">
-		<div data-controltype="textblock" id="bienvenidaText">
+		<div data-controltype="textblock" id="bienvenidaText"></div>
         
 		<div id="mensajeVinculacion" data-controltype="textblock"></div>
 		<form action="">
-        <div id="identificacion" data-role="collapsible-set" data-theme="b" data-content-theme="b">
+        <div id="secciones" data-role="collapsible-set" data-theme="b" data-content-theme="b">
             <div id="identificacionDiv" data-role="collapsible" data-collapsed="false">
                 <h3>
                     Identificación
@@ -154,6 +154,7 @@
                     </div>
                 </div>
             </div>
+            
             <div id="datosGenerales" data-role="collapsible">
                 <h3>
                     Información de detalles
@@ -207,7 +208,7 @@
                         </div>
                         <div data-role="fieldcontain" data-controltype="textinput">
                             <label for="textinput6">
-                                Segundo Apellido
+                                Seg. Apellido
                             </label>
                             <input name="segundoApellido" id="segundoApellido" placeholder="" value="" type="text">
                         </div>
@@ -914,12 +915,6 @@
     <div data-theme="b" data-role="footer" data-position="fixed">
         <div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
             <ul>
-            	<li>
-                    <a href="#" data-transition="fade" onclick="consultarVinculado();"
-                    	data-theme="b" data-icon="">
-                        Consultar
-                    </a>
-                </li>
                 <li>
                     <a href="#" data-transition="fade" onclick="validarListasControl();"
                     	data-theme="b" data-icon="">

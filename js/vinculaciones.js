@@ -160,6 +160,9 @@ function consultarVinculado(){
            
            if(response.length > 0){
                $.each(response, function(index, obj) {
+            	   $('#mensajeVinculacion').show();
+                   $('#mensajeVinculacion').addClass('success');
+                   $('#mensajeVinculacion').text( 'Ahora puede editar la informaci\u00F3n de ' + obj.primer_nombre + obj.primer_apellido );
                    editarVinculacion(obj);
                });               
            } else {
