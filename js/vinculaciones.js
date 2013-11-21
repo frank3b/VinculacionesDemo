@@ -163,7 +163,40 @@ function consultarVinculado(){
 			$('#mensajeVinculacion').show();
 			$('#mensajeVinculacion').addClass('warning');
 	        $('#mensajeVinculacion').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
-	        
+		}
+    });
+}
+
+function consultarVinculado(){
+    var tipo_documento = $('#tipoDocumento').val();
+	var numero_documento = $('#numeroDocumento').val();
+	
+	var queryDoc = new Kinvey.Query();
+	var queryTipoDoc = new Kinvey.Query();
+    queryDoc.equalTo("numero_documento", numero_documento);
+	queryTipoDoc.equalTo('tipo_documento', tipo_documento);
+	queryDoc.and(queryTipoDoc);
+    Kinvey.DataStore.find('VINCULACIONES', null, {
+        success: function(response) {
+           //alert("Encontro Vinculado?... " + response.length); 
+           
+           if(response.length > 0){
+               $.each(response, function(index, obj) {
+                    	editarVinculacion(obj);
+                        //$('#mensajeVinculacion').show();
+                        //$('#mensajeVinculacion').addClass('warning');
+                        //$('#mensajeVinculacion').text( 'Encontro el vinculado...' + response[0].primer_nombre );
+               });               
+                
+           }
+          
+        },
+        error: function(error){
+			console.log(error);
+             alert("No Encontro Vinculado...");
+			$('#mensajeVinculacion').show();
+			$('#mensajeVinculacion').addClass('warning');
+	        $('#mensajeVinculacion').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
 		}
     });
 }
@@ -177,31 +210,7 @@ function getViculados() {
 					"estado" : "Pendiente",
 					"cedula" : "66576512"
 				}
-			}/*, {
-				"cliente" : {
-					"nombre" : "Avery Walke",
-					"estado" : "Activo",
-					"cedula" : "98798234"
-				}
-			}, {
-				"cliente" : {
-					"nombre" : "Walter White",
-					"estado" : "Pendiente",
-					"cedula" : "76009384"
-				}
-			}, {
-				"cliente" : {
-					"nombre" : "Dexter Morgan",
-					"estado" : "Rechazado",
-					"cedula" : "1235463"
-				}
-			}, {
-				"cliente" : {
-					"nombre" : "Stephen Weber",
-					"estado" : "Activo",
-					"cedula" : "872348398"
-				}
-			}*/ ]
+			} ]
 		}
 
 	};
@@ -219,5 +228,115 @@ function iniciarCampos(){
 	$("#subsegmento").attr('readonly', true);
 	$("#tamanoComercial").attr('readonly', true);
 	$("#llaveCRM").attr('readonly', true);
+	$("#calificacionInterna").attr('readonly', true);
+	$("#estado").attr('readonly', true);
+}
+
+function editarVinculacion(data){
+	
+	try{
+		//$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
+		//$('#numeroDocumento').val(data.numero_documento);
+		$('#llaveCRM').val(data.llaveSAP);
+		$('#rolNegocio').val(data.rol_negocio);
+		$('#primerNombre').val(data.primer_nombre);
+		$('#primerApellido').val(data.primer_apellido);
+		$('#segundoNombre').val(data.segundo_nombre);
+		$('#segundoApellido').val(data.segundo_apellido);
+		$('#canalContacto').val(data.canal_contacto);
+		$('#fechaContacto').val(data.fecha_contacto);
+		$('#lugarContacto').val(data.lugar_contacto);
+		$('#horaContacto').val(data.hora_contacto);
+		$("#conceptoComercial").val(data.concepto_comercial).slider('refresh');
+		$('#paisNacimientoSelect').val(data.pais_nacimiento).selectmenu('refresh');
+		$('#ciudadNacimientoSelect').val(data.ciudad_nacimiento).selectmenu('refresh');
+		$('#deptoNacimientoSelect').val(data.depto_nacimiento).selectmenu('refresh');
+		$('#nacionalidadSelect').val(data.nacionalidad).selectmenu('refresh');
+		$('#fechaNacimiento').val(data.fecha_nacimiento);
+		$('#hijos').val(data.nro_hijos);
+		
+		if(data.genero == 1){
+			$("#generom").attr("checked", true).checkboxradio("refresh");
+		} else {
+			$("#generof").attr("checked", true).checkboxradio("refresh");
+		}
+	} catch (e) {
+		alert(e);
+	}
+	
+}
+
+
+function limpiarCamposVinculacion(){
+	$('#tipoDocumento').val("CC").selectmenu('refresh');
+	$('#numeroDocumento').val("");
+	$('#llaveCRM').val("");
+	$('#rolNegocio').val("");
+	$('#primerNombre').val("");
+	$('#primerApellido').val("");
+	$('#segundoNombre').val("");
+	$('#segundoApellido').val("");
+	$('#canalContacto').val("");
+	$('#fechaContacto').val("");
+	$('#lugarContacto').val("");
+	$('#horaContacto').val("");
+	$("#conceptoComercial").val("si").slider('refresh');
+	$('#paisNacimientoSelect').val("1").selectmenu('refresh');
+	$('#ciudadNacimientoSelect').val("1").selectmenu('refresh');
+	$('#deptoNacimientoSelect').val("1").selectmenu('refresh');
+	$('#nacionalidadSelect').val("1").selectmenu('refresh');
+	$('#fechaNacimiento').val("");
+	$('#hijos').val("0");
+	
+	$("#generof").attr("checked", false).checkboxradio("refresh");//radio
+	$("#generom").attr("checked", false).checkboxradio("refresh");
+	
+	$('#profesionSelect').val("1").selectmenu('refresh');
+	$('#estratoSelect').val("1").selectmenu('refresh');
+	$('#cargoSelect').val("1").selectmenu('refresh');
+	$('#empresa').val("");
+	$('#tipoContratoSelect').val("1").selectmenu('refresh');
+	$('#fechaIngreso').val("");
+	$('#segmento').val("");
+	$('#tamanoComercial').val("");
+	$('#subsegmento').val("");
+	$('#paisSelect').val("1").selectmenu('refresh');
+	$('#ciudadSelect').val("1").selectmenu('refresh');
+	$('#direccion').val("");
+	$('#deptoSelect').val("1").selectmenu('refresh');
+	$('#barrio').val("");
+	$('#codigoPostal').val("");
+	$('#fechaInicioVigencia').val("");
+	$('#fechaFinVigencia').val("");
+	$('#telefonoFijo').val("");
+	$('#email').val("");
+	$('#celular').val("");
+	$('#sitioWeb').val("");
+	$('#mes').val("");
+	$('#tipoMonedaSelect').val("1").selectmenu('refresh');
+	$('#fuenteRecursosSelect').val("1").selectmenu('refresh');
+	$('#declarante').val("no").slider('refresh'); //- select - slider
+	$('#fuenteBienesSelect').val("1").selectmenu('refresh');
+	$('#paisOrigenRecursosSelect').val("1").selectmenu('refresh');
+	$('#ciudadOrigenRecursosSelect').val("1").selectmenu('refresh');
+	$('#deptoOrigenRecursosSelect').val("1").selectmenu('refresh');
+	$('#ingresosMensuales').val("");
+	$('#otrosIngresos').val("");
+	$('#totalIngresos').val("");
+	$('#totalEgresos').val("");
+	$('#totalActivos').val("");
+	$('#totalPasivos').val("");
+	$('#totalPatrimonio').val("");
+	$('#volVentasAnuales').val("");
+	$('#fechaVentasAnuales').val("");
+	$('#codigoCIIU').val("");
+	$('#codigosubCIIU').val("");
+	$('#descCiiu').val("");
+	$('#descsubCIIU').val("");
+	
+	$('#calificacionInterna').val("SIN CALIF");
+	$('#fechaVigenciaCalif').val("");
+	$('#personaBloqueada').val("no").slider('refresh');
+	$('#estado').val("PENDIENTE");
 	
 }

@@ -55,12 +55,18 @@
 	    	}); 
 	      		
 	      $( "#ingresar" ).on( "click", function() {
-	    	  validarIngreso();
+	    	  //validarIngreso();
+	    	  //FIXME - descomentar
+	    	  $.mobile.changePage("#vinculacion", {
+                  transition: "pop",
+                  reverse: false,
+      	        changeHash: false
+      		});
 		  });
 	      
-	      $(document).on("pageshow", "#vinculacion", function () {
-	    	  $('#resetButton').closest('.ui-btn').hide();
-		  });
+	      //$(document).on("pageshow", "#vinculacion", function () {
+	    	  
+		  //});
 	}
 </script>
 
@@ -87,7 +93,7 @@
 					type="password" name="password" id="password" value="" /> <a
 					href="#" data-role="button" data-rel="dialog" data-transition="pop"
 						id="ingresar">Ingresar</a>
-				<div id="mensaje" data-controltype="textblock" class=warning></div>
+				<div id="mensaje" data-controltype="textblock" class="warning"></div>
 				
 			</div>
 
@@ -105,7 +111,8 @@
 		</div>
 		<div data-role="content">
 		<div data-controltype="textblock" id="bienvenidaText">
-            
+        <a href="#" data-role="button" data-rel="dialog" data-transition="pop"
+						id="limpiar" onclick="limpiarCampos();">Ingresar</a>    
         </div>
 		<div id="mensajeVinculacion" data-controltype="textblock"></div>
 		<form action="">
@@ -174,10 +181,10 @@
                     </div>
                     <div class="ui-block-b">
                         <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="textinput10">
+                            <label for="rolNegocio">
                                 Rol de Negocio
                             </label>
-                            <input name="" id="textinput10" placeholder="" value="" type="text" data-mini="true">
+                            <input name="rolNegocio" id="rolNegocio" placeholder="Ingrese rol de negocio" value="" type="text" data-mini="true">
                         </div>
                     </div>
                     <div class="ui-block-a">
@@ -185,27 +192,27 @@
                             <label for="primerNombre">
                                 Primer Nombre
                             </label>
-                            <input name="primerNombre" id="primerNombre" placeholder="" value="" type="text">
+                            <input name="primerNombre" id="primerNombre" placeholder="Ingrese primer nombre" value="" type="text">
                         </div>
                         <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="textinput5">
+                            <label for="primerApellido">
                                 Primer Apellido
                             </label>
-                            <input name="primerApellido" id="textinput5" placeholder="" value="" type="text">
+                            <input name="primerApellido" id="primerApellido" placeholder="" value="" type="text">
                         </div>
                     </div>
                     <div class="ui-block-b">
                         <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="textinput4">
+                            <label for="segundoNombre">
                                 Segundo Nombre
                             </label>
-                            <input name="" id="textinput4" placeholder="" value="" type="text">
+                            <input id="segundoNombre" name="segundoNombre" placeholder="" value="" type="text">
                         </div>
                         <div data-role="fieldcontain" data-controltype="textinput">
                             <label for="textinput6">
                                 Segundo Apellido
                             </label>
-                            <input name="" id="textinput6" placeholder="" value="" type="text">
+                            <input name="segundoApellido" id="segundoApellido" placeholder="" value="" type="text">
                         </div>
                     </div>
                 </div>
@@ -250,20 +257,20 @@
                         </div>
                     </div>
                 </div>
-                <div id="conceptoComercial" data-role="fieldcontain" data-controltype="radiobuttons">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>
-                            Concepto Comercial
-                        </legend>
-                        <input id="radio2" name="conceptoComercial" value="1" type="radio">
-                        <label for="radio2">
-                            Si
+                <div data-role="fieldcontain" data-controltype="toggleswitch">
+                    
+                    	<label for="conceptoComercial">
+                                Concepto Comercial
                         </label>
-                        <input id="radio3" name="conceptoComercial" value="0" type="radio">
-                        <label for="radio3">
-                            No
-                        </label>
-                    </fieldset>
+                    	<select name="conceptoComercial" id="conceptoComercial" data-theme="" data-role="slider">
+                    			<option value="si">
+                                    Si
+                                </option>
+                                <option value="no">
+                                    No
+                                </option>
+                        </select>
+                        
                 </div>
                 <div data-controltype="textblock">
                     <p>
@@ -276,44 +283,57 @@
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="paisNacimiento">
+                            <label for="paisNacimientoSelect">
                                 Pais de Nacimiento
                             </label>
-                            <select id="paisNacimiento" name="paisNacimiento">
+                            <select id="paisNacimientoSelect" name="paisNacimiento">
                                 <option value="1">
                                     Colombia
                                 </option>
                             </select>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="ciudadNacimiento">
+                            <label for="ciudadNacimientoSelect">
                                 Ciudad de Nacimiento
                             </label>
-                            <select id="ciudadNacimiento" name="ciudadNacimiento">
+                            <select id="ciudadNacimientoSelect" name="ciudadNacimiento">
                                 <option value="1">
                                     Medellin
+                                </option>
+                                <option value="2">
+                                    Bello
+                                </option>
+                                <option value="3">
+                                    Envigado
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div class="ui-block-b">
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="deptoNacimiento">
+                            <label for="deptoNacimientoSelect">
                                 Depto de Nacimiento
                             </label>
-                            <select id="deptoNacimiento" name="deptoNacimiento">
+                            <select id="deptoNacimientoSelect" name="deptoNacimiento">
                                 <option value="1">
                                     Antioquia
                                 </option>
+                                <option value="2">
+                                    Amazonas
+                                </option>
+                                
                             </select>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="nacionalidad">
+                            <label for="nacionalidadSelect">
                                 Nacionalidad
                             </label>
-                            <select id="nacionalidad" name="nacionalidad">
+                            <select id="nacionalidadSelect" name="nacionalidad">
                                 <option value="1">
                                     Colombiano
+                                </option>
+                                <option value="2">
+                                    Chileno
                                 </option>
                             </select>
                         </div>
@@ -342,21 +362,21 @@
                                 <legend>
                                     Genero
                                 </legend>
-                                <input id="radio6" name="genero" value="1" type="radio">
-                                <label for="radio6">
+                                <input id="generom" name="genero" value="1" type="radio">
+                                <label for="generom">
                                     M
                                 </label>
-                                <input id="radio7" name="genero" value="0" type="radio">
-                                <label for="radio7">
+                                <input id="generof" name="genero" value="0" type="radio">
+                                <label for="generof">
                                     F
                                 </label>
                             </fieldset>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="profesion">
+                            <label for="profesionSelect">
                                 Profesión
                             </label>
-                            <select id="profesion" name="profesion">
+                            <select id="profesionSelect" name="profesion">
                                 <option value="1">
                                     Ingeniero
                                 </option>
@@ -368,10 +388,10 @@
                     </div>
                     <div class="ui-block-b">
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="selectmenu10">
+                            <label for="estratoSelect">
                                 Estrato
                             </label>
-                            <select id="selectmenu10" name="">
+                            <select id="estratoSelect" name="">
                                 <option value="1">
                                     1
                                 </option>
@@ -393,10 +413,10 @@
                             </select>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="cargo">
+                            <label for="cargoSelect">
                                 Cargo
                             </label>
-                            <select id="cargo" name="crgo">
+                            <select id="cargoSelect" name="cargo">
                                 <option value="1">
                                     Desarrollador de software
                                 </option>
@@ -404,6 +424,12 @@
                                     Tester
                                 </option>
                                 <option value="3">
+                                    Asesor comercial
+                                </option>
+                                <option value="4">
+                                    Gerente
+                                </option>
+                                <option value="5">
                                     Otro
                                 </option>
                             </select>
@@ -427,10 +453,10 @@
                             <input name="empresa" id="empresa" placeholder="" value="" type="text">
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="tipoContrato">
+                            <label for="tipoContratoSelect">
                                 Tipo Contrato
                             </label>
-                            <select id="tipoContrato" name="tipoContrato">
+                            <select id="tipoContratoSelect" name="tipoContrato">
                                 <option value="1">
                                     Indefinido
                                 </option>
@@ -482,6 +508,53 @@
                         </div>
                     </div>
                 </div>
+                <div data-controltype="textblock">
+                    <p>
+                        <b>
+                            Validaciones Realizadas
+                        </b>
+                    </p>
+                </div>
+                <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <div data-role="fieldcontain" data-controltype="textinput">
+                            <label for="calificacionInterna">
+                                Calificación interna
+                            </label>
+                            <input name="calificacionInterna" id="calificacionInterna" placeholder=""
+                            value="" type="text">
+                        </div>
+                        <div data-role="fieldcontain" data-controltype="textinput">
+                            <label for="fechaVigenciaCalif">
+                                Fecha Vigencia
+                            </label>
+                            <input name="fechaVigenciaCalif" id="fechaVigenciaCalif" placeholder=""
+                            value="" type="date">
+                        </div>
+                    </div>
+                    <div class="ui-block-b">
+                        <div data-role="fieldcontain" data-controltype="toggleswitch">
+                            <label for="personaBloqueada">
+                                Persona bloqueada
+                            </label>
+                            <select name="toggleswitch3" id="personaBloqueada" data-theme="" data-role="slider">
+                                <option value="no">
+                                    No
+                                </option>
+                                <option value="si">
+                                    Si
+                                </option>
+                            </select>
+                        </div>
+                        <div data-role="fieldcontain" data-controltype="textinput">
+                            <label for="estado">
+                                Estado Vinculación
+                            </label>
+                            <input name="estado" id="estado" placeholder="" value="" type="text">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div id="ubicacion" data-role="collapsible">
                 <h3>
@@ -490,22 +563,28 @@
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="pais">
+                            <label for="paisSelect">
                                 Pais
                             </label>
-                            <select id="pais" name="pais">
+                            <select id="paisSelect" name="pais">
                                 <option value="1">
                                     Colombia
                                 </option>
                             </select>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="ciudad">
+                            <label for="ciudadSelect">
                                 Ciudad
                             </label>
-                            <select id="ciudad" name="ciudad">
+                            <select id="ciudadSelect" name="ciudad">
                                 <option value="1">
                                     Medellin
+                                </option>
+                                <option value="2">
+                                    Bello
+                                </option>
+                                <option value="3">
+                                    Envigado
                                 </option>
                             </select>
                         </div>
@@ -518,12 +597,21 @@
                     </div>
                     <div class="ui-block-b">
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="depto">
+                            <label for="deptoSelect">
                                 Departamento
                             </label>
-                            <select id="depto" name="depto">
+                            <select id="deptoSelect" name="depto">
                                 <option value="1">
                                     Antioquia
+                                </option>
+                                <option value="2">
+                                    Amazonas
+                                </option>
+                                <option value="3">
+                                    Nariño
+                                </option>
+                                <option value="4">
+                                    Sucre
                                 </option>
                             </select>
                         </div>
@@ -534,10 +622,10 @@
                             <input name="barrio" id="barrio" placeholder="" value="" type="text">
                         </div>
                         <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="textinput38">
+                            <label for="codigoPostal">
                                 Código Postal
                             </label>
-                            <input name="" id="textinput38" placeholder="" value="" type="text">
+                            <input name="" id="codigoPostal" placeholder="" value="" type="text">
                         </div>
                     </div>
                     <div class="ui-block-a">
@@ -601,25 +689,31 @@
                             <input name="mes" id="mes" placeholder="" value="" type="month">
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="selectmenu15">
+                            <label for="tipoMonedaSelect">
                                 Tipo de Moneda
                             </label>
-                            <select id="selectmenu15" name="">
+                            <select id="tipoMonedaSelect" name="">
                                 <option value="1">
                                     COP
                                 </option>
                                 <option value="2">
                                     US
                                 </option>
+                                <option value="3">
+                                    EUR
+                                </option>
                             </select>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="fuenteRecursos">
+                            <label for="fuenteRecursosSelect">
                                 Fuente Recursos
                             </label>
-                            <select id="fuenteRecursos" name="fuenteRecursos">
-                                <option value="option1">
+                            <select id="fuenteRecursosSelect" name="fuenteRecursos">
+                                <option value="1">
                                     Salarios y demas pagos
+                                </option>
+                                <option value="2">
+                                    Otros
                                 </option>
                             </select>
                         </div>
@@ -629,22 +723,25 @@
                             <label for="declarante">
                                 Declarante
                             </label>
-                            <select name="toggleswitch2" id="declarante" data-theme="" data-role="slider">
-                                <option value="off">
-                                    Off
+                            <select name="declarante" id="declarante" data-theme="" data-role="slider">
+                                <option value="no">
+                                    No
                                 </option>
-                                <option value="on">
-                                    On
+                                <option value="si">
+                                    Si
                                 </option>
                             </select>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="selectmenu16">
+                            <label for="fuenteBienesSelect">
                                 Fuente de los bienes
                             </label>
-                            <select id="selectmenu16" name="">
-                                <option value="option1">
+                            <select id="fuenteBienesSelect" name="">
+                                <option value="1">
                                     Compraventa
+                                </option>
+                                <option value="2">
+                                    Otro
                                 </option>
                             </select>
                         </div>
@@ -653,34 +750,55 @@
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="selectmenu18">
+                            <label for="paisOrigenRecursosSelect">
                                 Pais Origen Recursos
                             </label>
-                            <select id="selectmenu18" name="">
+                            <select id="paisOrigenRecursosSelect" name="">
                                 <option value="1">
                                     Colombia
+                                </option>
+                                <option value="2">
+                                    Chile
+                                </option>
+                                <option value="3">
+                                    Peru
                                 </option>
                             </select>
                         </div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="selectmenu20">
+                            <label for="ciudadOrigenRecursosSelect">
                                 Ciudad Origen Recursos
                             </label>
-                            <select id="selectmenu20" name="">
-                                <option value="1">
+                            <select id="ciudadOrigenRecursosSelect" name="">
+                            	<option value="1">
+                                    Medellin
+                                </option>
+                                <option value="2">
                                     Bello
+                                </option>
+                                <option value="3">
+                                    Itagui
                                 </option>
                             </select>
                         </div>
                     </div>
                     <div class="ui-block-b">
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="selectmenu19">
+                            <label for="deptoOrigenRecursosSelect">
                                 Depto Origen Recursos
                             </label>
-                            <select id="selectmenu19" name="">
+                            <select id="deptoOrigenRecursosSelect" name="">
                                 <option value="1">
                                     Antioquia
+                                </option>
+                                <option value="2">
+                                    Amazonas
+                                </option>
+                                <option value="3">
+                                    Nariño
+                                </option>
+                                <option value="4">
+                                    Sucre
                                 </option>
                             </select>
                         </div>
@@ -791,7 +909,7 @@
                 <input id="determinarCiiu" type="submit" value="Determinar CIIU">
             </div>
         </div>
-        <input type="reset" value="Reset Button" id="resetButton" style="display:none;"/>
+        
         </form>
     </div>
     <div data-theme="b" data-role="footer" data-position="fixed">
