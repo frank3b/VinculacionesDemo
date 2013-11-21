@@ -141,33 +141,12 @@ function consultarVinculados() {
 	
 }
 
-
 function consultarVinculado(){
-	var tipo_documento = $('#tipoDocumento').val();
-	var numero_documento = $('#numeroDocumento').val();
+	$.mobile.loading('show');
+	$('#mensajeVinculacion').hide();
+	$('#mensajeVinculacion').text( '' );
 	
-	var queryDoc = new Kinvey.Query();
-	var queryTipoDoc = new Kinvey.Query();
-    queryDoc.equalTo('numero_documento', numero_documento);
-	queryTipoDoc.equalTo('tipo_documento', tipo_documento);
-	queryDoc.and(queryTipoDoc);
-	alert("consultarVinculado...");
-    Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
-        success: function(response) {                
-           $('#mensajeVinculacion').show();
-           $('#mensajeVinculacion').addClass('warning');
-	       $('#mensajeVinculacion').text( 'Encontro el vinculado...' + response[0].primer_nombre );
-        },
-        error: function(error){
-			console.log(error);
-			$('#mensajeVinculacion').show();
-			$('#mensajeVinculacion').addClass('warning');
-	        $('#mensajeVinculacion').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
-		}
-    });
-}
-
-function consultarVinculado(){
+	
     var tipo_documento = $('#tipoDocumento').val();
 	var numero_documento = $('#numeroDocumento').val();
 	
@@ -176,28 +155,28 @@ function consultarVinculado(){
     queryDoc.equalTo("numero_documento", numero_documento);
 	queryTipoDoc.equalTo('tipo_documento', tipo_documento);
 	queryDoc.and(queryTipoDoc);
-    Kinvey.DataStore.find('VINCULACIONES', null, {
+    Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
         success: function(response) {
            
            if(response.length > 0){
                $.each(response, function(index, obj) {
-                    	editarVinculacion(obj);
+                   editarVinculacion(obj);
                });               
-                
            } else {
         	 $('#mensajeVinculacion').show();
              $('#mensajeVinculacion').addClass('warning');
              $('#mensajeVinculacion').text( 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento );
              limpiarCamposVinculacion();
            }
-          
+           $.mobile.loading('hide');
         },
         error: function(error){
 			console.log(error);
-             alert("No Encontro Vinculado...");
+            alert("No pudo realizar la consulta a la tabla VINCULACIONES..." + error);
 			$('#mensajeVinculacion').show();
 			$('#mensajeVinculacion').addClass('warning');
 	        $('#mensajeVinculacion').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+	        $.mobile.loading('hide');
 		}
     });
 }
@@ -231,6 +210,12 @@ function iniciarCampos(){
 	$("#llaveCRM").attr('readonly', true);
 	$("#calificacionInterna").attr('readonly', true);
 	$("#estado").attr('readonly', true);
+}
+
+function determinarCiiu(){
+	$('#mensajeVinculacion').show();
+	$('#mensajeVinculacion').addClass('success');
+	$('#mensajeVinculacion').text('Se ha determinado el CIIU correctamente.');
 }
 
 function editarVinculacion(data){
