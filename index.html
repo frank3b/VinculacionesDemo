@@ -122,7 +122,7 @@
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
                     
-                        <div data-role="fieldcontain" data-controltype="selectmenu" data-type="horizontal">
+                        <div data-role="fieldcontain" data-controltype="selectmenu" data-type="horizontal" style="padding-right:10px;">
                         
                             <label for="tipoDocumento">
                                 Tipo de Documento:
@@ -169,7 +169,7 @@
                 <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
+                        <div data-role="fieldcontain" data-controltype="textinput" style="padding-right:10px;">
                             <label for="llaveCRM">
                                 Llave SAP CRM
                             </label>
@@ -178,7 +178,7 @@
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
+                        <div data-role="fieldcontain" data-controltype="textinput" >
                             <label for="rolNegocio">
                                 Rol de Negocio
                             </label>
@@ -186,7 +186,7 @@
                         </div>
                     </div>
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
+                        <div data-role="fieldcontain" data-controltype="textinput" style="padding-right:10px;">
                             <label for="primerNombre">
                                 Primer Nombre
                             </label>
@@ -200,7 +200,7 @@
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
+                        <div data-role="fieldcontain" data-controltype="textinput" style="padding-right:10px;">
                             <label for="segundoNombre">
                                 Segundo Nombre
                             </label>
@@ -914,14 +914,16 @@
     </div>
     <!--/Vinculacion-->
     
-    <a id="nuevaVinculacion" data-role="button" href="#page4" data-icon="edit"
-        data-iconpos="left" onclick="limpiarCamposVinculacion();">
-            Nueva Vinculación
-    </a>
     
     <div data-theme="b" data-role="footer" data-position="fixed">
         <div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
             <ul>
+            	<li>
+                    <a href="#" data-transition="fade" onclick="limpiarCamposVinculacion();"
+                    	data-theme="b" data-icon="">
+                        Nueva Vinculación
+                    </a>
+                </li>
                 <li>
                     <a href="#" data-transition="fade" onclick="validarListasControl();"
                     	data-theme="b" data-icon="">
