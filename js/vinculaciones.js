@@ -72,7 +72,7 @@ function segmentar(){
 	
 	$('#segmento').val("PERSONAL PLUS");
 	$('#subsegmento').val("Basico");
-	$('#tamanoComercial').val("0.00");
+	$('#tamanoComercial').val("0.01");
 	
 	$('#identificacionDiv').trigger('collapse');
 	$('#ubicacion').trigger('collapse');
@@ -83,9 +83,12 @@ function segmentar(){
 }
 
 function validarListasControl(){
-	$('#mensajeVinculacion').show();
-	$('#mensajeVinculacion').addClass('info');
-	$('#mensajeVinculacion').text('No se encuentra en listas de control.');
+	$('#calificacionInterna').val("SIN CALIF");
+	$('#fechaVigenciaCalif').val("2014-12-31");
+	$('#personaBloqueada').val("no").slider('refresh');
+	$('#estado').val("PENDIENTE");
+	
+	agregarMensaje($('#mensajeVinculacion'), 'S', 'No se encuentra en listas de control.');
 }
 
 
@@ -148,9 +151,7 @@ function iniciarCampos(){
 }
 
 function determinarCiiu(){
-	$('#mensajeVinculacion').show();
-	$('#mensajeVinculacion').addClass('success');
-	$('#mensajeVinculacion').text('Se ha determinado el CIIU correctamente.');
+	agregarMensaje($('#mensajeVinculacion'), 'S', 'Se ha determinado el CIIU correctamente.');
 }
 
 function consultarVinculado(){
@@ -158,6 +159,7 @@ function consultarVinculado(){
 	$('#mensajeVinculacion').hide();
 	$('#mensajeVinculacion').text( '' );
 	
+	limpiarMensaje($('#mensajeVinculacion'));	
 	
     var tipo_documento = $('#tipoDocumento').val();
 	var numero_documento = $('#numeroDocumento').val();
@@ -172,24 +174,17 @@ function consultarVinculado(){
            
            if(response.length > 0){
                $.each(response, function(index, obj) {
-            	   $('#mensajeVinculacion').show();
-                   $('#mensajeVinculacion').addClass('success');
-                   $('#mensajeVinculacion').text( 'Ahora puede editar la informaci\u00F3n de ' + obj.primer_nombre + ' ' + obj.primer_apellido );
+            	   agregarMensaje($('#mensajeVinculacion'), 'I', 'Ahora puede editar la informaci\u00F3n de ' + obj.primer_nombre + ' ' + obj.primer_apellido);
                    editarVinculacion(obj);
                });               
            } else {
-        	 $('#mensajeVinculacion').show();
-             $('#mensajeVinculacion').addClass('warning');
-             $('#mensajeVinculacion').text( 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento );
+        	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento);
            }
            $.mobile.loading('hide');
         },
         error: function(error){
 			console.log(error);
-            alert("No pudo realizar la consulta a la tabla VINCULACIONES..." + error);
-			$('#mensajeVinculacion').show();
-			$('#mensajeVinculacion').addClass('warning');
-	        $('#mensajeVinculacion').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+			agregarMensaje($('#mensajeVinculacion'), 'E', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
 	        $.mobile.loading('hide');
 		}
     });
@@ -284,21 +279,15 @@ function guardar(){
 	var isnuevo = true;
 	
 	$.mobile.loading('show');
-	$("#mensajeVinculacion").removeClass("error");
-	$('#mensajeVinculacion').hide();
-	$('#mensajeVinculacion').text( ' ' );
+	limpiarMensaje($('#mensajeVinculacion'));
 	
 	var tipo_documento = $('#tipoDocumento').val();
 	var numero_documento = $('#numeroDocumento').val();
 	
 	if(tipo_documento == null || tipo_documento == ''){
-		$('#mensajeVinculacion').addClass('error');
-		$('#mensajeVinculacion').show();
-		$('#mensajeVinculacion').text('El tipo de documento es requerido.');
+		agregarMensaje($('#mensajeVinculacion'), 'E', 'El tipo de documento es requerido.');
 	} else if(numero_documento == null || numero_documento == ''){
-		$('#mensajeVinculacion').addClass('error');
-		$('#mensajeVinculacion').show();
-		$('#mensajeVinculacion').text('El numero de documento es requerido.');
+		agregarMensaje($('#mensajeVinculacion'), 'E', 'El numero de documento es requerido.');
 	} else {
 		
 		if(vinculado == null){
@@ -390,32 +379,22 @@ function guardar(){
 		if(isnuevo){
 			Kinvey.DataStore.save('VINCULACIONES', vinculado, {
 			    success: function(response) {
-			    	$('#mensajeVinculacion').addClass('success');
-					$('#mensajeVinculacion').show();
-					$('#mensajeVinculacion').text( 'La informaci\u00F3n se ha almacenado correctamente.' );
+			    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
 			    },
 		        error: function(error){
 					console.log(error);
-		            alert("No pudo almacenar en la tabla VINCULACIONES..." + error);
-					$('#mensajeVinculacion').show();
-					$('#mensajeVinculacion').addClass('error');
-			        $('#mensajeVinculacion').text( 'No se almaceno correctamente la informaci\u00F3n.' );
+					agregarMensaje($('#mensajeVinculacion'), 'E', 'No se almaceno correctamente la informaci\u00F3n.');
 			        $.mobile.loading('hide');
 				}
 			});
 		} else {
 			Kinvey.DataStore.update('VINCULACIONES', vinculado, {
 			    success: function(response) {
-			    	$('#mensajeVinculacion').addClass('success');
-					$('#mensajeVinculacion').show();
-					$('#mensajeVinculacion').text( 'La informaci\u00F3n se ha almacenado correctamente.' );
+					agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
 			    },
 		        error: function(error){
 					console.log(error);
-		            alert("No pudo almacenar en la tabla VINCULACIONES..." + error);
-					$('#mensajeVinculacion').show();
-					$('#mensajeVinculacion').addClass('error');
-			        $('#mensajeVinculacion').text( 'No se almaceno correctamente la informaci\u00F3n.' );
+			        agregarMensaje($('#mensajeVinculacion'), 'E', 'No se almaceno correctamente la informaci\u00F3n.');
 			        $.mobile.loading('hide');
 				}
 			});
@@ -426,8 +405,39 @@ function guardar(){
 	$.mobile.loading('hide');
 }
 
+function limpiarMensaje(objeto){
+	objeto.removeClass("error");
+	objeto.removeClass("success");
+	objeto.removeClass("warning");
+	objeto.removeClass("info");
+	objeto.text( ' ' );
+	objeto.hide();
+}
+
+function agregarMensaje(objeto, tipoError, mensaje){
+	objeto.removeClass("error");
+	objeto.removeClass("success");
+	objeto.removeClass("warning");
+	objeto.removeClass("info");
+	
+	if(tipoError == 'W'){
+		objeto.addClass('warning');
+	} else if(tipoError == 'S'){
+		objeto.addClass('success');
+	} if(tipoError == 'I'){
+		objeto.addClass('info');
+	} if(tipoError == 'E'){
+		objeto.addClass('error');
+	}
+	objeto.text( mensaje );
+	objeto.show();
+	
+}
+
 
 function limpiarCamposVinculacion(){
+	limpiarMensaje($('#mensajeVinculacion'));
+	
 	$('#tipoDocumento').val("CC").selectmenu('refresh');
 	$('#numeroDocumento').val("");
 	$('#llaveCRM').val("");
@@ -494,9 +504,9 @@ function limpiarCamposVinculacion(){
 	$('#descCiiu').val("");
 	$('#descsubCIIU').val("");
 	
-	$('#calificacionInterna').val("SIN CALIF");
+	$('#calificacionInterna').val("");
 	$('#fechaVigenciaCalif').val("");
 	$('#personaBloqueada').val("no").slider('refresh');
-	$('#estado').val("PENDIENTE");
+	$('#estado').val("");
 	
 }
