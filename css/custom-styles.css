@@ -31,3 +31,9 @@
 	#background-color: #FFBABA;
 	background-image: url('../images/ic_notification_clear.png');
 }
+
+.custom-label{
+	font-size: 12px;
+}
+}
+

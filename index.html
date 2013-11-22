@@ -55,13 +55,13 @@
 	    	}); 
 	      		
 	      $( "#ingresar" ).on( "click", function() {
-	    	  validarIngreso();
+	    	  //validarIngreso();
 	    	  //FIXME - descomentar
-	    	  //$.mobile.changePage("#vinculacion", {
-              //    transition: "pop",
-              //    reverse: false,
-      	      //  changeHash: false
-      		 //});
+	    	  $.mobile.changePage("#vinculacion", {
+                  transition: "pop",
+                  reverse: false,
+      	        changeHash: false
+      		 });
 		  });
 	      
 	      //$(document).on("pageshow", "#vinculacion", function () {
@@ -121,12 +121,11 @@
                 
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                    
-                        <div data-role="fieldcontain" data-controltype="selectmenu" data-type="horizontal" style="padding-right:10px;">
+                    	<div class="custom-label">
+								<b>Tipo de Documento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" data-type="horizontal" style="margin-top: 1px;">
                         
-                            <label for="tipoDocumento">
-                                Tipo de Documento:
-                            </label>
                             <select id="tipoDocumento" name="" data-mini="true">
                                 <option value="CC">
                                     Cedula
@@ -144,10 +143,10 @@
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="numeroDocumento">
-                                Numero Documento
-                            </label>
+                    	<div class="custom-label">
+								<b>Numero Documento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="numeroDocumento" id="numeroDocumento" placeholder="" value=""
                              	type="text" onchange="consultarVinculado();">
                         </div>
@@ -169,50 +168,58 @@
                 <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput" style="padding-right:10px;">
-                            <label for="llaveCRM">
-                                Llave SAP CRM
-                            </label>
+                    	<div class="custom-label">
+								<b>Llave SAP CRM</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="llaveCRM" id="llaveCRM" placeholder="" value="" type="text"
                             data-mini="true">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput" >
-                            <label for="rolNegocio">
-                                Rol de Negocio
-                            </label>
+                    	<div class="custom-label">
+								<b>Rol de Negocio</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="rolNegocio" id="rolNegocio" placeholder="Ingrese rol de negocio" value="" type="text" data-mini="true">
                         </div>
                     </div>
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput" style="padding-right:10px;">
-                            <label for="primerNombre">
-                                Primer Nombre
-                            </label>
+                    	<div class="custom-label">
+								<b>Primer Nombre</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="primerNombre" id="primerNombre" placeholder="Ingrese primer nombre" value="" type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="primerApellido">
-                                Primer Apellido
-                            </label>
+                        
+                    </div>
+                    <div class="ui-block-b">
+                    	<div class="custom-label">
+								<b>Segundo Nombre</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
+                            <input id="segundoNombre" name="segundoNombre" placeholder="" value="" type="text">
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="ui-block-a">
+                        <div class="custom-label">
+								<b>Primer Apellido</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="primerApellido" id="primerApellido" placeholder="" value="" type="text">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput" style="padding-right:10px;">
-                            <label for="segundoNombre">
-                                Segundo Nombre
-                            </label>
-                            <input id="segundoNombre" name="segundoNombre" placeholder="" value="" type="text">
-                        </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="textinput6">
-                                Seg. Apellido
-                            </label>
+                        <div class="custom-label">
+								<b>Segundo Apellido</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="segundoApellido" id="segundoApellido" placeholder="" value="" type="text">
                         </div>
                     </div>
+                    
                 </div>
                 <div data-controltype="textblock">
                     <p>
@@ -224,42 +231,42 @@
                 <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="canalContacto">
-                                Canal de Contacto
-                            </label>
+                    	<div class="custom-label">
+								<b>Canal de Contacto</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="canalContacto" id="canalContacto" placeholder="" value=""
                             type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="fechaContacto">
-                                Fecha de Contacto
-                            </label>
+                        <div class="custom-label">
+								<b>Fecha de Contacto</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="fechaContacto" id="fechaContacto" placeholder="" value=""
                             type="date">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="lugarContacto">
-                                Lugar de Contacto
-                            </label>
+                    	<div class="custom-label">
+								<b>Lugar de Contacto</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="lugarContacto" id="lugarContacto" placeholder="" value=""
                             type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="horaContacto">
-                                Hora de Contacto
-                            </label>
+                        
+                        <div class="custom-label">
+								<b>Hora de Contacto</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="horaContacto" id="horaContacto" placeholder="" value="" type="time">
                         </div>
                     </div>
                 </div>
-                <div data-role="fieldcontain" data-controltype="toggleswitch">
-                    
-                    	<label for="conceptoComercial">
-                                Concepto Comercial
-                        </label>
+                <div class="custom-label">
+								<b>Concepto Comercial</b>
+							</div>
+                <div data-role="fieldcontain" data-controltype="toggleswitch" style="margin-top: 1px;">
                     	<select name="conceptoComercial" id="conceptoComercial" data-theme="" data-role="slider">
                     			<option value="si">
                                     Si
@@ -280,20 +287,20 @@
                 <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="paisNacimientoSelect">
-                                Pais de Nacimiento
-                            </label>
+                    	<div class="custom-label">
+								<b>Pais de Nacimiento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="paisNacimientoSelect" name="paisNacimiento">
                                 <option value="1">
                                     Colombia
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="ciudadNacimientoSelect">
-                                Ciudad de Nacimiento
-                            </label>
+                        <div class="custom-label">
+								<b>Ciudad de Nacimiento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="ciudadNacimientoSelect" name="ciudadNacimiento">
                                 <option value="1">
                                     Medellin
@@ -308,10 +315,10 @@
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="deptoNacimientoSelect">
-                                Depto de Nacimiento
-                            </label>
+                    	<div class="custom-label">
+								<b>Depto de Nacimiento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="deptoNacimientoSelect" name="deptoNacimiento">
                                 <option value="1">
                                     Antioquia
@@ -322,10 +329,10 @@
                                 
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="nacionalidadSelect">
-                                Nacionalidad
-                            </label>
+                        <div class="custom-label">
+								<b>Nacionalidad</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="nacionalidadSelect" name="nacionalidad">
                                 <option value="1">
                                     Colombiano
@@ -333,33 +340,36 @@
                                 <option value="2">
                                     Chileno
                                 </option>
+                                <option value="3">
+                                    Peruano
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="dateinput">
-                            <label for="fechaNacimiento">
-                                Fecha Nacimiento
-                            </label>
+                    	<div class="custom-label">
+								<b>Fecha Nacimiento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="dateinput" style="margin-top: 1px;">
                             <input name="fechaNacimiento" id="fechaNacimiento" placeholder="" value=""
                             type="date">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="hijos">
-                                Hijos
-                            </label>
+                    	<div class="custom-label">
+								<b>Hijos</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="hijos" id="hijos" placeholder="" value="0" type="number"
                             data-mini="true">
                         </div>
                     </div>
                     <div class="ui-block-a">
-                        <div id="genero" data-role="fieldcontain" data-controltype="radiobuttons">
+                    	<div class="custom-label">
+								<b>Genero</b>
+							</div>
+                        <div id="genero" data-role="fieldcontain" data-controltype="radiobuttons" style="margin-top: 1px;">
                             <fieldset data-role="controlgroup" data-type="horizontal">
-                                <legend>
-                                    Genero
-                                </legend>
                                 <input id="generom" name="genero" value="1" type="radio">
                                 <label for="generom">
                                     M
@@ -370,10 +380,10 @@
                                 </label>
                             </fieldset>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="profesionSelect">
-                                Profesión
-                            </label>
+                        <div class="custom-label">
+								<b>Profesión</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="profesionSelect" name="profesion">
                                 <option value="1">
                                     Ingeniero
@@ -381,14 +391,17 @@
                                 <option value="2">
                                     Abogado
                                 </option>
+                                <option value="3">
+                                    Consultor
+                                </option>
                             </select>
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="estratoSelect">
-                                Estrato
-                            </label>
+                    	<div class="custom-label">
+								<b>Estrato</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="estratoSelect" name="">
                                 <option value="1">
                                     1
@@ -410,10 +423,10 @@
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="cargoSelect">
-                                Cargo
-                            </label>
+                        <div class="custom-label">
+								<b>Cargo</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="cargoSelect" name="cargo">
                                 <option value="1">
                                     Desarrollador de software
@@ -444,16 +457,16 @@
                 <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="empresa">
-                                Empresa labora
-                            </label>
+                    	<div class="custom-label">
+								<b>Empresa labora</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="empresa" id="empresa" placeholder="" value="" type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="tipoContratoSelect">
-                                Tipo Contrato
-                            </label>
+                        <div class="custom-label">
+								<b>Tipo Contrato</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="tipoContratoSelect" name="tipoContrato">
                                 <option value="1">
                                     Indefinido
@@ -465,10 +478,10 @@
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="dateinput">
-                            <label for="fechaIngreso">
-                                Fecha de Ingreso
-                            </label>
+                    	<div class="custom-label">
+								<b>Fecha de Ingreso</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="dateinput" style="margin-top: 1px;">
                             <input name="fechaIngreso" id="fechaIngreso" placeholder="" value="" type="date">
                         </div>
                     </div>
@@ -483,25 +496,25 @@
                 <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="segmento">
-                                Segmento
-                            </label>
+                    	<div class="custom-label">
+								<b>Segmento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="segmento" id="segmento" placeholder="" value="" type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="tamanoComercial">
-                                Tamaño Comercial
-                            </label>
+                        <div class="custom-label">
+								<b>Tamaño Comercial</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="tamanoComercial" id="tamanoComercial" placeholder="" value=""
                             type="text">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="subsegmento">
-                                Subsegmento
-                            </label>
+                    	<div class="custom-label">
+								<b>Subsegmento</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="subsegmento" id="subsegmento" placeholder="" value="" type="text">
                         </div>
                     </div>
@@ -516,26 +529,26 @@
                 <hr style="height:3px; background-color:#ccc; border:0; margin-top:12px; margin-bottom:12px;">
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="calificacionInterna">
-                                Calificación interna
-                            </label>
+                    	<div class="custom-label">
+								<b>Calificación interna</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="calificacionInterna" id="calificacionInterna" placeholder=""
                             value="" type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="fechaVigenciaCalif">
-                                Fecha Vigencia
-                            </label>
+                        <div class="custom-label">
+								<b>Fecha Vigencia</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="fechaVigenciaCalif" id="fechaVigenciaCalif" placeholder=""
                             value="" type="date">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="toggleswitch">
-                            <label for="personaBloqueada">
-                                Persona bloqueada
-                            </label>
+                    	<div class="custom-label">
+								<b> Persona bloqueada</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="toggleswitch" style="margin-top: 1px;">
                             <select name="toggleswitch3" id="personaBloqueada" data-theme="" data-role="slider">
                                 <option value="no">
                                     No
@@ -545,10 +558,10 @@
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="estado">
-                                Estado Vinculación
-                            </label>
+                        <div class="custom-label">
+								<b> Estado Vinculación</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="estado" id="estado" placeholder="" value="" type="text">
                         </div>
                     </div>
@@ -560,20 +573,20 @@
                 </h3>
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="paisSelect">
-                                Pais
-                            </label>
+                    	<div class="custom-label">
+								<b> Pais</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="paisSelect" name="pais">
                                 <option value="1">
                                     Colombia
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="ciudadSelect">
-                                Ciudad
-                            </label>
+                        <div class="custom-label">
+								<b>Ciudad</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="ciudadSelect" name="ciudad">
                                 <option value="1">
                                     Medellin
@@ -586,18 +599,18 @@
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="direccion">
-                                Dirección
-                            </label>
+                        <div class="custom-label">
+								<b>Dirección</b>
+							</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="direccion" id="direccion" placeholder="" value="" type="text">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="deptoSelect">
-                                Departamento
-                            </label>
+                    	<div class="custom-label">
+								<b>Departamento</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="deptoSelect" name="depto">
                                 <option value="1">
                                     Antioquia
@@ -613,62 +626,62 @@
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="barrio">
-                                Barrio
-                            </label>
+                        <div class="custom-label">
+								<b>Barrio</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="barrio" id="barrio" placeholder="" value="" type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="codigoPostal">
-                                Código Postal
-                            </label>
+                        <div class="custom-label">
+								<b>Código Postal</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="" id="codigoPostal" placeholder="" value="" type="text">
                         </div>
                     </div>
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="dateinput">
-                            <label for="fechaInicioVigencia">
-                                Fecha Inicio Vigencia
-                            </label>
+                    	<div class="custom-label">
+								<b>Fecha Inicio Vigencia</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="dateinput" style="margin-top: 1px;">
                             <input name="fechaInicioVigencia" id="fechaInicioVigencia" placeholder=""
                             value="" type="date">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="dateinput">
-                            <label for="fechaFinVigencia">
-                                Fecha Fin Vigencia
-                            </label>
+                    	<div class="custom-label">
+								<b>Fecha Fin Vigencia</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="dateinput" style="margin-top: 1px;">
                             <input name="fechaFinVigencia" id="fechaFinVigencia" placeholder="" value=""
                             type="date">
                         </div>
                     </div>
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="telefonoFijo">
-                                Telefono Fijo
-                            </label>
+                    	<div class="custom-label">
+								<b>Telefono Fijo</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="telefonoFijo" id="telefonoFijo" placeholder="" value="" type="tel">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="email">
-                                Email
-                            </label>
+                        <div class="custom-label">
+								<b>Email</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="email" id="email" placeholder="" value="" type="email">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="celular">
-                                Telefono Movil
-                            </label>
+                    	<div class="custom-label">
+								<b>Telefono Movil</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="celular" id="celular" placeholder="" value="" type="tel">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="sitioWeb">
-                                Sitio Web
-                            </label>
+                        <div class="custom-label">
+								<b>Sitio Web</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="sitioWeb" id="sitioWeb" placeholder="" value="" type="url">
                         </div>
                     </div>
@@ -680,16 +693,16 @@
                 </h3>
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="mes">
-                                Año / Mes
-                            </label>
+                    	<div class="custom-label">
+								<b>Año / Mes</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="mes" id="mes" placeholder="" value="" type="month">
                         </div>
+                        <div class="custom-label">
+								<b>Tipo de Moneda</b>
+						</div>
                         <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="tipoMonedaSelect">
-                                Tipo de Moneda
-                            </label>
                             <select id="tipoMonedaSelect" name="">
                                 <option value="1">
                                     COP
@@ -702,10 +715,10 @@
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="fuenteRecursosSelect">
-                                Fuente Recursos
-                            </label>
+                        <div class="custom-label">
+								<b>Fuente Recursos</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="fuenteRecursosSelect" name="fuenteRecursos">
                                 <option value="1">
                                     Salarios y demas pagos
@@ -717,10 +730,10 @@
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="toggleswitch">
-                            <label for="declarante">
-                                Declarante
-                            </label>
+                    	<div class="custom-label">
+								<b>Declarante</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="toggleswitch" style="margin-top: 1px;">
                             <select name="declarante" id="declarante" data-theme="" data-role="slider">
                                 <option value="no">
                                     No
@@ -730,10 +743,10 @@
                                 </option>
                             </select>
                         </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="fuenteBienesSelect">
-                                Fuente de los bienes
-                            </label>
+                        <div class="custom-label">
+								<b>Fuente de los bienes</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="fuenteBienesSelect" name="">
                                 <option value="1">
                                     Compraventa
@@ -743,48 +756,11 @@
                                 </option>
                             </select>
                         </div>
-                    </div>
-                </div>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="paisOrigenRecursosSelect">
-                                Pais Origen Recursos
-                            </label>
-                            <select id="paisOrigenRecursosSelect" name="">
-                                <option value="1">
-                                    Colombia
-                                </option>
-                                <option value="2">
-                                    Chile
-                                </option>
-                                <option value="3">
-                                    Peru
-                                </option>
-                            </select>
-                        </div>
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="ciudadOrigenRecursosSelect">
-                                Ciudad Origen Recursos
-                            </label>
-                            <select id="ciudadOrigenRecursosSelect" name="">
-                            	<option value="1">
-                                    Medellin
-                                </option>
-                                <option value="2">
-                                    Bello
-                                </option>
-                                <option value="3">
-                                    Itagui
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="selectmenu">
-                            <label for="deptoOrigenRecursosSelect">
-                                Depto Origen Recursos
-                            </label>
+                        
+                        <div class="custom-label">
+								<b>Depto Origen Recursos</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
                             <select id="deptoOrigenRecursosSelect" name="">
                                 <option value="1">
                                     Antioquia
@@ -802,67 +778,106 @@
                         </div>
                     </div>
                 </div>
-                <div data-role="fieldcontain" data-controltype="textinput">
-                    <label for="ingresosMensuales">
-                        Ingresos Mensuales
-                    </label>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                    	<div class="custom-label">
+								<b>Pais Origen Recursos</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
+                            <select id="paisOrigenRecursosSelect" name="">
+                                <option value="1">
+                                    Colombia
+                                </option>
+                                <option value="2">
+                                    Chile
+                                </option>
+                                <option value="3">
+                                    Peru
+                                </option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div class="ui-block-b">
+                    	<div class="custom-label">
+								<b>Ciudad Origen Recursos</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
+                            <select id="ciudadOrigenRecursosSelect" name="">
+                            	<option value="1">
+                                    Medellin
+                                </option>
+                                <option value="2">
+                                    Bello
+                                </option>
+                                <option value="3">
+                                    Itagui
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-label">
+								<b>Ingresos Mensuales</b>
+						</div>
+                <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                     <input name="ingresosMensuales" id="ingresosMensuales" placeholder=""
                     value="" type="text">
                 </div>
-                <div data-role="fieldcontain" data-controltype="textinput">
-                    <label for="otrosIngresos">
-                        Otros Ingresos Mensuales
-                    </label>
+                <div class="custom-label">
+								<b>Otros Ingresos Mensuales</b>
+						</div>
+                <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                     <input name="otrosIngresos" id="otrosIngresos" placeholder="" value=""
                     type="text">
                 </div>
-                <div data-role="fieldcontain" data-controltype="textinput">
-                    <label for="totalIngresos">
-                        Total Ingresos Mensuales
-                    </label>
+                <div class="custom-label">
+								<b>Total Ingresos Mensuales</b>
+						</div>
+                <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                     <input name="totalIngresos" id="totalIngresos" placeholder="" value=""
                     type="text">
                 </div>
-                <div data-role="fieldcontain" data-controltype="textinput">
-                    <label for="totalEgresos">
-                        Total Egresos Mensuales
-                    </label>
+                <div class="custom-label">
+								<b>Total Egresos Mensuales</b>
+						</div>
+                <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                     <input name="totalEgresos" id="totalEgresos" placeholder="" value="" type="text">
                 </div>
-                <div data-role="fieldcontain" data-controltype="textinput">
-                    <label for="totalActivos">
-                        Total Activos
-                    </label>
+                <div class="custom-label">
+								<b>Total Activos</b>
+						</div>
+                <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                     <input name="totalActivos" id="totalActivos" placeholder="" value="" type="text">
                 </div>
-                <div data-role="fieldcontain" data-controltype="textinput">
-                    <label for="totalPasivos">
-                        Total Pasivos
-                    </label>
+                <div class="custom-label">
+								<b>Total Pasivos</b>
+						</div>
+                <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                     <input name="totalPasivos" id="totalPasivos" placeholder="" value="" type="text">
                 </div>
-                <div data-role="fieldcontain" data-controltype="textinput">
-                    <label for="totalPatrimonio">
-                        Total Patrimonio
-                    </label>
+                <div class="custom-label">
+								<b>Total Patrimonio</b>
+						</div>
+                <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                     <input name="totalPatrimonio" id="totalPatrimonio" placeholder="" value=""
                     type="text">
                 </div>
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="volVentasAnuales">
-                                Vol. ventas anuales
-                            </label>
+                    	<div class="custom-label">
+								<b>Vol. ventas anuales</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="volVentasAnuales" id="volVentasAnuales" placeholder="" value=""
                             type="text">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="dateinput">
-                            <label for="fechaVentasAnuales">
-                                Fecha Ventas Anuales
-                            </label>
+                    	<div class="custom-label">
+								<b>Fecha Ventas Anuales</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="dateinput" style="margin-top: 1px;">
                             <input name="fechaVentasAnuales" id="fechaVentasAnuales" placeholder=""
                             value="" type="date">
                         </div>
@@ -875,31 +890,31 @@
                 </h3>
                 <div class="ui-grid-a">
                     <div class="ui-block-a">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="codigoCIIU">
-                                Código CIIU
-                            </label>
+                    	<div class="custom-label">
+								<b>Código CIIU</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="codigoCIIU" id="codigoCIIU" placeholder="" value="" type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="codigosubCIIU">
-                                Código del subCIIU
-                            </label>
+                        <div class="custom-label">
+								<b>Código del subCIIU</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="codigosubCIIU" id="codigosubCIIU" placeholder="" value=""
                             type="text">
                         </div>
                     </div>
                     <div class="ui-block-b">
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="descCiiu">
-                                Descripción CIIU
-                            </label>
+                    	<div class="custom-label">
+								<b>Descripción CIIU</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="descCiiu" id="descCiiu" placeholder="" value="" type="text">
                         </div>
-                        <div data-role="fieldcontain" data-controltype="textinput">
-                            <label for="descsubCIIU">
-                                Descripción del subCIIU
-                            </label>
+                        <div class="custom-label">
+								<b>Descripción del subCIIU</b>
+						</div>
+                        <div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
                             <input name="descsubCIIU" id="descsubCIIU" placeholder="" value="" type="text">
                         </div>
                     </div>
