@@ -6,8 +6,7 @@ var vinculado = null;
 
 function validarIngreso(){	
 	$.mobile.loading('show');
-	$('#mensaje').hide();
-	$('#mensaje').text( '' );
+	limpiarMensaje($('#mensaje'));
 	
 	var usuario = $('#usuario').val();
     var password = $('#password').val();
@@ -156,8 +155,6 @@ function determinarCiiu(){
 
 function consultarVinculado(){
 	$.mobile.loading('show');
-	$('#mensajeVinculacion').hide();
-	$('#mensajeVinculacion').text( '' );
 	
 	limpiarMensaje($('#mensajeVinculacion'));	
 	
