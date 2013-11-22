@@ -55,13 +55,13 @@
 	    	}); 
 	      		
 	      $( "#ingresar" ).on( "click", function() {
-	    	  validarIngreso();
+	    	  //validarIngreso();
 	    	  //FIXME - descomentar
-	    	  //$.mobile.changePage("#vinculacion", {
-              //    transition: "pop",
-              //    reverse: false,
-      	      //  changeHash: false
-      		 //});
+	    	  $.mobile.changePage("#vinculacion", {
+                  transition: "pop",
+                  reverse: false,
+      	        changeHash: false
+      		 });
 		  });
 	      
 	      //$(document).on("pageshow", "#vinculacion", function () {
@@ -84,7 +84,7 @@
              <div data-role="content">
 				<p></p>
 				<div align="center">
-						<img src="images/logoGrupoBancolombia.jpg" alt="Bancolombia" />
+						<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" />
 					</div>
 				<p></p>
 				<label for="usuario"><center>Usuario</center></label> <input
@@ -912,6 +912,13 @@
         
         </form>
     </div>
+    <!--/Vinculacion-->
+    
+    <a id="nuevaVinculacion" data-role="button" href="#page4" data-icon="edit"
+        data-iconpos="left" onclick="limpiarCamposVinculacion();">
+            Nueva Vinculación
+    </a>
+    
     <div data-theme="b" data-role="footer" data-position="fixed">
         <div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
             <ul>
@@ -937,7 +944,7 @@
         </div>
     </div>
 	</div>
-	<!--/Vinculacion-->
+	
 
 </body>
 </html>
