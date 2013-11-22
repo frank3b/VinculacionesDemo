@@ -2,6 +2,8 @@
  * 
  */
 
+var vinculado = null;
+
 function validarIngreso(){	
 	$.mobile.loading('show');
 	$('#mensaje').hide();
@@ -64,7 +66,6 @@ function salir(){
 }
 
 function guardar(){
-	
 	$.mobile.loading('show');
 	$("#mensajeVinculacion").removeClass("error");
 	$('#mensajeVinculacion').hide();
@@ -82,9 +83,104 @@ function guardar(){
 		$('#mensajeVinculacion').show();
 		$('#mensajeVinculacion').text('El numero de documento es requerido.');
 	} else {
-		$('#mensajeVinculacion').addClass('success');
-		$('#mensajeVinculacion').show();
-		$('#mensajeVinculacion').text( 'La informaci\u00F3n se ha almacenado correctamente.' );
+		
+		if(vinculado == null){
+			vinculado = {};
+			
+			vinculado.tipo_documento = $('#tipoDocumento').val();
+			vinculado.numero_documento = $('#numeroDocumento').val();
+		}
+		
+		vinculado.llaveSAP = $('#llaveCRM').val();
+		vinculado.rol_negocio = $('#rolNegocio').val();
+		vinculado.primer_nombre = $('#primerNombre').val();
+		vinculado.primer_apellido = $('#primerApellido').val();
+		vinculado.segundo_nombre = $('#segundoNombre').val();
+		vinculado.segundo_apellido = $('#segundoApellido').val();
+		vinculado.canal_contacto = $('#canalContacto').val();
+		vinculado.fecha_contacto = $('#fechaContacto').val();
+		vinculado.lugar_contacto = $('#lugarContacto').val();
+		vinculado.hora_contacto = $('#horaContacto').val();
+		vinculado.concepto_comercial = $("#conceptoComercial").val();
+		vinculado.pais_nacimiento = $('#paisNacimientoSelect').val();
+		vinculado.ciudad_nacimiento = $('#ciudadNacimientoSelect').val();
+		vinculado.depto_nacimiento = $('#deptoNacimientoSelect').val();
+		vinculado.nacionalidad = $('#nacionalidadSelect').val();
+		vinculado.fecha_nacimiento = $('#fechaNacimiento').val();
+		vinculado.nro_hijos = $('#hijos').val();
+		
+		if( $("#generom").checked ){
+			vinculado.genero = 1;
+		} 
+		if( $("#generof").checked ){
+			vinculado.genero = 0;
+		}
+		
+		vinculado.profesion = $('#profesionSelect').val();
+		vinculado.estrato = $('#estratoSelect').val();
+		vinculado.cargo = $('#cargoSelect').val();
+		vinculado.empresa_labora = $('#empresa').val();
+		vinculado.tipo_contrato = $('#tipoContratoSelect').val();
+		vinculado.fecha_ingreso = $('#fechaIngreso').val();
+		vinculado.segmento = $('#segmento').val();
+		vinculado.tamano_comercial = $('#tamanoComercial').val();
+		vinculado.subsegmento = $('#subsegmento').val();
+		vinculado.pais = $('#paisSelect').val();
+		vinculado.ciudad = $('#ciudadSelect').val();
+		vinculado.direccion = $('#direccion').val();
+		vinculado.depto = $('#deptoSelect').val();
+		vinculado.barrio = $('#barrio').val();
+		vinculado.codigo_postal = $('#codigoPostal').val();
+		vinculado.fecha_ini_vigencia = $('#fechaInicioVigencia').val();
+		vinculado.fecha_fin_vigencia = $('#fechaFinVigencia').val();
+		vinculado.tel_fijo = $('#telefonoFijo').val();
+		vinculado.email = $('#email').val();
+		vinculado.tel_movil = $('#celular').val();
+		vinculado.sitio_web = $('#sitioWeb').val();
+		vinculado.fecha_financieros = $('#mes').val();
+		vinculado.tipo_moneda = $('#tipoMonedaSelect').val();
+		vinculado.fuente_recursos = $('#fuenteRecursosSelect').val();
+		vinculado.declarante = $('#declarante').val(); //- select - slider
+		vinculado.fuente_bienes = $('#fuenteBienesSelect').val();
+		vinculado.pais_recursos = $('#paisOrigenRecursosSelect').val();
+		vinculado.ciudad_recursos = $('#ciudadOrigenRecursosSelect').val();
+		vinculado.depto_recursos = $('#deptoOrigenRecursosSelect').val();
+		vinculado.ingresos_mensuales = $('#ingresosMensuales').val();
+		vinculado.otros_ingresos = $('#otrosIngresos').val();
+		vinculado.total_ingresos = $('#totalIngresos').val();
+		vinculado.total_egresos = $('#totalEgresos').val();
+		vinculado.total_activos = $('#totalActivos').val();
+		vinculado.total_pasivos = $('#totalPasivos').val();
+		vinculado.total_patrimonio = $('#totalPatrimonio').val();
+		vinculado.vol_ventas_anual = $('#volVentasAnuales').val();
+		vinculado.fecha_ventas_anual = $('#fechaVentasAnuales').val();
+		vinculado.codigo_ciiu = $('#codigoCIIU').val();
+		vinculado.codigo_subciiu = $('#codigosubCIIU').val();
+		vinculado.desc_ciiu = $('#descCiiu').val();
+		vinculado.desc_subciiu = $('#descsubCIIU').val();
+		
+		vinculado.calificacion_interna = $('#calificacionInterna').val();
+		vinculado.fecha_vigencia_calif = $('#fechaVigenciaCalif').val();
+		vinculado.persona_bloqueada = $('#personaBloqueada').val();
+		vinculado.estado = $('#estado').val();
+		
+		Kinvey.DataStore.save('VINCULACIONES', vinculado, {
+		    success: function(response) {
+		    	$('#mensajeVinculacion').addClass('success');
+				$('#mensajeVinculacion').show();
+				$('#mensajeVinculacion').text( 'La informaci\u00F3n se ha almacenado correctamente.' );
+		    },
+	        error: function(error){
+				console.log(error);
+	            alert("No pudo almacenar en la tabla VINCULACIONES..." + error);
+				$('#mensajeVinculacion').show();
+				$('#mensajeVinculacion').addClass('error');
+		        $('#mensajeVinculacion').text( 'No se almaceno correctamente la informaci\u00F3n.' );
+		        $.mobile.loading('hide');
+			}
+		});
+		
+		
 	}
 	
 	$.mobile.loading('hide');
@@ -162,7 +258,7 @@ function consultarVinculado(){
                $.each(response, function(index, obj) {
             	   $('#mensajeVinculacion').show();
                    $('#mensajeVinculacion').addClass('success');
-                   $('#mensajeVinculacion').text( 'Ahora puede editar la informaci\u00F3n de ' + obj.primer_nombre + obj.primer_apellido );
+                   $('#mensajeVinculacion').text( 'Ahora puede editar la informaci\u00F3n de ' + obj.primer_nombre + ' ' + obj.primer_apellido );
                    editarVinculacion(obj);
                });               
            } else {
@@ -224,6 +320,8 @@ function determinarCiiu(){
 function editarVinculacion(data){
 	
 	try{
+		vinculado = data;
+		
 		//$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
 		//$('#numeroDocumento').val(data.numero_documento);
 		$('#llaveCRM').val(data.llaveSAP);
