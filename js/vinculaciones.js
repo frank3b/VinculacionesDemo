@@ -52,6 +52,7 @@ function validarIngreso(){
 	
 }
 
+
 function salir(){
 	$("#mensaje").hide();
 	$("#mensajeVinculacion").hide();
@@ -90,7 +91,9 @@ function validarListasControl(){
 	agregarMensaje($('#mensajeVinculacion'), 'S', 'No se encuentra en listas de control.');
 }
 
-
+function vincular(){
+	agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
+}
 
 function consultarVinculados() {
 	
