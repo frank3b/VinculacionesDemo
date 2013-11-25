@@ -31,6 +31,7 @@ function validarIngreso(){
     				$( "#resetButton" ).click();
                 } else {
                     $('#mensaje').show();
+                    $('#mensaje').addClass('warning');
                     $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
                 }                
                 $.mobile.loading('hide');
@@ -38,6 +39,7 @@ function validarIngreso(){
             error: function(error){
     			console.log(error);
 				$('#mensaje').show();
+				$('#mensaje').addClass('warning');
     	        $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
     	        $.mobile.loading('hide');
 			}
@@ -46,6 +48,7 @@ function validarIngreso(){
         
 	} else {
 		$('#mensaje').show();
+		$('#mensaje').addClass('warning');
 		$('#mensaje').text( 'Debe ingresar el nombre de usuario y la contrase\u00F1a.' );
 		$.mobile.loading('hide');
 	}  
@@ -66,20 +69,26 @@ function salir(){
 }
 
 function segmentar(){
-	$('#mensajeVinculacion').show();
-	$('#mensajeVinculacion').addClass('success');
-	$('#mensajeVinculacion').text('El proceso de segmentaci\u00F3n termino exitosamente.');
 	
-	$('#segmento').val("PERSONAL PLUS");
-	$('#subsegmento').val("Basico");
-	$('#tamanoComercial').val("0.01");
+	$.mobile.loading('show');
+	setTimeout(function() {
+		
+		$('#segmento').val("PERSONAL PLUS");
+		$('#subsegmento').val("Basico");
+		$('#tamanoComercial').val("0.01");
+		
+		$('#identificacionDiv').trigger('collapse');
+		$('#ubicacion').trigger('collapse');
+		$('#datosFinancieros').trigger('collapse');
+		$('#determinarCiiuButton').trigger('collapse');
+		$('#datosGenerales').trigger('expand');
+		$('#segmento').trigger("focus");
+		
+		agregarMensaje($('#mensajeVinculacion'), 'S', 'El proceso de segmentaci\u00F3n termino correctamente.');
+		$.mobile.loading('hide');
+	}, 2000);
 	
-	$('#identificacionDiv').trigger('collapse');
-	$('#ubicacion').trigger('collapse');
-	$('#datosFinancieros').trigger('collapse');
-	$('#determinarCiiuButton').trigger('collapse');
-	$('#datosGenerales').trigger('expand');
-	$('#segmento').trigger("focus");
+	
 }
 
 function validarListasControl(){
@@ -216,7 +225,7 @@ function editarVinculacion(data){
 		
 		//$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
 		//$('#numeroDocumento').val(data.numero_documento);
-		$('#llaveCRM').val(data.llaveSAP);
+		$('#llaveCRM').val(data._id);
 		$('#rolNegocio').val(data.rol_negocio);
 		$('#primerNombre').val(data.primer_nombre);
 		$('#primerApellido').val(data.primer_apellido);
@@ -398,11 +407,13 @@ function guardar(){
 		if(isnuevo){
 			Kinvey.DataStore.save('VINCULACIONES', vinculado, {
 			    success: function(response) {
+			    	vinculado.llaveSAP = response._id;
+			    	
 			    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
 			    },
 		        error: function(error){
 					console.log(error);
-					agregarMensaje($('#mensajeVinculacion'), 'E', 'No se almaceno correctamente la informaci\u00F3n.');
+					agregarMensaje($('#mensajeVinculacion'), 'E', 'No se ha almacenado correctamente la informaci\u00F3n.');
 			        $.mobile.loading('hide');
 				}
 			});
