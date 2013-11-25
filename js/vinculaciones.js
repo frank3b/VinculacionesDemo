@@ -408,6 +408,7 @@ function guardar(){
 			Kinvey.DataStore.save('VINCULACIONES', vinculado, {
 			    success: function(response) {
 			    	vinculado.llaveSAP = response._id;
+			    	$('#llaveCRM').val(vinculado.llaveSAP);
 			    	
 			    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
 			    },
@@ -539,6 +540,29 @@ function limpiarCamposVinculacion(){
 	$('#personaBloqueada').val("no").slider('refresh');
 	$('#estado').val("");
 	
+}
+
+
+function tomarFoto(){
+	console.log('Por tomar foto...');
+	if (!navigator.camera) {
+		alert("Camera API not supported", "Error");
+		return;
+	}
+	var options =   {   quality: 50,
+						destinationType: Camera.DestinationType.DATA_URL,
+						sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+						encodingType: 0     // 0=JPG 1=PNG
+					};
+	navigator.camera.getPicture(
+		function(imageData) {
+			$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
+		},
+		function() {
+			alert('Error tomando foto. Intente de nuevo más tarde', "Error");
+		},
+		options);
+	return false;
 }
 
 function readDataUrl(file) {

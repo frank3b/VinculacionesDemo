@@ -26,7 +26,12 @@
 	var onDeviceReady = function() {
 		//document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
 		
-		
+		window.resolveLocalFileSystemURI("file:///android_asset",
+				  function(entry){
+				    console.log(entry.fullPath);},
+				  function(evt){
+				    console.log(evt.code);}
+				);
 	};
 
 	function init() {
@@ -897,14 +902,22 @@
 						<h3>Anexos</h3>
 						<a id="agregarAdjunto" data-role="button" data-inline="true"
 							data-theme="b" href="#" data-icon="plus" data-iconpos="left"
-							data-transition="pop" onclick="readDataUrl(null);"> Nuevo </a>
+							data-transition="pop" onclick="tomarFoto();"> Nuevo </a>
 						<ul id="listaAnexos" data-role="listview" data-divider-theme="b"
 							data-inset="true">
-							<li data-role="list-divider" role="heading">Archivos</li>
-							<li data-theme="c"><a href="#page4"
+							<li data-role="list-divider" role="heading">Documentos</li>
+							<li data-theme="c"><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/f_691.pdf"
 								data-transition="slidefade"> Nombre Archivo 1</a></li>
-							<li data-theme="c"><a href="#page4"
-								data-transition="slidefade"> Nombre Archivo 2</a></li>	
+							<li data-theme="c"><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf"
+								data-transition="slidefade"> Nombre Archivo 2</a></li>									
+							<li data-role="list-divider" role="heading">
+		                        Imagenes
+		                    </li>
+		                    <li data-theme="c">
+		                    
+								<img src="" id="foto" />
+		                        
+		                    </li>	
 						</ul>
 					</div>
 
