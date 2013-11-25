@@ -83,16 +83,29 @@ function segmentar(){
 }
 
 function validarListasControl(){
-	$('#calificacionInterna').val("SIN CALIF");
-	$('#fechaVigenciaCalif').val("2014-12-31");
-	$('#personaBloqueada').val("no").slider('refresh');
-	$('#estado').val("PENDIENTE");
 	
-	agregarMensaje($('#mensajeVinculacion'), 'S', 'No se encuentra en listas de control.');
+	$.mobile.loading('show');
+	setTimeout(function() {
+		$('#calificacionInterna').val("SIN CALIF");
+		$('#fechaVigenciaCalif').val("2014-12-31");
+		$('#personaBloqueada').val("no").slider('refresh');
+		$('#estado').val("PENDIENTE");
+		
+		agregarMensaje($('#mensajeVinculacion'), 'S', 'No se encuentra en listas de control.');
+		
+		$.mobile.loading('hide');
+	}, 2000);
+	
+	
 }
 
 function vincular(){
-	agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
+	$.mobile.loading('show');
+	setTimeout(function() {
+		agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
+		$.mobile.loading('hide');
+	}, 2000);
+	
 }
 
 function consultarVinculados() {
@@ -153,7 +166,13 @@ function iniciarCampos(){
 }
 
 function determinarCiiu(){
-	agregarMensaje($('#mensajeVinculacion'), 'S', 'Se ha determinado el CIIU correctamente.');
+	
+	$.mobile.loading('show');
+	setTimeout(function() {
+		agregarMensaje($('#mensajeVinculacion'), 'S', 'Se ha determinado el CIIU correctamente.');
+		$.mobile.loading('hide');
+	}, 2000);
+	
 }
 
 function consultarVinculado(){

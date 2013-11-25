@@ -94,14 +94,24 @@
 				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" />
 			</div>
 			<p></p>
-			<label for="usuario"><center>Usuario</center></label> <input
-				type="text" name="usuario" id="usuario" value=""
-				data-type="vertical" /> <label for="password"><center>Contraseña</center></label>
-			<input type="password" name="password" id="password" value="" /> <a
-				href="#" data-role="button" data-rel="dialog" data-transition="pop"
-				id="ingresar">Ingresar</a>
-			<div id="mensaje" data-controltype="textblock" class="warning"></div>
-
+			<div class="custom-label">
+				<b>Usuario</b>
+			</div>
+			<input type="text" name="usuario" id="usuario" value=""
+				data-type="vertical" /> 
+			<div class="custom-label">
+				<b>Contraseña</b>
+			</div>	
+			<input type="password" name="password" id="password" value="" /> 
+			
+			<div align="center" >
+				<a id="ingresar" data-role="button" data-inline="true" data-theme="b"
+		        	href="#" data-icon="check" data-iconpos="left" data-transition="pop">
+		            Ingresar
+		        </a>
+			</div>
+	        
+	        <div id="mensaje" data-controltype="textblock" class="warning"></div>
 		</div>
 
 	</div>
