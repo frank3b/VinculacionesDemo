@@ -556,7 +556,19 @@ function tomarFoto(){
 					};
 	navigator.camera.getPicture(
 		function(imageData) {
-			$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
+			//$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
+			
+			alert(JSON.stringify(imageData));
+			
+			var item = "<li><a href=\"#\" data-rel=\"dialog\"> "+
+			"<img src=\"data:image/jpeg;base64,\" " + imageData + "/> " +
+			"<h3>Nombre Imagen</h3>" +
+			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
+			//"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
+			"</a></li>";
+			
+			$('#listaAnexos').append(item).listview('refresh');
+			
 		},
 		function() {
 			alert('Error tomando foto. Intente de nuevo más tarde', "Error");
