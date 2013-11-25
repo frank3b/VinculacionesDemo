@@ -111,6 +111,7 @@
 	<access origin="https://baas.kinvey.com*" />
 	<access origin="https://da189i1jfloii.cloudfront.net*" />
 	<access origin="https://storage.googleapis.com*" />
-	<access origin="https://baas.kinvey.com*" />	  
+	<access origin="https://baas.kinvey.com*" />	
+	<access origin="https://build.phonegap.com*" />  
 
 </widget>

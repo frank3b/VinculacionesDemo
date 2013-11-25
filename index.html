@@ -20,8 +20,11 @@
 <script src="js/vinculaciones.js"></script>
 <script src="js/kinvey-phonegap-1.1.2.min.js"></script>
 
+<script type="text/javascript" src="phonegap.js"></script>
+<!-- 
 <script type="text/javascript" charset="utf-8" src="cordova-1.9.0.js"></script>
-
+ -->
+ 
 <script type="text/javascript" charset="utf-8">
 	var onDeviceReady = function() {
 		//document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
@@ -53,7 +56,7 @@
 							if (null == user) {
 								Kinvey.User.login('admin', 'admin', {
 									success : function() {
-										alert('autenticado');
+										console.log('autenticado');
 									},
 									error : function(error) {
 										console.log(error);
