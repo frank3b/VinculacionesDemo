@@ -540,3 +540,16 @@ function limpiarCamposVinculacion(){
 	$('#estado').val("");
 	
 }
+
+function readDataUrl(file) {
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
+}
+
+function onFileSystemSuccess(fileSystem) {
+    console.log(fileSystem.name);
+    console.log(fileSystem.root.name);
+}
+
+function fail(evt) {
+    console.log(evt.target.error.code);
+}

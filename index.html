@@ -25,9 +25,12 @@
 <script type="text/javascript" charset="utf-8">
 	var onDeviceReady = function() {
 		//document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
+		
+		
 	};
 
 	function init() {
+		
 		document.addEventListener("deviceready", onDeviceReady, true);
 		iniciarCampos();
 
@@ -894,7 +897,7 @@
 						<h3>Anexos</h3>
 						<a id="agregarAdjunto" data-role="button" data-inline="true"
 							data-theme="b" href="#" data-icon="plus" data-iconpos="left"
-							data-transition="pop"> Nuevo </a>
+							data-transition="pop" onclick="readDataUrl(null);"> Nuevo </a>
 						<ul id="listaAnexos" data-role="listview" data-divider-theme="b"
 							data-inset="true">
 							<li data-role="list-divider" role="heading">Archivos</li>
