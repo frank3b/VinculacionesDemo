@@ -558,10 +558,10 @@ function tomarFoto(){
 		function(imageData) {
 			//$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
 			
-			alert(JSON.stringify(imageData));
+			//alert(JSON.stringify(imageData));
 			
-			var item = "<li><a href=\"#\" data-rel=\"dialog\"> "+
-			"<img src=\"data:image/jpeg;base64,\" " + imageData + "/> " +
+			var item = "<li><a href=\"#\"> "+
+			"<img src='data:image/jpeg;base64,' " + imageData + "/> " +
 			"<h3>Nombre Imagen</h3>" +
 			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
 			//"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
