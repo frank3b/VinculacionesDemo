@@ -186,7 +186,7 @@ function determinarCiiu(){
 
 function consultarVinculado(){
 	$.mobile.loading('show');
-	
+	$('#guardar').button('disable'); 
 	limpiarMensaje($('#mensajeVinculacion'));	
 	
     var tipo_documento = $('#tipoDocumento').val();
@@ -209,11 +209,13 @@ function consultarVinculado(){
         	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento);
            }
            $.mobile.loading('hide');
+           $('#guardar').button('enable');
         },
         error: function(error){
 			console.log(error);
 			agregarMensaje($('#mensajeVinculacion'), 'E', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
 	        $.mobile.loading('hide');
+	        $('#guardar').button('enable');
 		}
     });
 }
@@ -409,7 +411,7 @@ function guardar(){
 			    success: function(response) {
 			    	vinculado.llaveSAP = response._id;
 			    	$('#llaveCRM').val(vinculado.llaveSAP);
-			    	
+			    	Kinvey.DataStore.update('VINCULACIONES', vinculado, null, null );
 			    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
 			    },
 		        error: function(error){
@@ -418,6 +420,7 @@ function guardar(){
 			        $.mobile.loading('hide');
 				}
 			});
+			
 		} else {
 			Kinvey.DataStore.update('VINCULACIONES', vinculado, {
 			    success: function(response) {
@@ -434,6 +437,12 @@ function guardar(){
 	}
 	
 	$.mobile.loading('hide');
+}
+
+function llamar(){
+	if(vinculado.tel_movil != null || vinculado.tel_movil != ''){
+		document.location.href = 'tel:+vinculado.tel_movil';
+	}
 }
 
 function limpiarMensaje(objeto){
