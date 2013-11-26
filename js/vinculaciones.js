@@ -430,7 +430,7 @@ function guardar(){
 			if(isnuevo){
 				Kinvey.DataStore.save('VINCULACIONES', vinculado, {
 				    success: function(response) {
-				    	vinculado.llaveSAP = response._id;
+				    	vinculado = response;
 				    	$('#llaveCRM').val(vinculado.llaveSAP);
 				    	Kinvey.DataStore.update('VINCULACIONES', vinculado, null, null);
 				    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
