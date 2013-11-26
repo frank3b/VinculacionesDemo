@@ -185,39 +185,47 @@ function determinarCiiu(){
 }
 
 function consultarVinculado(){
-	$.mobile.loading('show');
-	$('#guardar').button('disable'); 
-	limpiarMensaje($('#mensajeVinculacion'));	
 	
-    var tipo_documento = $('#tipoDocumento').val();
-	var numero_documento = $('#numeroDocumento').val();
+	try{
+		$.mobile.loading('show');
+		$('#guardar').button('disable'); 
+		limpiarMensaje($('#mensajeVinculacion'));	
+		
+	    var tipo_documento = $('#tipoDocumento').val();
+		var numero_documento = $('#numeroDocumento').val();
+		
+		var queryDoc = new Kinvey.Query();
+		var queryTipoDoc = new Kinvey.Query();
+	    queryDoc.equalTo("numero_documento", numero_documento);
+		queryTipoDoc.equalTo('tipo_documento', tipo_documento);
+		queryDoc.and(queryTipoDoc);
+	    Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
+	        success: function(response) {
+	           
+	           if(response.length > 0){
+	               $.each(response, function(index, obj) {
+	            	   agregarMensaje($('#mensajeVinculacion'), 'I', 'Ahora puede editar la informaci\u00F3n de ' + obj.primer_nombre + ' ' + obj.primer_apellido);
+	                   editarVinculacion(obj);
+	               });               
+	           } else {
+	        	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento);
+	           }
+	           $.mobile.loading('hide');
+	           $('#guardar').button('enable');
+	        },
+	        error: function(error){
+				console.log(error);
+				agregarMensaje($('#mensajeVinculacion'), 'E', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+		        $.mobile.loading('hide');
+		        $('#guardar').button('enable');
+			}
+	    });
+	} catch (e) {
+		$.mobile.loading('hide');
+		$('#guardar').button('enable');
+		console.log(error);
+	}
 	
-	var queryDoc = new Kinvey.Query();
-	var queryTipoDoc = new Kinvey.Query();
-    queryDoc.equalTo("numero_documento", numero_documento);
-	queryTipoDoc.equalTo('tipo_documento', tipo_documento);
-	queryDoc.and(queryTipoDoc);
-    Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
-        success: function(response) {
-           
-           if(response.length > 0){
-               $.each(response, function(index, obj) {
-            	   agregarMensaje($('#mensajeVinculacion'), 'I', 'Ahora puede editar la informaci\u00F3n de ' + obj.primer_nombre + ' ' + obj.primer_apellido);
-                   editarVinculacion(obj);
-               });               
-           } else {
-        	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento);
-           }
-           $.mobile.loading('hide');
-           $('#guardar').button('enable');
-        },
-        error: function(error){
-			console.log(error);
-			agregarMensaje($('#mensajeVinculacion'), 'E', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
-	        $.mobile.loading('hide');
-	        $('#guardar').button('enable');
-		}
-    });
 }
 
 function editarVinculacion(data){
@@ -228,7 +236,7 @@ function editarVinculacion(data){
 		//$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
 		//$('#numeroDocumento').val(data.numero_documento);
 		$('#llaveCRM').val(data._id);
-		$('#rolNegocio').val(data.rol_negocio);
+		$('#rolNegocio').val(data.rol_negocio).selectmenu('refresh');
 		$('#primerNombre').val(data.primer_nombre);
 		$('#primerApellido').val(data.primer_apellido);
 		$('#segundoNombre').val(data.segundo_nombre);
@@ -306,142 +314,155 @@ function editarVinculacion(data){
 }
 
 function guardar(){
-	var isnuevo = true;
 	
-	$.mobile.loading('show');
-	limpiarMensaje($('#mensajeVinculacion'));
-	
-	var tipo_documento = $('#tipoDocumento').val();
-	var numero_documento = $('#numeroDocumento').val();
-	
-	if(tipo_documento == null || tipo_documento == ''){
-		agregarMensaje($('#mensajeVinculacion'), 'E', 'El tipo de documento es requerido.');
-	} else if(numero_documento == null || numero_documento == ''){
-		agregarMensaje($('#mensajeVinculacion'), 'E', 'El numero de documento es requerido.');
-	} else {
+	try {
+		var isnuevo = true;
 		
-		if(vinculado == null){
-			vinculado = {};
-			
-			vinculado.tipo_documento = $('#tipoDocumento').val();
-			vinculado.numero_documento = $('#numeroDocumento').val();
+		$.mobile.loading('show');
+		limpiarMensaje($('#mensajeVinculacion'));
+		
+		var tipo_documento = $('#tipoDocumento').val();
+		var numero_documento = $('#numeroDocumento').val();
+		
+		if(tipo_documento == null || tipo_documento == ''){
+			agregarMensaje($('#mensajeVinculacion'), 'E', 'El tipo de documento es requerido.');
+		} else if(numero_documento == null || numero_documento == ''){
+			agregarMensaje($('#mensajeVinculacion'), 'E', 'El numero de documento es requerido.');
 		} else {
-			isnuevo = false;
-		}
-		
-		vinculado.llaveSAP = $('#llaveCRM').val();
-		vinculado.rol_negocio = $('#rolNegocio').val();
-		vinculado.primer_nombre = $('#primerNombre').val();
-		vinculado.primer_apellido = $('#primerApellido').val();
-		vinculado.segundo_nombre = $('#segundoNombre').val();
-		vinculado.segundo_apellido = $('#segundoApellido').val();
-		vinculado.canal_contacto = $('#canalContacto').val();
-		vinculado.fecha_contacto = $('#fechaContacto').val();
-		vinculado.lugar_contacto = $('#lugarContacto').val();
-		vinculado.hora_contacto = $('#horaContacto').val();
-		vinculado.concepto_comercial = $("#conceptoComercial").val();
-		vinculado.pais_nacimiento = $('#paisNacimientoSelect').val();
-		vinculado.ciudad_nacimiento = $('#ciudadNacimientoSelect').val();
-		vinculado.depto_nacimiento = $('#deptoNacimientoSelect').val();
-		vinculado.nacionalidad = $('#nacionalidadSelect').val();
-		vinculado.fecha_nacimiento = $('#fechaNacimiento').val();
-		vinculado.nro_hijos = $('#hijos').val();
-		
-		var isCheckedGenerom =  $('#generom').prop("checked");
-		if( isCheckedGenerom ){
-			vinculado.genero = 1;
-		} 
-		var isCheckedGenerof =  $('#generof').prop("checked");
-		if( isCheckedGenerof ){
-			vinculado.genero = 0;
-		}
-		
-		vinculado.profesion = $('#profesionSelect').val();
-		vinculado.estrato = $('#estratoSelect').val();
-		vinculado.cargo = $('#cargoSelect').val();
-		vinculado.empresa_labora = $('#empresa').val();
-		vinculado.tipo_contrato = $('#tipoContratoSelect').val();
-		vinculado.fecha_ingreso = $('#fechaIngreso').val();
-		vinculado.segmento = $('#segmento').val();
-		vinculado.tamano_comercial = $('#tamanoComercial').val();
-		vinculado.subsegmento = $('#subsegmento').val();
-		vinculado.pais = $('#paisSelect').val();
-		vinculado.ciudad = $('#ciudadSelect').val();
-		vinculado.direccion = $('#direccion').val();
-		vinculado.depto = $('#deptoSelect').val();
-		vinculado.barrio = $('#barrio').val();
-		vinculado.codigo_postal = $('#codigoPostal').val();
-		vinculado.fecha_ini_vigencia = $('#fechaInicioVigencia').val();
-		vinculado.fecha_fin_vigencia = $('#fechaFinVigencia').val();
-		vinculado.tel_fijo = $('#telefonoFijo').val();
-		vinculado.email = $('#email').val();
-		vinculado.tel_movil = $('#celular').val();
-		vinculado.sitio_web = $('#sitioWeb').val();
-		vinculado.fecha_financieros = $('#mes').val();
-		vinculado.tipo_moneda = $('#tipoMonedaSelect').val();
-		vinculado.fuente_recursos = $('#fuenteRecursosSelect').val();
-		vinculado.declarante = $('#declarante').val(); //- select - slider
-		vinculado.fuente_bienes = $('#fuenteBienesSelect').val();
-		vinculado.pais_recursos = $('#paisOrigenRecursosSelect').val();
-		vinculado.ciudad_recursos = $('#ciudadOrigenRecursosSelect').val();
-		vinculado.depto_recursos = $('#deptoOrigenRecursosSelect').val();
-		vinculado.ingresos_mensuales = $('#ingresosMensuales').val();
-		vinculado.otros_ingresos = $('#otrosIngresos').val();
-		vinculado.total_ingresos = $('#totalIngresos').val();
-		vinculado.total_egresos = $('#totalEgresos').val();
-		vinculado.total_activos = $('#totalActivos').val();
-		vinculado.total_pasivos = $('#totalPasivos').val();
-		vinculado.total_patrimonio = $('#totalPatrimonio').val();
-		vinculado.vol_ventas_anual = $('#volVentasAnuales').val();
-		vinculado.fecha_ventas_anual = $('#fechaVentasAnuales').val();
-		vinculado.codigo_ciiu = $('#codigoCIIU').val();
-		vinculado.codigo_subciiu = $('#codigosubCIIU').val();
-		vinculado.desc_ciiu = $('#descCiiu').val();
-		vinculado.desc_subciiu = $('#descsubCIIU').val();
-		
-		vinculado.calificacion_interna = $('#calificacionInterna').val();
-		vinculado.fecha_vigencia_calif = $('#fechaVigenciaCalif').val();
-		vinculado.persona_bloqueada = $('#personaBloqueada').val();
-		vinculado.estado = $('#estado').val();
-		
-		//alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
-		
-		if(isnuevo){
-			Kinvey.DataStore.save('VINCULACIONES', vinculado, {
-			    success: function(response) {
-			    	vinculado.llaveSAP = response._id;
-			    	$('#llaveCRM').val(vinculado.llaveSAP);
-			    	Kinvey.DataStore.update('VINCULACIONES', vinculado, null, null );
-			    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
-			    },
-		        error: function(error){
-					console.log(error);
-					agregarMensaje($('#mensajeVinculacion'), 'E', 'No se ha almacenado correctamente la informaci\u00F3n.');
-			        $.mobile.loading('hide');
-				}
-			});
 			
-		} else {
-			Kinvey.DataStore.update('VINCULACIONES', vinculado, {
-			    success: function(response) {
-					agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
-			    },
-		        error: function(error){
-					console.log(error);
-			        agregarMensaje($('#mensajeVinculacion'), 'E', 'No se almaceno correctamente la informaci\u00F3n.');
-			        $.mobile.loading('hide');
-				}
-			});
+			if(vinculado != null && vinculado._id != null && vinculado._id != ''){
+				isnuevo = false;
+			} else {
+				vinculado = {};
+				
+				vinculado.tipo_documento = $('#tipoDocumento').val();
+				vinculado.numero_documento = $('#numeroDocumento').val();
+			}
+			
+			vinculado.llaveSAP = $('#llaveCRM').val();
+			vinculado.rol_negocio = $('#rolNegocio').val();
+			vinculado.primer_nombre = $('#primerNombre').val();
+			vinculado.primer_apellido = $('#primerApellido').val();
+			vinculado.segundo_nombre = $('#segundoNombre').val();
+			vinculado.segundo_apellido = $('#segundoApellido').val();
+			vinculado.canal_contacto = $('#canalContacto').val();
+			vinculado.fecha_contacto = $('#fechaContacto').val();
+			vinculado.lugar_contacto = $('#lugarContacto').val();
+			vinculado.hora_contacto = $('#horaContacto').val();
+			vinculado.concepto_comercial = $("#conceptoComercial").val();
+			vinculado.pais_nacimiento = $('#paisNacimientoSelect').val();
+			vinculado.ciudad_nacimiento = $('#ciudadNacimientoSelect').val();
+			vinculado.depto_nacimiento = $('#deptoNacimientoSelect').val();
+			vinculado.nacionalidad = $('#nacionalidadSelect').val();
+			vinculado.fecha_nacimiento = $('#fechaNacimiento').val();
+			vinculado.nro_hijos = $('#hijos').val();
+			
+			var isCheckedGenerom =  $('#generom').prop("checked");
+			if( isCheckedGenerom ){
+				vinculado.genero = 1;
+			} 
+			var isCheckedGenerof =  $('#generof').prop("checked");
+			if( isCheckedGenerof ){
+				vinculado.genero = 0;
+			}
+			
+			vinculado.profesion = $('#profesionSelect').val();
+			vinculado.estrato = $('#estratoSelect').val();
+			vinculado.cargo = $('#cargoSelect').val();
+			vinculado.empresa_labora = $('#empresa').val();
+			vinculado.tipo_contrato = $('#tipoContratoSelect').val();
+			vinculado.fecha_ingreso = $('#fechaIngreso').val();
+			vinculado.segmento = $('#segmento').val();
+			vinculado.tamano_comercial = $('#tamanoComercial').val();
+			vinculado.subsegmento = $('#subsegmento').val();
+			vinculado.pais = $('#paisSelect').val();
+			vinculado.ciudad = $('#ciudadSelect').val();
+			vinculado.direccion = $('#direccion').val();
+			vinculado.depto = $('#deptoSelect').val();
+			vinculado.barrio = $('#barrio').val();
+			vinculado.codigo_postal = $('#codigoPostal').val();
+			vinculado.fecha_ini_vigencia = $('#fechaInicioVigencia').val();
+			vinculado.fecha_fin_vigencia = $('#fechaFinVigencia').val();
+			vinculado.tel_fijo = $('#telefonoFijo').val();
+			vinculado.email = $('#email').val();
+			vinculado.tel_movil = $('#celular').val();
+			vinculado.sitio_web = $('#sitioWeb').val();
+			vinculado.fecha_financieros = $('#mes').val();
+			vinculado.tipo_moneda = $('#tipoMonedaSelect').val();
+			vinculado.fuente_recursos = $('#fuenteRecursosSelect').val();
+			vinculado.declarante = $('#declarante').val(); //- select - slider
+			vinculado.fuente_bienes = $('#fuenteBienesSelect').val();
+			vinculado.pais_recursos = $('#paisOrigenRecursosSelect').val();
+			vinculado.ciudad_recursos = $('#ciudadOrigenRecursosSelect').val();
+			vinculado.depto_recursos = $('#deptoOrigenRecursosSelect').val();
+			vinculado.ingresos_mensuales = $('#ingresosMensuales').val();
+			vinculado.otros_ingresos = $('#otrosIngresos').val();
+			vinculado.total_ingresos = $('#totalIngresos').val();
+			vinculado.total_egresos = $('#totalEgresos').val();
+			vinculado.total_activos = $('#totalActivos').val();
+			vinculado.total_pasivos = $('#totalPasivos').val();
+			vinculado.total_patrimonio = $('#totalPatrimonio').val();
+			vinculado.vol_ventas_anual = $('#volVentasAnuales').val();
+			vinculado.fecha_ventas_anual = $('#fechaVentasAnuales').val();
+			vinculado.codigo_ciiu = $('#codigoCIIU').val();
+			vinculado.codigo_subciiu = $('#codigosubCIIU').val();
+			vinculado.desc_ciiu = $('#descCiiu').val();
+			vinculado.desc_subciiu = $('#descsubCIIU').val();
+			
+			vinculado.calificacion_interna = $('#calificacionInterna').val();
+			vinculado.fecha_vigencia_calif = $('#fechaVigenciaCalif').val();
+			vinculado.persona_bloqueada = $('#personaBloqueada').val();
+			vinculado.estado = $('#estado').val();
+			
+			//alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
+			
+			if(isnuevo){
+				Kinvey.DataStore.save('VINCULACIONES', vinculado, {
+				    success: function(response) {
+				    	vinculado.llaveSAP = response._id;
+				    	$('#llaveCRM').val(vinculado.llaveSAP);
+				    	Kinvey.DataStore.update('VINCULACIONES', vinculado, null, null );
+				    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
+				    },
+			        error: function(error){
+						console.log(error);
+						agregarMensaje($('#mensajeVinculacion'), 'E', 'No se ha almacenado correctamente la informaci\u00F3n.');
+				        $.mobile.loading('hide');
+					}
+				});
+				
+			} else {
+				Kinvey.DataStore.update('VINCULACIONES', vinculado, {
+				    success: function(response) {
+						agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
+				    },
+			        error: function(error){
+						console.log(error);
+				        agregarMensaje($('#mensajeVinculacion'), 'E', 'No se almaceno correctamente la informaci\u00F3n.');
+				        $.mobile.loading('hide');
+					}
+				});
+			}
+			
 		}
 		
+		$.mobile.loading('hide');
+	} catch (e) {
+		$.mobile.loading('hide');
+		console.log(error);
 	}
 	
-	$.mobile.loading('hide');
 }
 
-function llamar(){
+function llamarMovil(){
 	if(vinculado.tel_movil != null || vinculado.tel_movil != ''){
-		document.location.href = 'tel:+vinculado.tel_movil';
+		document.location.href = 'tel:' + vinculado.tel_movil;
+	}
+}
+
+function llamarFijo(){
+	if(vinculado.tel_movil != null || vinculado.tel_movil != ''){
+		document.location.href = 'tel:' + vinculado.tel_fijo;
 	}
 }
 

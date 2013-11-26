@@ -201,10 +201,10 @@
 									<b>Rol de Negocio</b>
 								</div>
 								<div data-role="fieldcontain" data-controltype="textinput"
-									style="margin-top: 1px;">
-									<input name="rolNegocio" id="rolNegocio"
-										placeholder="Ingrese el rol de negocio" value="" type="text"
-										data-mini="true">
+									style="margin-top: 1px;">																			
+									<select id="rolNegocio" name="paisNacimiento">
+										<option value="1">Prospecto</option>
+									</select>	
 								</div>
 							</div>
 							<div class="ui-block-a">
@@ -651,6 +651,14 @@
 										type="tel">
 								</div>
 								<div class="custom-label">
+									<b>Telefono Movil</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="celular" id="celular" 
+										placeholder="Ingrese el número de celular" value="" type="tel">
+								</div>
+								<div class="custom-label">
 									<b>Email</b>
 								</div>
 								<div data-role="fieldcontain" data-controltype="textinput"
@@ -661,13 +669,18 @@
 							</div>
 							<div class="ui-block-b">
 								<div class="custom-label">
-									<b>Telefono Movil</b>
+									<b>Llamar</b>
 								</div>
 								<div data-role="fieldcontain" data-controltype="textinput"
-									style="margin-top: 1px;">
-									<input name="celular" id="celular"
-										placeholder="Ingrese el número de celular" value="" type="tel">
-									<a href="#" onclick="llamar();"><img src="images/movil.png" /></a>	
+									style="margin-top: 2px;">									
+									<a href="#" onclick="llamarFijo();"><img src="images/movil.jpg" /></a>	
+								</div>
+								<div class="custom-label">
+									<b>Llamar</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 2px;">									
+									<a href="#" onclick="llamarMovil();"><img src="images/movil.jpg" /></a>	
 								</div>
 								<div class="custom-label">
 									<b>Sitio Web</b>
