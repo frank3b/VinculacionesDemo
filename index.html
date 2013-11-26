@@ -101,8 +101,8 @@
 
 		<div data-role="content">
 			<p></p>
-			<div align="center">
-				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" />
+			<div align="center" >
+				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
 			</div>
 			<div align="center">
 				<p></p>
@@ -110,12 +110,13 @@
 			<div class="custom-label">
 				<b>Usuario</b>
 			</div>
-			<input type="text" name="usuario" id="usuario" value=""
-				data-type="vertical" />
+			<input type="text" name="usuario" id="usuario" value="" 
+				data-type="vertical" onchange="$('#password').focus().tap();"/>
 			<div class="custom-label">
 				<b>Contraseña</b>
 			</div>
-			<input type="password" name="password" id="password" value="" />
+			<input type="password" name="password" id="password" value=""
+				 onchange="$('#ingresar').focus();" />
 
 			<div align="center">
 				<a id="ingresar" data-role="button" data-inline="true"
