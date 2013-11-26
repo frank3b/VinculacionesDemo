@@ -5,53 +5,63 @@
 var vinculado = null;
 
 function validarIngreso(){	
-	$.mobile.loading('show');
-	limpiarMensaje($('#mensaje'));
 	
-	var usuario = $('#usuario').val();
-    var password = $('#password').val();
-    
-    if(usuario != null && password != null && usuario != '' && password != ''){
-        
-        var query = new Kinvey.Query();
-        query.equalTo('login', usuario);
-        Kinvey.DataStore.find('USUARIOS', query, {
-            success: function(response) {
-                
-                if(password == response[0].password){
-                    $.mobile.changePage("#vinculacion", {
-                            transition: "pop",
-                            reverse: false,
-                	        changeHash: false
-                	});
-                    
-                    var txtBienv = "Bienvenido: " + response[0].nombre;
-    				$('#bienvenidaText').text(txtBienv);
-    				
-    				$( "#resetButton" ).click();
-                } else {
-                    $('#mensaje').show();
-                    $('#mensaje').addClass('warning');
-                    $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
-                }                
-                $.mobile.loading('hide');
-            },
-            error: function(error){
-    			console.log(error);
-				$('#mensaje').show();
-				$('#mensaje').addClass('warning');
-    	        $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
-    	        $.mobile.loading('hide');
-			}
-        });
-       
-        
-	} else {
+	try {
+		$.mobile.loading('show');
+		limpiarMensaje($('#mensaje'));
+		
+		var usuario = $('#usuario').val();
+	    var password = $('#password').val();
+	    
+	    if(usuario != null && password != null && usuario != '' && password != ''){
+	        
+	        var query = new Kinvey.Query();
+	        query.equalTo('login', usuario);
+	        Kinvey.DataStore.find('USUARIOS', query, {
+	            success: function(response) {
+	                
+	                if(password == response[0].password){
+	                    $.mobile.changePage("#vinculacion", {
+	                            transition: "pop",
+	                            reverse: false,
+	                	        changeHash: false
+	                	});
+	                    
+	                    var txtBienv = "Bienvenido: " + response[0].nombre;
+	    				$('#bienvenidaText').text(txtBienv);
+	    				
+	    				$( "#resetButton" ).click();
+	                } else {
+	                    $('#mensaje').show();
+	                    $('#mensaje').addClass('warning');
+	                    $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+	                }                
+	                $.mobile.loading('hide');
+	            },
+	            error: function(error){
+	    			console.log(error);
+					$('#mensaje').show();
+					$('#mensaje').addClass('warning');
+	    	        $('#mensaje').text( 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+	    	        $.mobile.loading('hide');
+				}
+	        });
+	        
+		} else {
+			$('#mensaje').show();
+			$('#mensaje').addClass('warning');
+			$('#mensaje').text( 'Debe ingresar el nombre de usuario y la contrase\u00F1a.' );
+			$.mobile.loading('hide');
+		}  
+	} catch (e) {
+		console.log(error);
 		$('#mensaje').show();
-		$('#mensaje').addClass('warning');
-		$('#mensaje').text( 'Debe ingresar el nombre de usuario y la contrase\u00F1a.' );
+		$('#mensaje').addClass('error');
+		$('#mensaje').text( 'Error validando el ingreso.' );
 		$.mobile.loading('hide');
-	}  
+	}
+	
+	
 	
 }
 
