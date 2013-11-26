@@ -497,6 +497,9 @@ function agregarMensaje(objeto, tipoError, mensaje){
 
 
 function limpiarCamposVinculacion(){
+	
+	vinculado = null;
+	
 	limpiarMensaje($('#mensajeVinculacion'));
 	
 	$('#tipoDocumento').val("CC").selectmenu('refresh');
