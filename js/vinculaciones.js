@@ -57,7 +57,7 @@ function validarIngreso(){
 		console.log(error);
 		$('#mensaje').show();
 		$('#mensaje').addClass('error');
-		$('#mensaje').text( 'Error validando el ingreso.' );
+		$('#mensaje').text( 'Error de conexi\u00F3n, verifique por favor..' );
 		$.mobile.loading('hide');
 	}
 	
@@ -220,12 +220,12 @@ function consultarVinculado(){
 	           } else {
 	        	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 la persona con numero de documento ' + numero_documento);
 	           }
-	           $.mobile.loading('hide');
 	           $('#guardar').button('enable');
+	           $.mobile.loading('hide');
 	        },
 	        error: function(error){
 				console.log(error);
-				agregarMensaje($('#mensajeVinculacion'), 'E', 'El nombre de usuario o la contrase\u00F1a introducidos no son correctos.' );
+				agregarMensaje($('#mensajeVinculacion'), 'E', 'Error de conexi\u00F3n, verifique por favor.' );
 		        $.mobile.loading('hide');
 		        $('#guardar').button('enable');
 			}
@@ -241,6 +241,7 @@ function consultarVinculado(){
 function editarVinculacion(data){
 	
 	try{
+		$('#guardar').button('enable');
 		vinculado = data;
 		
 		//$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
@@ -431,7 +432,7 @@ function guardar(){
 				    success: function(response) {
 				    	vinculado.llaveSAP = response._id;
 				    	$('#llaveCRM').val(vinculado.llaveSAP);
-				    	Kinvey.DataStore.update('VINCULACIONES', vinculado, null, null );
+				    	Kinvey.DataStore.update('VINCULACIONES', vinculado, null, null);
 				    	agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
 				    },
 			        error: function(error){
