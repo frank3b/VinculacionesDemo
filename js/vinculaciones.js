@@ -489,7 +489,7 @@ function llamarFijo(){
 function enviarCorreo(){
 	var correo = $('#email').val();
 	if(correo != null || correo != ''){
-		document.location.href = 'mail:' + correo;
+		document.location.href = 'mailto:' + correo;
 	}
 }
 
@@ -617,10 +617,10 @@ function tomarFoto(){
 	navigator.camera.getPicture(
 		function(imageData) {
 			idImagen += 1;
-			$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
+			//$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
 			
 			//alert(JSON.stringify(imageData));
-			
+			alert(imageData);
 			var item = "<li><a href=\"#\"> "+
 			"<img id='img' " + idImagen + " src='"+ imageData +"'/> " +
 			//"<h3>Nombre Imagen</h3>" +
