@@ -93,7 +93,7 @@
 
 	<!--Logon-->
 	<div data-role="page" id="logon" data-theme="b"
-		style="background: url('images/fondo.png')">
+		style="background: url('images/fondo.png'); background-size:100% 100%;">
 
 		<div data-role="header" data-theme="b" align="center">
 			<h1>Viculación Simplificada</h1>
@@ -666,6 +666,14 @@
 									<input name="email" id="email" placeholder="Ingrese el email"
 										value="" type="email">
 								</div>
+								<div class="custom-label">
+									<b>Sitio Web</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="sitioWeb" id="sitioWeb"
+										placeholder="Ingrese sitio web" value="" type="url">
+								</div>
 							</div>
 							<div class="ui-block-b">
 								<div class="custom-label">
@@ -683,12 +691,11 @@
 									<a href="#" onclick="llamarMovil();"><img src="images/movil.jpg" /></a>	
 								</div>
 								<div class="custom-label">
-									<b>Sitio Web</b>
+									<b>Enviar Correo</b>
 								</div>
 								<div data-role="fieldcontain" data-controltype="textinput"
-									style="margin-top: 1px;">
-									<input name="sitioWeb" id="sitioWeb"
-										placeholder="Ingrese sitio web" value="" type="url">
+									style="margin-top: 2px;">									
+									<a href="#" onclick="enviarCorreo();"><img src="images/correo2.png" /></a>	
 								</div>
 							</div>
 						</div>

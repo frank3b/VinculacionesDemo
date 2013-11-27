@@ -445,10 +445,11 @@ function guardar(){
 				});
 				
 			} else {
-				alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
+				//alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
 				Kinvey.DataStore.update('VINCULACIONES', vinculado, {
 				    success: function(response) {
 						agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
+						$.mobile.loading('hide');
 				    },
 			        error: function(error){
 						console.log(error);
@@ -472,14 +473,23 @@ function guardar(){
 }
 
 function llamarMovil(){
-	if(vinculado.tel_movil != null || vinculado.tel_movil != ''){
-		document.location.href = 'tel:' + vinculado.tel_movil;
-	}
+	var tel_movil = $('#celular').val();
+	if(tel_movil != null || tel_movil != ''){
+		document.location.href = 'tel:' + tel_movil;
+	} 
 }
 
 function llamarFijo(){
-	if(vinculado.tel_movil != null || vinculado.tel_movil != ''){
-		document.location.href = 'tel:' + vinculado.tel_fijo;
+	var tel_fijo = $('#telefonoFijo').val();
+	if(tel_fijo != null || tel_fijo != ''){
+		document.location.href = 'tel:' + tel_fijo;
+	}
+}
+
+function enviarCorreo(){
+	var correo = $('#email').val();
+	if(correo != null || correo != ''){
+		document.location.href = 'mail:' + correo;
 	}
 }
 
@@ -600,7 +610,7 @@ function tomarFoto(){
 		return;
 	}
 	var options =   {   quality: 50,
-						destinationType: Camera.DestinationType.DATA_URL,
+						destinationType: Camera.DestinationType.FILE_URI,
 						sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
 						encodingType: 0     // 0=JPG 1=PNG
 					};
@@ -611,13 +621,13 @@ function tomarFoto(){
 			
 			//alert(JSON.stringify(imageData));
 			
-			//var item = "<li><a href=\"#\"> "+
-			//"<img id='img' " + idImagen + "/> " +
+			var item = "<li><a href=\"#\"> "+
+			"<img id='img' " + idImagen + " src='"+ imageData +"'/> " +
 			//"<h3>Nombre Imagen</h3>" +
 			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
 			//"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
-			//"</a></li>";
-			
+			"</a></li>";
+			alert(item);
 			$('#listaAnexos').append(item).listview('refresh');
 			//$('#img' + idImagen).attr('src', "data:image/jpeg;base64," + imageData);
 			
