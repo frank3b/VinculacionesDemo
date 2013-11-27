@@ -445,12 +445,14 @@ function guardar(){
 				});
 				
 			} else {
+				alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
 				Kinvey.DataStore.update('VINCULACIONES', vinculado, {
 				    success: function(response) {
 						agregarMensaje($('#mensajeVinculacion'), 'S', 'La informaci\u00F3n se ha almacenado correctamente.');
 				    },
 			        error: function(error){
 						console.log(error);
+						alert(error);
 				        agregarMensaje($('#mensajeVinculacion'), 'E', 'No se almaceno correctamente la informaci\u00F3n.');
 				        $.mobile.loading('hide');
 					}
@@ -463,6 +465,8 @@ function guardar(){
 	} catch (e) {
 		$.mobile.loading('hide');
 		console.log(error);
+		agregarMensaje($('#mensajeVinculacion'), 'E', 'Error en tiempo de ejecuci\u00F3n, por favor contacte el administrador.');
+		alert(error);
 	}
 	
 }
