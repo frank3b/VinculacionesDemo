@@ -129,7 +129,7 @@
 
 	<div data-role="page" data-control-title="Vinculaciones" data-theme="b"
 		id="vinculacion" style="background: url('images/fondo.png')">
-		<div id="vinculacionPageHeader" data-theme="b" data-role="header">
+		<div id="vinculacionPageHeader" data-theme="b" data-role="header" >
 			<a href="#logon" data-icon="delete" onclick="salir();">Salir</a>
 			<h3 id="headerVinculacion">Vinculaciones</h3>
 			<a href="#" data-icon="check" onclick="guardar();">Guardar</a>
@@ -154,9 +154,9 @@
 									<b>Tipo de Documento</b>
 								</div>
 								<div data-role="fieldcontain" data-controltype="selectmenu"
-									data-type="horizontal" style="margin-top: 1px;">
+									data-type="horizontal" style="margin-top: 1px;" style="border:0.4px solid; border-radius:0.4px;">
 
-									<select id="tipoDocumento" name="" data-mini="false" >
+									<select id="tipoDocumento" name="" data-mini="false" style="border:0.4px solid; border-radius:0.4px;">
 										<option value="CC">Cedula</option>
 										<option value="CE">Cedula de extranjeria</option>
 										<option value="NI">Nit</option>
@@ -927,10 +927,10 @@
 						<h3>Anexos</h3>
 						<a id="agregarAdjunto" data-role="button" data-inline="true"
 							href="#" data-icon="plus" data-iconpos="left"
-							data-transition="pop"> Nuevo Doc</a>
+							data-transition="pop"> Documento</a>
 						<a id="agregarImagen" data-role="button" data-inline="true"
 							href="#" data-icon="plus" data-iconpos="left"
-							data-transition="pop" onclick="tomarFoto();"> Nueva Imagen</a>	
+							data-transition="pop" onclick="tomarFoto();"> Imagen</a>	
 						<ul id="listaAnexos" data-role="listview"
 							data-inset="true" data-theme="c">
 							<li data-role="list-divider" role="heading">Documentos</li>
