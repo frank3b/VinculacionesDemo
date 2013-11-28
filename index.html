@@ -6,12 +6,9 @@
 <title>Demo Vinculaciones</title>
 
 <link href="jquery.mobile/codiqa.ext.min.css" rel="stylesheet">
-<link href="jquery.mobile/jquery.mobile.theme-1.3.1.min.css"
-	rel="stylesheet">
-<link href="jquery.mobile/theme_xm_jqm_1.1.css" rel="stylesheet">
-<link href="jquery.mobile/jquery.mobile.structure-1.3.1.min.css"
-	rel="stylesheet">
-
+<link href="jquery.mobile/jquery.mobile.theme-1.3.1.min.css" rel="stylesheet">
+<link href="jquery.mobile/jquery.mobile.structure-1.3.1.min.css" rel="stylesheet">
+<link href="css/theme_bancolombia.min.css" rel="stylesheet">
 <link href="css/custom-styles.css" rel="stylesheet">
 
 <script src="js/jquery-1.9.1.min.js"></script>
@@ -134,16 +131,19 @@
 		id="vinculacion" style="background: url('images/fondo.png')">
 		<div id="vinculacionPageHeader" data-theme="b" data-role="header">
 			<a href="#logon" data-icon="delete" onclick="salir();">Salir</a>
-			<h3 id="headerVinculacion">Vinculación Simplificada</h3>
+			<h3 id="headerVinculacion">Vinculaciones</h3>
 			<a href="#" data-icon="check" onclick="guardar();">Guardar</a>
 		</div>
+		<div align="center">
+			<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
+		</div>
+		
 		<div data-role="content">
 			<div data-controltype="textblock" id="bienvenidaText"></div>
 
 			<div id="mensajeVinculacion" data-controltype="textblock"></div>
 			<form action="">
-				<div id="secciones" data-role="collapsible-set" data-theme="b"
-					data-content-theme="b">
+				<div id="secciones" data-role="collapsible-set" data-theme="b">
 					<div id="identificacionDiv" data-role="collapsible"
 						data-collapsed="false">
 						<h3>Identificación</h3>
@@ -156,7 +156,7 @@
 								<div data-role="fieldcontain" data-controltype="selectmenu"
 									data-type="horizontal" style="margin-top: 1px;">
 
-									<select id="tipoDocumento" name="" data-mini="false">
+									<select id="tipoDocumento" name="" data-mini="false" >
 										<option value="CC">Cedula</option>
 										<option value="CE">Cedula de extranjeria</option>
 										<option value="NI">Nit</option>
@@ -304,7 +304,7 @@
 						<div data-role="fieldcontain" data-controltype="toggleswitch"
 							style="margin-top: 1px;">
 							<select name="conceptoComercial" id="conceptoComercial"
-								data-theme="" data-role="slider">
+								data-role="slider">
 								<option value="si">Si</option>
 								<option value="no">No</option>
 							</select>
@@ -926,21 +926,19 @@
 					<div data-role="collapsible" data-collapsed="true">
 						<h3>Anexos</h3>
 						<a id="agregarAdjunto" data-role="button" data-inline="true"
-							data-theme="b" href="#" data-icon="plus" data-iconpos="left"
+							href="#" data-icon="plus" data-iconpos="left"
 							data-transition="pop" onclick="tomarFoto();"> Nuevo </a>
-						<ul id="listaAnexos" data-role="listview" data-divider-theme="b"
+						<ul id="listaAnexos" data-role="listview"
 							data-inset="true">
 							<li data-role="list-divider" role="heading">Documentos</li>
-							<li data-theme="c"><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/f_691.pdf"
-								data-transition="slidefade"> Nombre Archivo 1</a></li>
-							<li data-theme="c"><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf"
-								data-transition="slidefade"> Nombre Archivo 2</a></li>									
+							<li><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/f_691.pdf"
+								data-transition="slidefade" data-ajax="false"> Nombre Archivo 1</a></li>
+							<li><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf"
+								data-transition="slidefade" data-ajax="false"> Nombre Archivo 2</a></li>									
 							<li data-role="list-divider" role="heading">
 		                        Imagenes
 		                    </li>
-		                    <li data-theme="c">
-		                    
-								<img src="" id="foto" />
+		                    <li>
 		                    
 		                    </li>	
 						</ul>
@@ -953,7 +951,7 @@
 		<!--/Vinculacion-->
 
 
-		<div data-theme="b" data-role="footer" data-position="fixed">
+		<div data-role="footer" data-position="fixed">
 			<div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
 				<ul>
 					<li><a href="#" data-transition="fade"
