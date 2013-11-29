@@ -149,32 +149,6 @@ function segmentar(){
 	
 }
 
-function consultarVinculados() {
-	
-	var data = getViculados();
-	
-	if(data != null){
-		
-		var clientes = data.respuesta.clientes;
-		
-		$.each(clientes, function(index, obj) {
-			console.log("iterando cliente: " + obj.cliente.nombre);
-			var item = "<li><a href=\"#vinculacion\"> "+
-			"<h3>" + obj.cliente.nombre +"</h3>" +
-			"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
-			"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
-			"</a></li>";
-			
-			
-			$("#customerList").append(item);
-            //$("#customerList").listview("refresh");
-		});
-		
-	}
-	
-	
-}
-
 function getViculados() {
 	var json = {
 		"respuesta" : {
@@ -674,7 +648,7 @@ function tomarFoto(){
 			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
 			//"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
 			"</a></li>";
-			alert(item);
+			//alert(item);
 			$('#listaAnexos').append(item).listview('refresh');
 			//$('#img' + idImagen).attr('src', "data:image/jpeg;base64," + imageData);
 			
@@ -689,6 +663,30 @@ function tomarFoto(){
 function verFoto(src){
 	$('#imagenPopup').attr('src', src);
 	//$('#popupFoto').popup( "open" );
+}
+
+function consultarVinculados() {
+	
+	var data = getViculados();
+	
+	if(data != null){
+		
+		var clientes = data.respuesta.clientes;
+		
+		$.each(clientes, function(index, obj) {
+			console.log("iterando cliente: " + obj.cliente.nombre);
+			var item = "<li><a href=\"#vinculacion\"> "+
+			"<h3>" + obj.cliente.nombre +"</h3>" +
+			"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
+			"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
+			"</a></li>";
+			
+			$("#listaVinculados").append(item).listview('refresh');
+		});
+		
+	}
+	
+	
 }
 
 function readDataUrl(file) {

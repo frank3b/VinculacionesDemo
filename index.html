@@ -165,6 +165,7 @@
 									style="margin-top: 1px;">
 									<input name="primerNombre" id="primerNombre"
 										placeholder="Ingrese el primer nombre" value="" type="text">
+									<a href="#listaVinculadosPopup" data-rel="popup" data-icon="search" onclick="consultarVinculados();"><img src="images/buscar.jpg" /></a>	
 								</div>
 
 							</div>
@@ -921,14 +922,20 @@
 		                    </li>	
 						</ul>
 					</div>
-					<!--  	-->
-					<a href="#popupFoto" data-rel="popup" onclick="verFoto('images/fondo.png')" data-position-to="window">
-						popup
-					</a>
 					
 					<div data-role="popup" id="popupFoto">
 						<a href="#vinculacion" data-rel="dialog" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 					  	<img src="" id="imagenPopup" />
+					</div>
+					
+					
+					<div data-role="popup" id="listaVinculadosPopup">
+						<a href="#vinculacion" data-rel="dialog" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					  	<ul id="listaVinculados" data-role="listview"
+							data-inset="true" data-theme="c">
+							<li data-role="list-divider" role="heading">Resultados</li>
+																
+						</ul>
 					</div>
 				</div>
 
