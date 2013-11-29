@@ -356,6 +356,10 @@ function editarVinculacion(data){
 	
 }
 
+abrirAdjunto(url){
+	window.open(url, '_blank');
+}
+
 function guardar(){
 	
 	try {
