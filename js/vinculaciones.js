@@ -688,7 +688,7 @@ function tomarFoto(){
 
 function verFoto(src){
 	$('#imagenPopup').attr('src', src);
-	$('#popupFoto').popup( "open" );
+	//$('#popupFoto').popup( "open" );
 }
 
 function readDataUrl(file) {
