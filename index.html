@@ -379,7 +379,7 @@
 								<div data-role="fieldcontain" data-controltype="textinput"
 									style="margin-top: 1px;">
 									<input name="hijos" id="hijos" placeholder="" value="0"
-										type="number" data-mini="true">
+										type="number" data-mini="false">
 								</div>
 							</div>
 							<div class="ui-block-a">
@@ -394,6 +394,17 @@
 											name="genero" value="0" type="radio"> <label
 											for="generof"> F </label>
 									</fieldset>
+								</div>
+								<div class="custom-label">
+									<b>Estado Civil</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="estadoCivil" name="estadoCivil">
+										<option value="1">Soltero</option>
+										<option value="2">Casado</option>
+										<option value="3">Divorciado</option>
+									</select>
 								</div>
 								<div class="custom-label">
 									<b>Profesión</b>
@@ -420,6 +431,17 @@
 										<option value="4">4</option>
 										<option value="5">5</option>
 										<option value="6">6</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Ocupación</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="ocupacionSelect" name="ocupacion">
+										<option value="1">Empleado</option>
+										<option value="2">Independiente</option>
+										<option value="3">Otro</option>
 									</select>
 								</div>
 								<div class="custom-label">
@@ -715,7 +737,7 @@
 									<b>Tipo de Moneda</b>
 								</div>
 								<div data-role="fieldcontain" data-controltype="selectmenu">
-									<select id="tipoMonedaSelect" name="">
+									<select id="tipoMonedaSelect" name="" style="margin-top: 1px;">
 										<option value="1">COP</option>
 										<option value="2">US</option>
 										<option value="3">EUR</option>
@@ -935,9 +957,9 @@
 							data-inset="true" data-theme="c">
 							<li data-role="list-divider" role="heading">Documentos</li>
 							<li><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/f_691.pdf"
-								data-transition="slidefade" data-ajax="false"> Nombre Archivo 1</a></li>
+								data-transition="slidefade" data-ajax="false" rel="external"> Nombre Archivo 1</a></li>
 							<li><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf"
-								data-transition="slidefade" data-ajax="false"> Nombre Archivo 2</a></li>									
+								data-transition="slidefade" data-ajax="false" rel="external"> Nombre Archivo 2</a></li>									
 							<li data-role="list-divider" role="heading">
 		                        Imagenes
 		                    </li>
@@ -964,7 +986,7 @@
 						onclick="validarListasControl();" data-theme="b" data-icon="">
 							Validar listas control </a></li>
 					<li><a href="#" data-transition="fade" onclick="segmentar();"
-						data-theme="b" data-icon=""> Segmentar </a></li>
+						data-theme="b" data-icon=""> Segmentar / Calificar </a></li>
 					<li><a href="#" data-transition="fade" onclick="vincular();"
 						data-theme="b" data-icon=""> Vincular </a></li>
 				</ul>

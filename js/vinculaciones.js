@@ -78,52 +78,74 @@ function salir(){
 	
 }
 
-function segmentar(){
-	
-	$.mobile.loading('show');
-	setTimeout(function() {
-		
-		$('#segmento').val("PERSONAL PLUS");
-		$('#subsegmento').val("Basico");
-		$('#tamanoComercial').val("0.01");
-		
-		$('#identificacionDiv').trigger('collapse');
-		$('#ubicacion').trigger('collapse');
-		$('#datosFinancieros').trigger('collapse');
-		$('#determinarCiiuButton').trigger('collapse');
-		$('#datosGenerales').trigger('expand');
-		$('#segmento').trigger("focus");
-		
-		agregarMensaje($('#mensajeVinculacion'), 'S', 'El proceso de segmentaci\u00F3n termino correctamente.');
-		$.mobile.loading('hide');
-	}, 2000);
-	
-	
-}
-
+var isListasControlValidadas = false;
 function validarListasControl(){
 	
-	$.mobile.loading('show');
-	setTimeout(function() {
-		$('#calificacionInterna').val("SIN CALIF");
-		$('#fechaVigenciaCalif').val("2014-12-31");
-		$('#personaBloqueada').val("no").slider('refresh');
-		$('#estado').val("PENDIENTE");
-		
-		agregarMensaje($('#mensajeVinculacion'), 'S', 'No se encuentra en listas de control.');
-		
-		$.mobile.loading('hide');
-	}, 2000);
+	var tipo_documento = $('#tipoDocumento').val();
+	var numero_documento = $('#numeroDocumento').val();
 	
+	if(tipo_documento == null || tipo_documento == ''){
+		agregarMensaje($('#mensajeVinculacion'), 'W', 'El tipo de documento es requerido.');
+	} else if(numero_documento == null || numero_documento == ''){
+		agregarMensaje($('#mensajeVinculacion'), 'W', 'El numero de documento es requerido.');
+	} else {
+		$.mobile.loading('show');
+		setTimeout(function() {
+			$('#calificacionInterna').val("SIN CALIF");
+			$('#fechaVigenciaCalif').val("2014-12-31");
+			$('#personaBloqueada').val("no").slider('refresh');
+			$('#estado').val("PENDIENTE");
+			
+			agregarMensaje($('#mensajeVinculacion'), 'S', 'No se encuentra en listas de control.');
+			isListasControlValidadas = true;
+			$.mobile.loading('hide');
+		}, 2000);
+	}
 	
 }
 
 function vincular(){
-	$.mobile.loading('show');
-	setTimeout(function() {
-		agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
-		$.mobile.loading('hide');
-	}, 2000);
+	
+	if(isSegmentado){
+		$.mobile.loading('show');
+		setTimeout(function() {
+			agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
+			$.mobile.loading('hide');
+		}, 2000);
+	} else {
+		agregarMensaje($('#mensajeVinculacion'), 'W', 'Debe ejecutar primero la operaci\u00F3n Segmentar/Calificar.');
+	}
+	
+	
+	
+}
+
+var isSegmentado = false;
+function segmentar(){
+	
+	if(isListasControlValidadas){
+		$.mobile.loading('show');
+		setTimeout(function() {
+			
+			$('#segmento').val("PERSONAL PLUS");
+			$('#subsegmento').val("Basico");
+			$('#tamanoComercial').val("0.01");
+			
+			$('#identificacionDiv').trigger('collapse');
+			$('#ubicacion').trigger('collapse');
+			$('#datosFinancieros').trigger('collapse');
+			$('#determinarCiiuButton').trigger('collapse');
+			$('#datosGenerales').trigger('expand');
+			$('#segmento').trigger("focus");
+			
+			isSegmentado = true;
+			
+			agregarMensaje($('#mensajeVinculacion'), 'S', 'El proceso de segmentaci\u00F3n termino correctamente.');
+			$.mobile.loading('hide');
+		}, 2000);
+	} else {
+		agregarMensaje($('#mensajeVinculacion'), 'W', 'Debe ejecutar primero la validaci\u00F3n de listas de control.');
+	}
 	
 }
 
@@ -186,9 +208,16 @@ function iniciarCampos(){
 
 function determinarCiiu(){
 	
+	//FIXME - validar si  ingresaron el codigo
+		
 	$.mobile.loading('show');
 	setTimeout(function() {
-		agregarMensaje($('#mensajeVinculacion'), 'S', 'Se ha determinado el CIIU correctamente.');
+		agregarMensaje($('#mensajeVinculacion'), 'S', 'Se ha determinado el CIIU correctamente.');	
+		
+		$('#codigosubCIIU').val("9182");
+		$('#descCiiu').val("ASALARIADO");
+		$('#descsubCIIU').val("N/A");
+		
 		$.mobile.loading('hide');
 	}, 2000);
 	
@@ -318,6 +347,9 @@ function editarVinculacion(data){
 		$('#personaBloqueada').val(data.persona_bloqueada).slider('refresh');
 		$('#estado').val(data.estado);
 		
+		$('#estadoCivil').val(data.estado_civil).selectmenu('refresh');
+		$('#ocupacion').val(data.ocupacion).selectmenu('refresh');
+		
 	} catch (e) {
 		alert(e);
 	}
@@ -424,6 +456,9 @@ function guardar(){
 			vinculado.fecha_vigencia_calif = $('#fechaVigenciaCalif').val();
 			vinculado.persona_bloqueada = $('#personaBloqueada').val();
 			vinculado.estado = $('#estado').val();
+			
+			vinculado.estado_civil = $('#estadoCivil').val();
+			vinculado.ocupacion = $('#ocupacion').val();
 			
 			//alert("VINCULADO MOD... " +  JSON.stringify(vinculado));
 			
@@ -599,6 +634,8 @@ function limpiarCamposVinculacion(){
 	$('#fechaVigenciaCalif').val("");
 	$('#personaBloqueada').val("no").slider('refresh');
 	$('#estado').val("");
+	$('#estadoCivil').val("1").selectmenu('refresh');
+	$('#ocupacion').val("1").selectmenu('refresh');
 	
 }
 
