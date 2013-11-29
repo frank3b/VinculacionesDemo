@@ -356,7 +356,7 @@ function editarVinculacion(data){
 	
 }
 
-abrirAdjunto(url){
+function abrirAdjunto(url){
 	window.open(url, '_blank');
 }
 
