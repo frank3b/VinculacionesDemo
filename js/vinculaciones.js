@@ -357,7 +357,7 @@ function editarVinculacion(data){
 }
 
 function abrirAdjunto(url){
-	window.open(url, '_blank');
+	window.open(url, '_system', 'location=yes');
 }
 
 function guardar(){
