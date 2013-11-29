@@ -361,7 +361,6 @@ function guardar(){
 	try {
 		var isnuevo = true;
 		
-		$.mobile.loading('show');
 		limpiarMensaje($('#mensajeVinculacion'));
 		
 		var tipo_documento = $('#tipoDocumento').val();
@@ -372,6 +371,7 @@ function guardar(){
 		} else if(numero_documento == null || numero_documento == ''){
 			agregarMensaje($('#mensajeVinculacion'), 'E', 'El numero de documento es requerido.');
 		} else {
+			$.mobile.loading('show');
 			
 			if(vinculado != null && vinculado._id != null && vinculado._id != ''){
 				isnuevo = false;
