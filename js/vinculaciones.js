@@ -668,7 +668,7 @@ function tomarFoto(){
 			
 			//alert(JSON.stringify(imageData));
 			//alert(imageData);
-			var item = "<li><a href=\"#\" data-rel=\"popup\" data-position-to=\"window\"> "+
+			var item = "<li><a href=\"#\" onclick=\"verFoto("+ imageData +")\" data-rel=\"popup\" data-position-to=\"window\"> "+
 			"<img id='img' " + idImagen + " src='"+ imageData +"'/> " +
 			//"<h3>Nombre Imagen</h3>" +
 			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
@@ -686,8 +686,9 @@ function tomarFoto(){
 	return false;
 }
 
-function verFoto(){
-	$( "#imagenPopup" ).popup( "open" );
+function verFoto(src){
+	$('#imagenPopup').attr('src', src);
+	$('#popupFoto').popup( "open" );
 }
 
 function readDataUrl(file) {
