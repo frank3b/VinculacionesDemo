@@ -33,56 +33,6 @@
 				    console.log(evt.code);}
 				);
 	};
-
-	function init() {
-		
-		document.addEventListener("deviceready", onDeviceReady, true);
-		iniciarCampos();
-
-		/********Init Connection with kinvey Back End********/
-		var promise = Kinvey.init({
-			appKey : 'kid_TPEkUaJmB9',
-			appSecret : '86e9e6362d254b78bb9adf588b48de6d'
-		});
-
-		promise
-				.then(
-						function(activeUser) {
-
-							var user = Kinvey.getActiveUser();
-							if (null == user) {
-								Kinvey.User.login('admin', 'admin', {
-									success : function() {
-										console.log('autenticado');
-									},
-									error : function(error) {
-										console.log(error);
-									}
-								});
-							}
-
-						},
-						function(error) {
-							$('#mensaje')
-									.text(
-											'Problemas conectando con el backend. Por favor intente mas tarde');
-
-						});
-
-		$("#ingresar").on("click", function() {
-			validarIngreso();
-			//FIXME - descomentar
-			//$.mobile.changePage("#vinculacion", {
-			//	transition : "pop",
-			//	reverse : false,
-			//	changeHash : false
-			//});
-		});
-
-		//$(document).on("pageshow", "#vinculacion", function () {
-
-		//});
-	}
 </script>
 
 </head>
@@ -93,7 +43,7 @@
 		style="background: url('images/fondo.png'); background-size:100% 100%;">
 
 		<div data-role="header" data-theme="b" align="center">
-			<h1>Viculaciones</h1>
+			<h1>Vinculaciones</h1>
 		</div>
 
 		<div data-role="content">
@@ -736,8 +686,8 @@
 								<div class="custom-label">
 									<b>Tipo de Moneda</b>
 								</div>
-								<div data-role="fieldcontain" data-controltype="selectmenu">
-									<select id="tipoMonedaSelect" name="" style="margin-top: 1px;">
+								<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
+									<select id="tipoMonedaSelect" name="" >
 										<option value="1">COP</option>
 										<option value="2">US</option>
 										<option value="3">EUR</option>
@@ -956,10 +906,13 @@
 						<ul id="listaAnexos" data-role="listview"
 							data-inset="true" data-theme="c">
 							<li data-role="list-divider" role="heading">Documentos</li>
-							<li><a href="#" onclick="abrirAdjunto('http://www.grupobancolombia.com/personal/formatosPDF/comunes/f_691.pdf');"
-								data-rel="dialog"> Nombre Archivo 1</a></li>
-							<li><a href="http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf"
-								data-transition="slidefade" data-ajax="false" rel="external"> Nombre Archivo 2</a></li>									
+							<li>
+								<a href="#" onclick="abrirAdjunto('http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf');"
+									data-rel="dialog"> DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf</a></li>
+							<li>
+								<a href="#" onclick="abrirAdjunto('http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf');"
+									data-rel="dialog"> DCNo.2PORIMPORTACIONESDEBIENESDCIN-83.pdf</a>
+							</li>									
 							<li data-role="list-divider" role="heading">
 		                        Imagenes
 		                    </li>
@@ -968,7 +921,15 @@
 		                    </li>	
 						</ul>
 					</div>
-
+					<!--  
+					<a href="#popupFoto" data-rel="popup" 
+						data-position-to="window" data-role="button" data-icon="delete" data-iconpos="notext" class="ui-btn-right">
+						popup
+						</a>
+ 					-->
+					<div data-role="popup" id="popupFoto">
+					  <img src="" id="imagenPopup" />
+					</div>
 				</div>
 
 			</form>

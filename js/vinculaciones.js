@@ -208,18 +208,24 @@ function iniciarCampos(){
 
 function determinarCiiu(){
 	
-	//FIXME - validar si  ingresaron el codigo
-		
-	$.mobile.loading('show');
-	setTimeout(function() {
-		agregarMensaje($('#mensajeVinculacion'), 'S', 'Se ha determinado el CIIU correctamente.');	
-		
-		$('#codigosubCIIU').val("9182");
-		$('#descCiiu').val("ASALARIADO");
-		$('#descsubCIIU').val("N/A");
-		
-		$.mobile.loading('hide');
-	}, 2000);
+	var codigoCiiu = $('#codigoCIIU').val();
+	
+	if(codigoCiiu == null || codigoCiiu == ''){
+		//FIXME - popup
+	} else {
+		$.mobile.loading('show');
+		setTimeout(function() {
+			agregarMensaje($('#mensajeVinculacion'), 'S', 'Se ha determinado el CIIU correctamente.');	
+			
+			$('#codigosubCIIU').val("9182");
+			$('#descCiiu').val("ASALARIADO");
+			$('#descsubCIIU').val("N/A");
+			
+			$.mobile.loading('hide');
+		}, 2000);
+	}
+	
+	
 	
 }
 
@@ -662,7 +668,7 @@ function tomarFoto(){
 			
 			//alert(JSON.stringify(imageData));
 			//alert(imageData);
-			var item = "<li><a href=\"#\"> "+
+			var item = "<li><a href=\"#\" data-rel=\"popup\" data-position-to=\"window\"> "+
 			"<img id='img' " + idImagen + " src='"+ imageData +"'/> " +
 			//"<h3>Nombre Imagen</h3>" +
 			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
@@ -680,6 +686,10 @@ function tomarFoto(){
 	return false;
 }
 
+function verFoto(){
+	$( "#imagenPopup" ).popup( "open" );
+}
+
 function readDataUrl(file) {
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
 }
@@ -691,4 +701,61 @@ function onFileSystemSuccess(fileSystem) {
 
 function fail(evt) {
     console.log(evt.target.error.code);
+}
+
+function init() {
+
+	document.addEventListener("deviceready", onDeviceReady, true);
+	iniciarCampos();
+
+	/********Init Connection with kinvey Back End********/
+	var promise = Kinvey.init({
+		appKey : 'kid_TPEkUaJmB9',
+		appSecret : '86e9e6362d254b78bb9adf588b48de6d'
+	});
+
+	promise
+			.then(
+					function(activeUser) {
+
+						var user = Kinvey.getActiveUser();
+						if (null == user) {
+							Kinvey.User.login('admin', 'admin', {
+								success : function() {
+									console.log('autenticado');
+								},
+								error : function(error) {
+									console.log(error);
+								}
+							});
+						}
+
+					},
+					function(error) {
+						$('#mensaje')
+								.text(
+										'Problemas conectando con el backend. Por favor intente mas tarde');
+
+					});
+
+	$("#ingresar").on("click", function() {
+		validarIngreso();
+		//FIXME - descomentar
+		//$.mobile.changePage("#vinculacion", {
+		//	transition : "pop",
+		//	reverse : false,
+		//	changeHash : false
+		//});
+	});
+
+	$(".photopopup").on({
+		popupbeforeposition : function() {
+			var maxHeight = $(window).height() - 60 + "px";
+			$(".photopopup img").css("max-height", maxHeight);
+		}
+	});
+
+	//$(document).on("pageshow", "#vinculacion", function () {
+
+	//});
 }
