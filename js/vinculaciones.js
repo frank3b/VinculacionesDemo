@@ -650,6 +650,15 @@ function verFoto(src){
 	//$('#popupFoto').popup( "open" );
 }
 
+function verVinculado(idVinculado){
+	$.each(response, function(index, obj) {
+		if(obj._id = idVinculado){
+			editarVinculacion(obj);
+		}
+	});
+}
+
+var listaVinculados = null;
 function consultarVinculados() {
 	if (vinculado != null && vinculado._id != null && vinculado._id != '') {
 		console.log("Esta editando el vinculado");
@@ -676,16 +685,17 @@ function consultarVinculados() {
 				//alert(JSON.stringify(queryName));
 			    Kinvey.DataStore.find('VINCULACIONES', queryName, {
 			        success: function(response) {
-			        	alert(JSON.stringify(response));
+			        	//alert(JSON.stringify(response));
 			           if(response.length > 0){
 			        	   $('#guardar').button('enable');
 				           $.mobile.loading('hide');
-			               
+				           
+				           listaVinculados = response;
 				           $.each(response, function(index, obj) {
 								// editarVinculacion(obj);
 
 								console.log("iterando cliente: " + obj.primer_nombre);
-								var item = "<li><a href=\"#vinculacion\"> " + "<h3>"
+								var item = "<li><a href=\"#vinculacion\" onclick='verVinculado("+ obj._id +")'> " + "<h3>"
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
 										+ obj.segundo_apellido + "</h3>"
