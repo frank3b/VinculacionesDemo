@@ -84,10 +84,15 @@ function validarListasControl(){
 	var tipo_documento = $('#tipoDocumento').val();
 	var numero_documento = $('#numeroDocumento').val();
 	
+	var primer_nombre = $('#primerNombre').val();
+	var primer_apellido = $('#primerApellido').val();
+	
 	if(tipo_documento == null || tipo_documento == ''){
 		agregarMensaje($('#mensajeVinculacion'), 'W', 'El tipo de documento es requerido.');
 	} else if(numero_documento == null || numero_documento == ''){
 		agregarMensaje($('#mensajeVinculacion'), 'W', 'El numero de documento es requerido.');
+	} else if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {	
+		agregarMensaje($('#mensajeVinculacion'), 'E', 'El campo nombre y apellidos es requerido.');
 	} else {
 		$.mobile.loading('show');
 		setTimeout(function() {
@@ -334,11 +339,15 @@ function guardar(){
 		
 		var tipo_documento = $('#tipoDocumento').val();
 		var numero_documento = $('#numeroDocumento').val();
+		var primer_nombre = $('#primerNombre').val();
+		var primer_apellido = $('#primerApellido').val();
 		
 		if(tipo_documento == null || tipo_documento == ''){
 			agregarMensaje($('#mensajeVinculacion'), 'E', 'El tipo de documento es requerido.');
 		} else if(numero_documento == null || numero_documento == ''){
 			agregarMensaje($('#mensajeVinculacion'), 'E', 'El numero de documento es requerido.');
+		} else if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {	
+			agregarMensaje($('#mensajeVinculacion'), 'E', 'El campo nombre y apellidos es requerido.');
 		} else {
 			$.mobile.loading('show');
 			
@@ -666,7 +675,7 @@ function consultarVinculados() {
 		var primer_nombre = $('#primerNombre').val();
 		var primer_apellido = $('#primerApellido').val();
 		if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {
-			$("#listaVinculados").empty();	
+			$("#listaVinculados li").eq(1).remove();
 			
 			try{
 				$.mobile.loading('show');
@@ -702,7 +711,8 @@ function consultarVinculados() {
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
 										+ obj.segundo_apellido + "</strong></p>"
-										+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
+										+ "<p><strong>Estado:</strong> " + obj.estado + "</p>"
+										//+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
 										+ "</a></li>";
 								
 								$("#listaVinculados").append(item).listview('refresh');
