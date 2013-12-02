@@ -657,25 +657,65 @@ function consultarVinculados() {
 		var primer_nombre = $('#primerNombre').val();
 		var primer_apellido = $('#primerApellido').val();
 		if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {
-			var data = getViculados();
+			
+			
+			try{
+				$.mobile.loading('show');
+				$('#guardar').button('disable'); 
+				limpiarMensaje($('#mensajeVinculacion'));	
+				
+			    var primer_nombre = $('#primerNombre').val();
+				var primer_apellido = $('#primerApellido').val();
+				
+				var queryName = new Kinvey.Query();
+				var queryApellido = new Kinvey.Query();
+				queryName.equalTo('primer_nombre', primer_nombre);
+				queryApellido.equalTo('primer_apellido', primer_apellido);
+				queryName.and(queryApellido);
+				
+				alert(JSON.stringify(queryName));
+			    Kinvey.DataStore.find('VINCULACIONES', queryName, {
+			        success: function(response) {
+			        	alert(JSON.stringify(response));
+			           if(response.length > 0){
+			        	   $('#guardar').button('enable');
+				           $.mobile.loading('hide');
+			               
+				           $.each(response, function(index, obj) {
+								// editarVinculacion(obj);
 
-			if (data != null) {
+								console.log("iterando cliente: " + obj.primer_nombre);
+								var item = "<li><a href=\"#vinculacion\"> " + "<h3>"
+										+ obj.primer_nombre + " " + obj.segundo_nombre
+										+ " " + obj.primer_apellido + " "
+										+ obj.segundo_apellido + "</h3>"
+										+ "<p><strong>Cedula:</strong> " + obj.cedula
+										+ "</p>" + "<p class=\"ui-li-aside\"><strong>"
+										+ obj.estado + "</strong></p>" + "</a></li>";
+								
+								alert(item);
 
-				$.each(data, function(index, obj) {
-					// editarVinculacion(obj);
-
-					console.log("iterando cliente: " + obj.primer_nombre);
-					var item = "<li><a href=\"#vinculacion\"> " + "<h3>"
-							+ obj.primer_nombre + " " + obj.segundo_nombre
-							+ " " + obj.primer_apellido + " "
-							+ obj.segundo_apellido + "</h3>"
-							+ "<p><strong>Cedula:</strong> " + obj.cedula
-							+ "</p>" + "<p class=\"ui-li-aside\"><strong>"
-							+ obj.estado + "</strong></p>" + "</a></li>";
-
-					$("#listaVinculados").append(item).listview('refresh');
-				});
-
+								$("#listaVinculados").append(item).listview('refresh');
+							});
+				           
+			           } else {
+			        	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 registros ');
+			        	 $('#guardar').button('enable');
+				          $.mobile.loading('hide');
+			           }
+			           
+			        },
+			        error: function(error){
+						console.log(error);
+						agregarMensaje($('#mensajeVinculacion'), 'E', 'Error de conexi\u00F3n, verifique por favor.' );
+				        $.mobile.loading('hide');
+				        $('#guardar').button('enable');
+					}
+			    });
+			} catch (e) {
+				$.mobile.loading('hide');
+				$('#guardar').button('enable');
+				console.log(error);
 			}
 
 		}
@@ -684,47 +724,7 @@ function consultarVinculados() {
 	
 
 function getViculados() {
-	try{
-		$.mobile.loading('show');
-		$('#guardar').button('disable'); 
-		limpiarMensaje($('#mensajeVinculacion'));	
-		
-	    var primer_nombre = $('#primerNombre').val();
-		var primer_apellido = $('#primerApellido').val();
-		
-		var queryName = new Kinvey.Query();
-		var queryApellido = new Kinvey.Query();
-		queryName.equalTo('primer_nombre', primer_nombre);
-		queryApellido.equalTo('primer_apellido', primer_apellido);
-		queryName.and(queryApellido);
-		
-		alert(JSON.stringify(queryName));
-	    Kinvey.DataStore.find('VINCULACIONES', queryName, {
-	        success: function(response) {
-	        	alert(JSON.stringify(response));
-	           if(response.length > 0){
-	        	   $('#guardar').button('enable');
-		           $.mobile.loading('hide');
-	               return response;               
-	           } else {
-	        	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 registros ');
-	        	 $('#guardar').button('enable');
-		          $.mobile.loading('hide');
-	           }
-	           
-	        },
-	        error: function(error){
-				console.log(error);
-				agregarMensaje($('#mensajeVinculacion'), 'E', 'Error de conexi\u00F3n, verifique por favor.' );
-		        $.mobile.loading('hide');
-		        $('#guardar').button('enable');
-			}
-	    });
-	} catch (e) {
-		$.mobile.loading('hide');
-		$('#guardar').button('enable');
-		console.log(error);
-	}
+	
 	
 	return json;
 }
