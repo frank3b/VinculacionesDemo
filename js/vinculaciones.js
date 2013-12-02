@@ -691,6 +691,9 @@ function consultarVinculados() {
 				           $.mobile.loading('hide');
 				           
 				           listaVinculados = response;
+				           
+				           $("#listaVinculados").append("<li data-role=\"list-divider\" role=\"heading\">Seleccione</li>").listview('refresh');
+				           var isPopupEnabled = false;
 				           $.each(response, function(index, obj) {
 
 								var item = "<li><a href=\"#vinculacion\" onclick=\"verVinculado('"+ obj._id +"');\"> "
@@ -704,7 +707,11 @@ function consultarVinculados() {
 								
 								$("#listaVinculados").append(item).listview('refresh');
 								
-								$( "#listaVinculadosPopup" ).popup( "open" );
+								if(!isPopupEnabled){
+									$( "#listaVinculadosPopup" ).popup( "open" );
+									isPopupEnabled = true;
+								}
+								
 							});
 				           
 			           } else {
