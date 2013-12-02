@@ -675,7 +675,7 @@ function consultarVinculados() {
 		var primer_nombre = $('#primerNombre').val();
 		var primer_apellido = $('#primerApellido').val();
 		if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {
-			$("#listaVinculados li").eq(1).remove();
+			$("#listaVinculados li").remove();
 			
 			try{
 				$.mobile.loading('show');
@@ -701,7 +701,7 @@ function consultarVinculados() {
 				           
 				           listaVinculados = response;
 				           
-				           $("#listaVinculados").append("<li data-role=\"list-divider\" role=\"heading\">Seleccione</li>").listview('refresh');
+				           $("#listaVinculados").append("<li data-role=\"list-divider\" role=\"heading\">Seleccione un registro</li>").listview('refresh');
 				           var isPopupEnabled = false;
 				           $.each(response, function(index, obj) {
 
@@ -711,8 +711,8 @@ function consultarVinculados() {
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
 										+ obj.segundo_apellido + "</strong></p>"
-										+ "<p><strong>Estado:</strong> " + obj.estado + "</p>"
-										//+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
+										//+ "<p><strong>Estado:</strong> " + obj.estado + "</p>"
+										+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
 										+ "</a></li>";
 								
 								$("#listaVinculados").append(item).listview('refresh');
