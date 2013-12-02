@@ -678,8 +678,8 @@ function consultarVinculados() {
 				
 				var queryName = new Kinvey.Query();
 				var queryApellido = new Kinvey.Query();
-				queryName.equalTo('primer_nombre', primer_nombre);
-				queryApellido.equalTo('primer_apellido', primer_apellido);
+				queryName.matches('primer_nombre', primer_nombre);
+				queryApellido.matches('primer_apellido', primer_apellido);
 				queryName.and(queryApellido);
 				
 				//alert(JSON.stringify(queryName));
@@ -695,10 +695,10 @@ function consultarVinculados() {
 
 								var item = "<li><a href=\"#vinculacion\" onclick=\"verVinculado('"+ obj._id +"');\"> "
 										+ "<p><strong>Documento:</strong> " + obj.numero_documento + "</p>"
-										+ "<h3>"
+										+ "<p><strong>"
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
-										+ obj.segundo_apellido + "</h3>"
+										+ obj.segundo_apellido + "</strong></p>"
 										+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
 										+ "</a></li>";
 								
