@@ -673,7 +673,7 @@ function consultarVinculados() {
 				queryApellido.equalTo('primer_apellido', primer_apellido);
 				queryName.and(queryApellido);
 				
-				alert(JSON.stringify(queryName));
+				//alert(JSON.stringify(queryName));
 			    Kinvey.DataStore.find('VINCULACIONES', queryName, {
 			        success: function(response) {
 			        	alert(JSON.stringify(response));
@@ -689,13 +689,15 @@ function consultarVinculados() {
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
 										+ obj.segundo_apellido + "</h3>"
-										+ "<p><strong>Cedula:</strong> " + obj.cedula
+										+ "<p><strong>Documento:</strong> " + obj.numero_documento
 										+ "</p>" + "<p class=\"ui-li-aside\"><strong>"
 										+ obj.estado + "</strong></p>" + "</a></li>";
 								
-								alert(item);
+								//alert(item);
 
 								$("#listaVinculados").append(item).listview('refresh');
+								
+								$( "#listaVinculadosPopup" ).popup( "open" );
 							});
 				           
 			           } else {
