@@ -666,7 +666,7 @@ function consultarVinculados() {
 		var primer_nombre = $('#primerNombre').val();
 		var primer_apellido = $('#primerApellido').val();
 		if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {
-			
+			$("#listaVinculados").empty();	
 			
 			try{
 				$.mobile.loading('show');
@@ -692,19 +692,16 @@ function consultarVinculados() {
 				           
 				           listaVinculados = response;
 				           $.each(response, function(index, obj) {
-								// editarVinculacion(obj);
 
-								console.log("iterando cliente: " + obj.primer_nombre);
-								var item = "<li><a href=\"#vinculacion\" onclick=\"verVinculado('"+ obj._id +"');\"> " + "<h3>"
+								var item = "<li><a href=\"#vinculacion\" onclick=\"verVinculado('"+ obj._id +"');\"> "
+										+ "<p><strong>Documento:</strong> " + obj.numero_documento + "</p>"
+										+ "<h3>"
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
 										+ obj.segundo_apellido + "</h3>"
-										+ "<p><strong>Documento:</strong> " + obj.numero_documento
-										+ "</p>" + "<p class=\"ui-li-aside\"><strong>"
-										+ obj.estado + "</strong></p>" + "</a></li>";
+										+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
+										+ "</a></li>";
 								
-								alert(item);
-
 								$("#listaVinculados").append(item).listview('refresh');
 								
 								$( "#listaVinculadosPopup" ).popup( "open" );
@@ -734,13 +731,6 @@ function consultarVinculados() {
 	}
 }
 	
-
-function getViculados() {
-	
-	
-	return json;
-}
-
 function readDataUrl(file) {
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, onFileSystemSuccess, fail);
 }
@@ -791,12 +781,6 @@ function init() {
 
 	$("#ingresar").on("click", function() {
 		validarIngreso();
-		//FIXME - descomentar
-		//$.mobile.changePage("#vinculacion", {
-		//	transition : "pop",
-		//	reverse : false,
-		//	changeHash : false
-		//});
 	});
 
 	$("#popupFoto").on({
