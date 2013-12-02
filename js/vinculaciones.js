@@ -695,7 +695,7 @@ function consultarVinculados() {
 								// editarVinculacion(obj);
 
 								console.log("iterando cliente: " + obj.primer_nombre);
-								var item = "<li><a href=\"#vinculacion\" onclick='verVinculado('"+ obj._id +"')'> " + "<h3>"
+								var item = "<li><a href=\"#vinculacion\" onclick=\"verVinculado('"+ obj._id +"');\"> " + "<h3>"
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
 										+ obj.segundo_apellido + "</h3>"
