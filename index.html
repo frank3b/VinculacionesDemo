@@ -165,7 +165,6 @@
 									style="margin-top: 1px;">
 									<input name="primerNombre" id="primerNombre"
 										placeholder="Ingrese el primer nombre" value="" type="text">
-									<a href="#listaVinculadosPopup" data-rel="popup" data-icon="search" onclick="consultarVinculados();"><img src="images/buscar.jpg" /></a>	
 								</div>
 
 							</div>
@@ -188,7 +187,7 @@
 								<div data-role="fieldcontain" data-controltype="textinput"
 									style="margin-top: 1px;">
 									<input name="primerApellido" id="primerApellido"
-										placeholder="Ingrese el primer apellido" value="" type="text">
+										placeholder="Ingrese el primer apellido" value="" type="text" onchange="consultarVinculados();">
 								</div>
 							</div>
 							<div class="ui-block-b">

@@ -149,23 +149,7 @@ function segmentar(){
 	
 }
 
-function getViculados() {
-	var json = {
-		"respuesta" : {
-			"clientes" : [ {
-				"cliente" : {
-					"nombre" : "Frank Bedoya",
-					"estado" : "Pendiente",
-					"cedula" : "66576512"
-				}
-			} ]
-		}
 
-	};
-	
-	return json;
-
-}
 
 function iniciarCampos(){
 	
@@ -666,27 +650,80 @@ function verFoto(src){
 }
 
 function consultarVinculados() {
+	if (vinculado != null && vinculado._id != null && vinculado._id != '') {
+		console.log("Esta editando el vinculado");
+	} else {
+		var primer_nombre = $('#primerNombre').val();
+		var primer_apellido = $('#primerApellido').val();
+		if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {
+			var data = getViculados();
+
+			if (data != null) {
+
+				$.each(data, function(index, obj) {
+					// editarVinculacion(obj);
+
+					console.log("iterando cliente: " + obj.primer_nombre);
+					var item = "<li><a href=\"#vinculacion\"> " + "<h3>"
+							+ obj.primer_nombre + " " + obj.segundo_nombre
+							+ " " + obj.primer_apellido + " "
+							+ obj.segundo_apellido + "</h3>"
+							+ "<p><strong>Cedula:</strong> " + obj.cedula
+							+ "</p>" + "<p class=\"ui-li-aside\"><strong>"
+							+ obj.estado + "</strong></p>" + "</a></li>";
+
+					$("#listaVinculados").append(item).listview('refresh');
+				});
+
+			}
+
+		}
+	}
+}
 	
-	var data = getViculados();
-	
-	if(data != null){
+
+function getViculados() {
+	try{
+		$.mobile.loading('show');
+		$('#guardar').button('disable'); 
+		limpiarMensaje($('#mensajeVinculacion'));	
 		
-		var clientes = data.respuesta.clientes;
+	    var primer_nombre = $('#primerNombre').val();
+		var primer_apellido = $('#primerApellido').val();
 		
-		$.each(clientes, function(index, obj) {
-			console.log("iterando cliente: " + obj.cliente.nombre);
-			var item = "<li><a href=\"#vinculacion\"> "+
-			"<h3>" + obj.cliente.nombre +"</h3>" +
-			"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
-			"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
-			"</a></li>";
-			
-			$("#listaVinculados").append(item).listview('refresh');
-		});
-		
+		var queryName = new Kinvey.Query();
+		var queryApellido = new Kinvey.Query();
+		queryName.equalTo("primer_nombre", primer_nombre);
+		queryApellido.equalTo('primer_apellido', primer_apellido);
+		queryName.and(queryApellido);
+	    Kinvey.DataStore.find('VINCULACIONES', queryName, {
+	        success: function(response) {
+	           
+	           if(response.length > 0){
+	        	   $('#guardar').button('enable');
+		           $.mobile.loading('hide');
+	               return response;               
+	           } else {
+	        	 agregarMensaje($('#mensajeVinculacion'), 'W', 'No se encontr\u00F3 registros ');
+	        	 $('#guardar').button('enable');
+		          $.mobile.loading('hide');
+	           }
+	           
+	        },
+	        error: function(error){
+				console.log(error);
+				agregarMensaje($('#mensajeVinculacion'), 'E', 'Error de conexi\u00F3n, verifique por favor.' );
+		        $.mobile.loading('hide');
+		        $('#guardar').button('enable');
+			}
+	    });
+	} catch (e) {
+		$.mobile.loading('hide');
+		$('#guardar').button('enable');
+		console.log(error);
 	}
 	
-	
+	return json;
 }
 
 function readDataUrl(file) {
