@@ -703,7 +703,7 @@ function consultarVinculados() {
 										+ "</p>" + "<p class=\"ui-li-aside\"><strong>"
 										+ obj.estado + "</strong></p>" + "</a></li>";
 								
-								//alert(item);
+								alert(item);
 
 								$("#listaVinculados").append(item).listview('refresh');
 								
