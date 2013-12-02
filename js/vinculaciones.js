@@ -651,7 +651,7 @@ function verFoto(src){
 }
 
 function verVinculado(idVinculado){
-	$.each(response, function(index, obj) {
+	$.each(listaVinculados, function(index, obj) {
 		if(obj._id == idVinculado){
 			editarVinculacion(obj);
 		}
