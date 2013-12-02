@@ -701,7 +701,7 @@ function getViculados() {
 		alert(JSON.stringify(queryName));
 	    Kinvey.DataStore.find('VINCULACIONES', queryName, {
 	        success: function(response) {
-	           
+	        	alert(JSON.stringify(response));
 	           if(response.length > 0){
 	        	   $('#guardar').button('enable');
 		           $.mobile.loading('hide');
