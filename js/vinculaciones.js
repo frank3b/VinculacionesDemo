@@ -202,6 +202,7 @@ function consultarVinculado(){
 	    queryDoc.equalTo("numero_documento", numero_documento);
 		queryTipoDoc.equalTo('tipo_documento', tipo_documento);
 		queryDoc.and(queryTipoDoc);
+		//alert(JSON.stringify(queryDoc));
 	    Kinvey.DataStore.find('VINCULACIONES', queryDoc, {
 	        success: function(response) {
 	           
@@ -693,9 +694,11 @@ function getViculados() {
 		
 		var queryName = new Kinvey.Query();
 		var queryApellido = new Kinvey.Query();
-		queryName.equalTo("primer_nombre", primer_nombre);
+		queryName.equalTo('primer_nombre', primer_nombre);
 		queryApellido.equalTo('primer_apellido', primer_apellido);
 		queryName.and(queryApellido);
+		
+		alert(JSON.stringify(queryName));
 	    Kinvey.DataStore.find('VINCULACIONES', queryName, {
 	        success: function(response) {
 	           
