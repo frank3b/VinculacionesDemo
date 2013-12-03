@@ -174,7 +174,7 @@ function determinarCiiu(){
 	var codigoCiiu = $('#codigoCIIU').val();
 	
 	if(codigoCiiu == null || codigoCiiu == ''){
-		//FIXME - popup
+		agregarMensaje($('#mensajeVinculacion'), 'W', 'El c\u00F3digo CIIU es requerido.');
 	} else {
 		$.mobile.loading('show');
 		setTimeout(function() {
@@ -187,8 +187,6 @@ function determinarCiiu(){
 			$.mobile.loading('hide');
 		}, 2000);
 	}
-	
-	
 	
 }
 
@@ -711,8 +709,8 @@ function consultarVinculados() {
 										+ obj.primer_nombre + " " + obj.segundo_nombre
 										+ " " + obj.primer_apellido + " "
 										+ obj.segundo_apellido + "</strong></p>"
-										//+ "<p><strong>Estado:</strong> " + obj.estado + "</p>"
-										+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
+										+ "<p><strong>Estado:</strong> " + obj.estado + "</p>"
+										//+ "<p class=\"ui-li-aside\"><strong>" + obj.estado + "</strong></p>" 
 										+ "</a></li>";
 								
 								$("#listaVinculados").append(item).listview('refresh');
