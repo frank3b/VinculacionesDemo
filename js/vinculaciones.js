@@ -549,7 +549,9 @@ function limpiarCamposVinculacion(){
 	$('#segundoNombre').val("");
 	$('#segundoApellido').val("");
 	$('#canalContacto').val("");
-	$('#fechaContacto').val(new Date());
+	
+	document.getElementById("fechaContacto").valueAsDate = new Date();
+	//$('#fechaContacto').val(new Date());
 	$('#lugarContacto').val("");
 	$('#horaContacto').val("");
 	$("#conceptoComercial").val("si").slider('refresh');
