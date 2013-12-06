@@ -685,8 +685,8 @@ function consultarVinculados() {
 				
 				var queryName = new Kinvey.Query();
 				var queryApellido = new Kinvey.Query();
-				queryName.matches('primer_nombre', primer_nombre);
-				queryApellido.matches('primer_apellido', primer_apellido);
+				queryName.equalTo('primer_nombre', primer_nombre);
+				queryApellido.equalTo('primer_apellido', primer_apellido);
 				queryName.and(queryApellido);
 				
 				//alert(JSON.stringify(queryName));

@@ -26,12 +26,14 @@
 	var onDeviceReady = function() {
 		//document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
 		
-		window.resolveLocalFileSystemURI("file:///android_asset",
-				  function(entry){
-				    console.log(entry.fullPath);},
-				  function(evt){
-				    console.log(evt.code);}
-				);
+		//window.resolveLocalFileSystemURI("file:///android_asset",
+		//		  function(entry){
+		//		    console.log(entry.fullPath);},
+		//		  function(evt){
+		//		    console.log(evt.code);}
+		//		);
+		
+		
 	};
 </script>
 
@@ -223,8 +225,8 @@
 								</div>
 								<div data-role="fieldcontain" data-controltype="textinput"
 									style="margin-top: 1px;">
-									<input name="fechaContacto" id="fechaContacto" placeholder=""
-										value="" type="date">
+									<input name="fechaContacto" id="fechaContacto" placeholder="yyyy-mm-dd"
+										value="yyyy-mm-dd" type="date">
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -319,7 +321,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaNacimiento" id="fechaNacimiento"
-										placeholder="" value="" type="date">
+										placeholder="yyyy-mm-dd" value="" type="date">
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -442,7 +444,7 @@
 								</div>
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
-									<input name="fechaIngreso" id="fechaIngreso" placeholder=""
+									<input name="fechaIngreso" id="fechaIngreso" placeholder="yyyy-mm-dd"
 										value="" type="date">
 								</div>
 							</div>
@@ -503,7 +505,7 @@
 								<div data-role="fieldcontain" data-controltype="textinput"
 									style="margin-top: 1px;">
 									<input name="fechaVigenciaCalif" id="fechaVigenciaCalif"
-										placeholder="" value="" type="date">
+										placeholder="yyyy-mm-dd" value="" type="date">
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -599,7 +601,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaInicioVigencia" id="fechaInicioVigencia"
-										placeholder="" value="" type="date">
+										placeholder="yyyy-mm-dd" value="" type="date">
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -609,7 +611,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaFinVigencia" id="fechaFinVigencia"
-										placeholder="" value="" type="date">
+										placeholder="yyyy-mm-dd" value="" type="date">
 								</div>
 							</div>
 							<div class="ui-block-a">
@@ -844,7 +846,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaVentasAnuales" id="fechaVentasAnuales"
-										placeholder="" value="" type="date">
+										placeholder="yyyy-mm-dd" value="" type="date">
 								</div>
 							</div>
 						</div>
@@ -937,30 +939,28 @@
 						</ul>
 					</div>
 				</div>
-
+				
+				<div data-role="footer" data-position="fixed">
+					<div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
+						<ul>
+							<li><a href="#" data-transition="fade"
+								onclick="limpiarCamposVinculacion();" data-theme="b" data-icon="">
+									Nueva Vinculación </a></li>
+							<li><a href="#" data-transition="fade"
+								onclick="validarListasControl();" data-theme="b" data-icon="">
+									Validar listas control </a></li>
+							<li><a href="#" data-transition="fade" onclick="segmentar();"
+								data-theme="b" data-icon=""> Segmentar / Calificar </a></li>
+							<li><a href="#" data-transition="fade" onclick="vincular();"
+								data-theme="b" data-icon=""> Vincular </a></li>
+						</ul>
+					</div>
+				</div>
 			</form>
 		</div>
 		<!--/Vinculacion-->
-
-
-		<div data-role="footer" data-position="fixed">
-			<div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
-				<ul>
-					<li><a href="#" data-transition="fade"
-						onclick="limpiarCamposVinculacion();" data-theme="b" data-icon="">
-							Nueva Vinculación </a></li>
-					<li><a href="#" data-transition="fade"
-						onclick="validarListasControl();" data-theme="b" data-icon="">
-							Validar listas control </a></li>
-					<li><a href="#" data-transition="fade" onclick="segmentar();"
-						data-theme="b" data-icon=""> Segmentar / Calificar </a></li>
-					<li><a href="#" data-transition="fade" onclick="vincular();"
-						data-theme="b" data-icon=""> Vincular </a></li>
-				</ul>
-			</div>
-		</div>
+		
 	</div>
-
 
 </body>
 </html>
