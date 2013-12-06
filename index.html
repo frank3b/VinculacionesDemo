@@ -1,11 +1,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<meta name="viewport" content="width=320; user-scalable=no" />
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<meta name = "viewport" content = "user-scalable=no, width=device-width /">
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-
-<title>Demo Legalización de gastos de Viajes</title>
+<title>Demo Vinculaciones</title>
 
 <link href="jquery.mobile/codiqa.ext.min.css" rel="stylesheet">
 <link href="jquery.mobile/jquery.mobile.theme-1.3.2.css" rel="stylesheet">
@@ -16,24 +14,37 @@
 <script src="js/jquery-1.9.1.min.js"></script>
 <script src="js/jquery.mobile-1.3.2.js"></script>
 <script src="js/codiqa.ext.min.js"></script>
-<script src="js/gestion-viajes.js"></script>
+<script src="js/vinculaciones.js"></script>
 <script src="js/kinvey-phonegap-1.1.2.min.js"></script>
 
 <script type="text/javascript" src="phonegap.js"></script>
+
+<link rel="stylesheet" href="jquery.ui.datepicker.mobile.css" /> 
+  <script src="jQuery.ui.datepicker.js"></script>
+  <script src="jquery.ui.datepicker.mobile.js"></script>
+  <script>
+  //reset type=date inputs to text
+  $( document ).bind( "mobileinit", function(){
+    $.mobile.page.prototype.options.degradeInputs.date = true;
+  });	
+</script>
+
 <!-- 
 <script type="text/javascript" charset="utf-8" src="cordova-1.9.0.js"></script>
  -->
-
+ 
 <script type="text/javascript" charset="utf-8">
 	var onDeviceReady = function() {
 		//document.getElementById("devready").innerHTML = "OnDeviceReady fired.";
-
-		window.resolveLocalFileSystemURI("file:///android_asset", function(
-				entry) {
-			console.log(entry.fullPath);
-		}, function(evt) {
-			console.log(evt.code);
-		});
+		
+		//window.resolveLocalFileSystemURI("file:///android_asset",
+		//		  function(entry){
+		//		    console.log(entry.fullPath);},
+		//		  function(evt){
+		//		    console.log(evt.code);}
+		//		);
+		
+		
 	};
 </script>
 
@@ -42,207 +53,925 @@
 
 	<!--Logon-->
 	<div data-role="page" id="logon" data-theme="b"
-		style="background: url('images/fondo.png'); background-size: 100% 100%;">
+		style="background: url('images/fondo.png'); background-size:100% 100%;">
 
 		<div data-role="header" data-theme="b" align="center">
-			<h1>Gastos de viajes</h1>
+			<h1>Vinculaciones</h1>
 		</div>
 
 		<div data-role="content">
 			<p></p>
-			<div align="center">
-				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
-					style="width: 288px;" />
+			<div align="center" >
+				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
 			</div>
-			<div data-controltype="textblock" style="height: 30px"></div>
-			
+			<div align="center" style="height: 30px;">
+				<p></p>
+			</div>
 			<div class="custom-label">
 				<b>Usuario</b>
 			</div>
-			<input type="text" name="usuario" id="usuario" value=""
-				data-type="vertical" onchange="$('#password').focus();" />
+			<input type="text" name="usuario" id="usuario" value="" 
+				data-type="vertical" onchange="$('#password').focus();"/>
 			<div class="custom-label">
 				<b>Contraseña</b>
 			</div>
 			<input type="password" name="password" id="password" value=""
-				onchange="$('#ingresar').focus();" />
+				 onchange="$('#ingresar').focus();" />
 
 			<div align="center">
 				<a id="ingresar" data-role="button" data-inline="true"
 					data-theme="b" href="#" data-icon="check" data-iconpos="left"
 					data-transition="pop"> Ingresar </a>
 			</div>
-			<div id="mensaje" data-controltype="textblock"></div>
+			<div id="mensaje" data-controltype="textblock" class="warning"></div>
 		</div>
 
 	</div>
 
-	<!--Lista de viajes-->
+	<!--Vinculacion-->
 
-	<div data-role="page" data-control-title="legalizacion" data-theme="b"
-		id="listaViajesAprobados"
-		style="background: url('images/fondo.png'); background-size: 100% 100%;">
-
-		<div data-theme="b" data-role="header">
-			<h2>Listado de viajes</h2>
-			<a data-role="button" data-transition="slide" data-theme="b"
-				href="#logon" data-icon="home" data-iconpos="left"
-				class="ui-btn-left" onclick="salir();"> Salir </a>
+	<div data-role="page" data-control-title="Vinculaciones" data-theme="b"
+		id="vinculacion" style="background: url('images/fondo.png')">
+		<div id="vinculacionPageHeader" data-theme="b" data-role="header" >
+			<a href="#logon" data-icon="delete" onclick="salir();">Salir</a>
+			<h3 id="headerVinculacion">Vinculaciones</h3>
+			<a href="#" data-icon="check" onclick="guardar();">Guardar</a>
 		</div>
-		<div data-role="content">
-			<div style="text-align: center" data-controltype="image">
-				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
-					style="width: 288px;" />
-			</div>
-			<div data-controltype="textblock" style="height: 20px"></div>
-			<div data-controltype="textblock" id="bienvenidaText"></div>
-			<div data-controltype="textblock" style="height: 30px"></div>
-
-			<div id="mensajeViajes" data-controltype="textblock"></div>
-
-			<ul id="lstViajesAprobados" data-role="listview"
-				data-divider-theme="b" data-inset="true" data-filter="true"
-				data-filter-placeholder="Filtrar viajes..." data-theme="c">
-				<li data-role="list-divider" role="heading">Viajes aprobados</li>
-
-			</ul>
+		<div align="center">
+			<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia" style="width: 288px;"/>
 		</div>
-
-	</div>
-
-	<!--/Listado viajes-->
-
-
-	<!--Gastos del viaje-->
-
-	<div data-role="page" data-control-title="Gastos del viaje"
-		data-theme="b" id="gastosViaje"
-		style="background: url('images/fondo.png'); background-size: 100% 100%;">
-
-		<div data-theme="b" data-role="header">
-			<a data-role="button" href="#" data-icon="plus"
-				data-iconpos="left" class="ui-btn-right" onclick="nuevoGasto();">
-				Agregar </a>
-			<h2>Gastos</h2>
-			<a data-role="button" data-transition="slide" data-theme="b"
-				href="#listaViajesAprobados" data-icon="back" data-iconpos="left"
-				class="ui-btn-left"> Volver </a>
-		</div>
-		<div data-role="content" style="padding: 20px">
-			<div style="text-align: center" data-controltype="image">
-				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
-					style="width: 288px;" />
-			</div>
-
-			<div id="mensajeGastos" data-controltype="textblock"></div>
-			<div data-controltype="textblock" style="height: 20px"></div>
-			
-			<div class="custom-label">
-				<b>Numero de viaje</b>
-			</div>
-			<div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
-				<input type="text" name="txtViaje" id="txtViaje" value="" 
-					data-type="vertical" readonly="readonly"/>	
-			</div>
-
-			<ul id="lstGastos" data-role="listview" data-divider-theme="b"
-				data-inset="true" data-theme="c">
-
-			</ul>
-		</div>
-
-	</div>
-
-	<!--/Gastos del viaje-->
-
-	<!--Nuevo / Editar del viaje-->
-	<div data-role="page" data-control-title="nuevoGasto" data-theme="b"
-		id="nuevoGasto"
-		style="background: url('images/fondo.png'); background-size: 100% 100%;">
-		<div data-theme="b" data-role="header">
-			<a data-role="button" href="#Expense" data-icon="arrow-r" onclick="guardarGasto();"
-				data-iconpos="left" class="ui-btn-right"> Guardar </a>
-			<h2>Agregar</h2>
-			<a data-role="button" data-transition="slide" data-theme="b"
-				href="#gastosViaje" data-icon="back" data-iconpos="left"
-				class="ui-btn-left" onclick="regresarAGastos();"> Volver </a>
-		</div>
-		<div data-role="content">
 		
-			<div data-role="popup" id="popupFoto" class="photopopup ui-popup ui-overlay-shadow ui-body-c" data-overlay-theme="a" 
-					data-corners="false" data-tolerance="30,15" data-disabled="false" data-shadow="true" 
-					data-transition="none" data-position-to="origin">
-					
-					<a href='#nuevoGasto' data-rel='dialog' data-role='button' data-theme='b' data-icon='delete' data-iconpos='notext' class='ui-btn-right'>X</a>
-					
-			</div>	
-			
-			<div style="text-align: center" data-controltype="image">
-				<img src="images/Logo-Grupo-Bancolombia.png" alt="Bancolombia"
-					style="width: 288px;" />
-			</div>
-			<div data-controltype="textblock" style="height: 30px"></div>
-			<div id="mensajeNuevoGasto" data-controltype="textblock"></div>
+		<div data-role="content">
+			<div data-controltype="textblock" id="bienvenidaText"></div>
+
+			<div id="mensajeVinculacion" data-controltype="textblock"></div>
 			<form action="">
-				<div class="custom-label">
-					<b>Clase de gasto</b>
-				</div>
-				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
-					 <select id="cmbClaseGasto" name="cmbClaseGasto" data-mini="false">
-						<option value="1">Traslados</option>
-						<option value="2">Capacitación</option>
-						<option value="3">Reuniones</option>
-					</select>
-				</div>
-				<div class="custom-label">
-					<b>Descripción</b>
-				</div>
-				<div data-role="fieldcontain" data-controltype="textarea" style="margin-top: 1px;">
-					<textarea name="" id="txtDescripcionGasto" placeholder=""
-						data-mini="false"></textarea>
-				</div>
-				<div class="custom-label">
-					<b>Monto</b>
-				</div>
-				<div data-role="fieldcontain" data-controltype="textinput" style="margin-top: 1px;">
-					<input name="" id="txtMontoGasto" placeholder="" value="" type="number"
-						data-mini="true">
-				</div>
-				<div class="custom-label">
-					<b>Moneda</b>
-				</div>
-				<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
-					<select id="tipoMonedaSelect" name="cmbMoneda" data-mini="false">
-						<option value="COP">COP</option>
-						<option value="US">US</option>
-						<option value="EUR">EUR</option>
-					</select>
-				</div>
-				<div class="custom-label">
-					<b>Fecha del gasto</b>
-				</div>
-				<div data-role="fieldcontain" style="margin-top: 1px;">
-						
-						<input name="txtFechaGasto" id="txtFechaGasto" placeholder="yyyy-mm-dd"
+				<div id="secciones" data-role="collapsible-set" data-theme="b">
+					<div id="identificacionDiv" data-role="collapsible"
+						data-collapsed="false">
+						<h3>Identificación</h3>
+
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Tipo de Documento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									data-type="horizontal" style="margin-top: 1px;" style="border:0.4px solid; border-radius:0.4px;">
+
+									<select id="tipoDocumento" name="" data-mini="false" style="border:0.4px solid; border-radius:0.4px;">
+										<option value="CC">Cedula</option>
+										<option value="CE">Cedula de extranjeria</option>
+										<option value="NI">Nit</option>
+										<option value="TI">TI</option>
+									</select>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Numero Documento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="numeroDocumento" id="numeroDocumento"
+										placeholder="Ingrese el número de documento" value=""
+										type="text" onchange="consultarVinculado();">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="datosGenerales" data-role="collapsible">
+						<h3>Información de detalles</h3>
+						<div id="labelDatosGenerales" data-controltype="textblock">
+							<b> Datos Generales </b>
+						</div>
+						<hr
+							style="height: 3px; background-color: #ccc; border: 0; margin-top: 2px; margin-bottom: 12px;">
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Llave SAP CRM</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="llaveCRM" id="llaveCRM" placeholder="" value=""
+										type="text" data-mini="false">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Rol de Negocio</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">																			
+									<select id="rolNegocio" name="paisNacimiento">
+										<option value="1">Prospecto</option>
+									</select>	
+								</div>
+							</div>
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Primer Nombre</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="primerNombre" id="primerNombre"
+										placeholder="Ingrese el primer nombre" value="" type="text" onchange="consultarVinculados();">
+								</div>
+
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Segundo Nombre</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input id="segundoNombre" name="segundoNombre"
+										placeholder="Ingrese el segundo nombre" value="" type="text">
+								</div>
+
+							</div>
+
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Primer Apellido</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="primerApellido" id="primerApellido"
+										placeholder="Ingrese el primer apellido" value="" type="text" onchange="consultarVinculados();">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Segundo Apellido</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="segundoApellido" id="segundoApellido"
+										placeholder="Ingrese el segundo apellido" value="" type="text">
+								</div>
+							</div>
+
+						</div>
+						<div data-controltype="textblock">
+							<b> Datos de la entrevista </b>
+						</div>
+						<hr
+							style="height: 3px; background-color: #ccc; border: 0; margin-top: 2px; margin-bottom: 12px;">
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Canal de Contacto</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="canalContacto" id="canalContacto"
+										placeholder="Ingrese el canal de contacto" value=""
+										type="text">
+								</div>
+								<div class="custom-label">
+									<b>Fecha de Contacto</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="fechaContacto" id="fechaContacto" placeholder="yyyy-mm-dd"
 										value="" type="date">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Lugar de Contacto</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="lugarContacto" id="lugarContacto"
+										placeholder="Ingrese el lugar de contacto" value=""
+										type="text">
+								</div>
+
+								<div class="custom-label">
+									<b>Hora de Contacto</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="horaContacto" id="horaContacto" placeholder=""
+										value="" type="time">
+								</div>
+							</div>
+						</div>
+						<div class="custom-label">
+							<b>Concepto Comercial</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="toggleswitch"
+							style="margin-top: 1px;">
+							<select name="conceptoComercial" id="conceptoComercial"
+								data-role="slider">
+								<option value="si">Si</option>
+								<option value="no">No</option>
+							</select>
+
+						</div>
+						<div data-controltype="textblock">
+							<b> Datos Personales </b>
+						</div>
+						<hr
+							style="height: 3px; background-color: #ccc; border: 0; margin-top: 2px; margin-bottom: 12px;">
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Pais de Nacimiento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="paisNacimientoSelect" name="paisNacimiento">
+										<option value="1">Colombia</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Ciudad de Nacimiento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="ciudadNacimientoSelect" name="ciudadNacimiento">
+										<option value="1">Medellin</option>
+										<option value="2">Bello</option>
+										<option value="3">Envigado</option>
+									</select>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Depto de Nacimiento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="deptoNacimientoSelect" name="deptoNacimiento">
+										<option value="1">Antioquia</option>
+										<option value="2">Amazonas</option>
+
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Nacionalidad</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="nacionalidadSelect" name="nacionalidad">
+										<option value="1">Colombiano</option>
+										<option value="2">Chileno</option>
+										<option value="3">Peruano</option>
+									</select>
+								</div>
+							</div>
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Fecha Nacimiento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="dateinput"
+									style="margin-top: 1px;">
+									<input name="fechaNacimiento" id="fechaNacimiento"
+										placeholder="yyyy-mm-dd" value="" type="date">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Hijos</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="hijos" id="hijos" placeholder="" value="0"
+										type="number" data-mini="false">
+								</div>
+							</div>
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Genero</b>
+								</div>
+								<div id="genero" data-role="fieldcontain"
+									data-controltype="radiobuttons" style="margin-top: 1px;">
+									<fieldset data-role="controlgroup" data-type="horizontal">
+										<input id="generom" name="genero" value="1" type="radio">
+										<label for="generom"> M </label> <input id="generof"
+											name="genero" value="0" type="radio"> <label
+											for="generof"> F </label>
+									</fieldset>
+								</div>
+								<div class="custom-label">
+									<b>Estado Civil</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="estadoCivil" name="estadoCivil">
+										<option value="1">Soltero</option>
+										<option value="2">Casado</option>
+										<option value="3">Divorciado</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Profesión</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="profesionSelect" name="profesion">
+										<option value="1">Ingeniero</option>
+										<option value="2">Abogado</option>
+										<option value="3">Consultor</option>
+									</select>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Estrato</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="estratoSelect" name="">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Ocupación</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="ocupacionSelect" name="ocupacion">
+										<option value="1">Empleado</option>
+										<option value="2">Independiente</option>
+										<option value="3">Otro</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Cargo</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="cargoSelect" name="cargo">
+										<option value="1">Desarrollador de software</option>
+										<option value="2">Tester</option>
+										<option value="3">Asesor comercial</option>
+										<option value="4">Gerente</option>
+										<option value="5">Otro</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div data-controltype="textblock">
+							<b> Datos Laborales </b>
+						</div>
+						<hr
+							style="height: 3px; background-color: #ccc; border: 0; margin-top: 2px; margin-bottom: 12px;">
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Empresa labora</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="empresa" id="empresa"
+										placeholder="Ingrese el nombre de la empresa" value=""
+										type="text">
+								</div>
+								<div class="custom-label">
+									<b>Tipo Contrato</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="tipoContratoSelect" name="tipoContrato">
+										<option value="1">Indefinido</option>
+										<option value="2">Termino fijo</option>
+									</select>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Fecha de Ingreso</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="dateinput"
+									style="margin-top: 1px;">
+									<input name="fechaIngreso" id="fechaIngreso" placeholder="yyyy-mm-dd"
+										value="" type="date">
+								</div>
+							</div>
+						</div>
+						<div data-controltype="textblock">
+							<b> Datos de Segmento </b>
+						</div>
+						<hr
+							style="height: 3px; background-color: #ccc; border: 0; margin-top: 2px; margin-bottom: 22px;">
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Segmento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="segmento" id="segmento" placeholder="" value=""
+										type="text">
+								</div>
+								<div class="custom-label">
+									<b>Tamaño Comercial</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="tamanoComercial" id="tamanoComercial"
+										placeholder="" value="" type="text">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Subsegmento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="subsegmento" id="subsegmento" placeholder=""
+										value="" type="text">
+								</div>
+							</div>
+						</div>
+						<div data-controltype="textblock">
+							<b> Validaciones Realizadas </b>
+						</div>
+						<hr
+							style="height: 3px; background-color: #ccc; border: 0; margin-top: 2px; margin-bottom: 12px;">
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Calificación interna</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="calificacionInterna" id="calificacionInterna"
+										placeholder="" value="" type="text">
+								</div>
+								<div class="custom-label">
+									<b>Fecha Vigencia</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="fechaVigenciaCalif" id="fechaVigenciaCalif"
+										placeholder="yyyy-mm-dd" value="" type="date">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b> Persona bloqueada</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="toggleswitch"
+									style="margin-top: 1px;">
+									<select name="toggleswitch3" id="personaBloqueada"
+										data-theme="" data-role="slider">
+										<option value="no">No</option>
+										<option value="si">Si</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b> Estado Vinculación</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="estado" id="estado" placeholder="" value=""
+										type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="ubicacion" data-role="collapsible">
+						<h3>Ubicacion y Correspondencia</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b> Pais</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="paisSelect" name="pais">
+										<option value="1">Colombia</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Ciudad</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="ciudadSelect" name="ciudad">
+										<option value="1">Medellin</option>
+										<option value="2">Bello</option>
+										<option value="3">Envigado</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Dirección</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="direccion" id="direccion"
+										placeholder="Ingrese la dirección" value="" type="text">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Departamento</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="deptoSelect" name="depto">
+										<option value="1">Antioquia</option>
+										<option value="2">Amazonas</option>
+										<option value="3">Nariño</option>
+										<option value="4">Sucre</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Barrio</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="barrio" id="barrio"
+										placeholder="Ingrese el barrio" value="" type="text">
+								</div>
+								<div class="custom-label">
+									<b>Código Postal</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="" id="codigoPostal"
+										placeholder="Ingrese el código postal" value="" type="text">
+								</div>
+							</div>
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Fecha Inicio Vigencia</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="dateinput"
+									style="margin-top: 1px;">
+									<input name="fechaInicioVigencia" id="fechaInicioVigencia"
+										placeholder="yyyy-mm-dd" value="" type="date">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Fecha Fin Vigencia</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="dateinput"
+									style="margin-top: 1px;">
+									<input name="fechaFinVigencia" id="fechaFinVigencia"
+										placeholder="yyyy-mm-dd" value="" type="date">
+								</div>
+							</div>
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Telefono Fijo</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="telefonoFijo" id="telefonoFijo" data-mini="true"
+										placeholder="Ingrese el número de telefono fijo" value=""
+										type="tel">
+								</div>
+								<div class="custom-label">
+									<b>Telefono Movil</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="celular" id="celular" data-mini="true"
+										placeholder="Ingrese el número de celular" value="" type="tel">
+								</div>
+								<div class="custom-label">
+									<b>Email</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="email" id="email" placeholder="Ingrese el email"
+										value="" type="email" data-mini="true">
+								</div>
+								<div class="custom-label">
+									<b>Sitio Web</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="sitioWeb" id="sitioWeb"
+										placeholder="Ingrese sitio web" value="" type="url">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Llamar</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 2px;">									
+									<a href="#" onclick="llamarFijo();"><img src="images/movil.jpg" /></a>	
+								</div>
+								<div class="custom-label">
+									<b>Llamar</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 2px;">									
+									<a href="#" onclick="llamarMovil();"><img src="images/movil.jpg" /></a>	
+								</div>
+								<div class="custom-label">
+									<b>Enviar Correo</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 2px;">									
+									<a href="#" onclick="enviarCorreo();"><img src="images/correo2.png" /></a>	
+								</div>
+							</div>
+						</div>
+					</div>
+					<div data-role="collapsible" id="datosFinancieros">
+						<h3>Datos Financieros</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Año / Mes</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="mes" id="mes" placeholder="" value="" type="month">
+								</div>
+								<div class="custom-label">
+									<b>Tipo de Moneda</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu" style="margin-top: 1px;">
+									<select id="tipoMonedaSelect" name="" >
+										<option value="1">COP</option>
+										<option value="2">US</option>
+										<option value="3">EUR</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Fuente Recursos</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="fuenteRecursosSelect" name="fuenteRecursos">
+										<option value="1">Salarios y demas pagos</option>
+										<option value="2">Otros</option>
+									</select>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Declarante</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="toggleswitch"
+									style="margin-top: 1px;">
+									<select name="declarante" id="declarante" data-theme=""
+										data-role="slider">
+										<option value="no">No</option>
+										<option value="si">Si</option>
+									</select>
+								</div>
+								<div class="custom-label">
+									<b>Fuente de los bienes</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="fuenteBienesSelect" name="">
+										<option value="1">Compraventa</option>
+										<option value="2">Otro</option>
+									</select>
+								</div>
+
+								<div class="custom-label">
+									<b>Depto Origen Recursos</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="deptoOrigenRecursosSelect" name="">
+										<option value="1">Antioquia</option>
+										<option value="2">Amazonas</option>
+										<option value="3">Nariño</option>
+										<option value="4">Sucre</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Pais Origen Recursos</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="paisOrigenRecursosSelect" name="">
+										<option value="1">Colombia</option>
+										<option value="2">Chile</option>
+										<option value="3">Peru</option>
+									</select>
+								</div>
+
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Ciudad Origen Recursos</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="selectmenu"
+									style="margin-top: 1px;">
+									<select id="ciudadOrigenRecursosSelect" name="">
+										<option value="1">Medellin</option>
+										<option value="2">Bello</option>
+										<option value="3">Itagui</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="custom-label">
+							<b>Ingresos Mensuales</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="textinput"
+							style="margin-top: 1px;">
+							<input name="ingresosMensuales" id="ingresosMensuales"
+								placeholder="" value="" type="text">
+						</div>
+						<div class="custom-label">
+							<b>Otros Ingresos Mensuales</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="textinput"
+							style="margin-top: 1px;">
+							<input name="otrosIngresos" id="otrosIngresos" placeholder=""
+								value="" type="text">
+						</div>
+						<div class="custom-label">
+							<b>Total Ingresos Mensuales</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="textinput"
+							style="margin-top: 1px;">
+							<input name="totalIngresos" id="totalIngresos" placeholder=""
+								value="" type="text">
+						</div>
+						<div class="custom-label">
+							<b>Total Egresos Mensuales</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="textinput"
+							style="margin-top: 1px;">
+							<input name="totalEgresos" id="totalEgresos" placeholder=""
+								value="" type="text">
+						</div>
+						<div class="custom-label">
+							<b>Total Activos</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="textinput"
+							style="margin-top: 1px;">
+							<input name="totalActivos" id="totalActivos" placeholder=""
+								value="" type="text">
+						</div>
+						<div class="custom-label">
+							<b>Total Pasivos</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="textinput"
+							style="margin-top: 1px;">
+							<input name="totalPasivos" id="totalPasivos" placeholder=""
+								value="" type="text">
+						</div>
+						<div class="custom-label">
+							<b>Total Patrimonio</b>
+						</div>
+						<div data-role="fieldcontain" data-controltype="textinput"
+							style="margin-top: 1px;">
+							<input name="totalPatrimonio" id="totalPatrimonio" placeholder=""
+								value="" type="text">
+						</div>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Vol. ventas anuales</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="volVentasAnuales" id="volVentasAnuales"
+										placeholder="" value="" type="text">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Fecha Ventas Anuales</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="dateinput"
+									style="margin-top: 1px;">
+									<input name="fechaVentasAnuales" id="fechaVentasAnuales"
+										placeholder="yyyy-mm-dd" value="" type="date">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="determinarCiiuButton" data-role="collapsible">
+						<h3>Actividad economica y CIUU</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div class="custom-label">
+									<b>Código CIIU</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="codigoCIIU" id="codigoCIIU"
+										placeholder="Ingrese el código CIIU" value="" type="text">
+								</div>
+								<div class="custom-label">
+									<b>Código del subCIIU</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="codigosubCIIU" id="codigosubCIIU"
+										placeholder="Ingrese el código SubCIIU" value="" type="text">
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<div class="custom-label">
+									<b>Descripción CIIU</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="descCiiu" id="descCiiu" placeholder="" value=""
+										type="text">
+								</div>
+								<div class="custom-label">
+									<b>Descripción del subCIIU</b>
+								</div>
+								<div data-role="fieldcontain" data-controltype="textinput"
+									style="margin-top: 1px;">
+									<input name="descsubCIIU" id="descsubCIIU" placeholder=""
+										value="" type="text">
+								</div>
+							</div>
+						</div>
+						<a href="#" data-role="button" data-rel="dialog"
+							data-transition="pop" id="determinarCiiu"
+							onclick="determinarCiiu();">Determinar CIIU</a>
+
+					</div>
+
+					<div data-role="collapsible" data-collapsed="true">
+						<h3>Anexos</h3>
+						<a id="agregarAdjunto" data-role="button" data-inline="true"
+							href="#" data-icon="plus" data-iconpos="left"
+							data-transition="pop"> Documento</a>
+						<a id="agregarImagen" data-role="button" data-inline="true"
+							href="#" data-icon="plus" data-iconpos="left"
+							data-transition="pop" onclick="tomarFoto();"> Imagen</a>	
+						<ul id="listaAnexos" data-role="listview"
+							data-inset="true" data-theme="c">
+							<li data-role="list-divider" role="heading">Documentos</li>
+							<li>
+								<a href="#" onclick="abrirAdjunto('http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf');"
+									data-rel="dialog"> DCNo.1PORIMP-83.pdf</a></li>
+							<li>
+								<a href="#" onclick="abrirAdjunto('http://www.grupobancolombia.com/personal/formatosPDF/comunes/DCNo.1PORIMPORTACIONESDEBIENESDCIN-83.pdf');"
+									data-rel="dialog"> DCNo.2PORIMP-83.pdf</a>
+							</li>									
+							<li data-role="list-divider" role="heading">
+		                        Imagenes
+		                    </li>
+		                    <li>
+		                    
+		                    </li>	
+						</ul>
+					</div>
+					
+					<div data-role="popup" id="popupFoto">
+						<a href="#vinculacion" data-rel="dialog" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					  	<img src="" id="imagenPopup" />
+					</div>
+					
+					
+					<div data-role="popup" id="listaVinculadosPopup" align="center">
+						<a href="#vinculacion" data-rel="dialog" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					  	<ul id="listaVinculados" data-role="listview"
+							data-inset="true" data-theme="c">
+							
+																
+						</ul>
+					</div>
 				</div>
 				
 				<div data-role="footer" data-position="fixed">
-					<div id="navBarGastos" data-role="navbar" data-iconpos="right">
+					<div id="navBarVinculacion" data-role="navbar" data-iconpos="right">
 						<ul>
-							<li><a href="#" data-transition="fade"onclick="tomarFoto();" data-theme="b" data-icon="">
-									Agregar factura
-							</a></li>
-							<li><a href="#popupFoto" data-transition="fade" onclick="verFactura();" data-rel="popup" data-position-to="window"
-									data-theme="b" data-icon="">Ver factura 
-							</a></li>
+							<li><a href="#" data-transition="fade"
+								onclick="limpiarCamposVinculacion();" data-theme="b" data-icon="">
+									Nueva Vinculación </a></li>
+							<li><a href="#" data-transition="fade"
+								onclick="validarListasControl();" data-theme="b" data-icon="">
+									Validar listas control </a></li>
+							<li><a href="#" data-transition="fade" onclick="segmentar();"
+								data-theme="b" data-icon=""> Segmentar / Calificar </a></li>
+							<li><a href="#" data-transition="fade" onclick="vincular();"
+								data-theme="b" data-icon=""> Vincular </a></li>
 						</ul>
 					</div>
 				</div>
 			</form>
 		</div>
+		<!--/Vinculacion-->
+		
 	</div>
-	<!--Nuevo / Editar del viaje-->
-	
+
 </body>
 </html>
