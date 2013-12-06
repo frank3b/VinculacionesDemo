@@ -550,7 +550,7 @@ function limpiarCamposVinculacion(){
 	$('#segundoApellido').val("");
 	$('#canalContacto').val("");
 	
-	document.getElementById("fechaContacto").valueAsDate = new Date();
+	//document.getElementById("fechaContacto").valueAsDate = new Date();
 	//$('#fechaContacto').val(new Date());
 	$('#lugarContacto').val("");
 	$('#horaContacto').val("");
