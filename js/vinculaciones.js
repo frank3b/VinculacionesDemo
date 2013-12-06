@@ -158,6 +158,8 @@ function segmentar(){
 
 function iniciarCampos(){
 	
+	limpiarCamposVinculacion();
+	
 	$("#mensaje").hide();
 	$("#mensajeVinculacion").hide();
 	
@@ -167,6 +169,7 @@ function iniciarCampos(){
 	$("#llaveCRM").attr('readonly', true);
 	$("#calificacionInterna").attr('readonly', true);
 	$("#estado").attr('readonly', true);
+	
 }
 
 function determinarCiiu(){
@@ -549,7 +552,7 @@ function limpiarCamposVinculacion(){
 	$('#segundoNombre').val("");
 	$('#segundoApellido').val("");
 	$('#canalContacto').val("");
-	$('#fechaContacto').val("");
+	$('#fechaContacto').val(new Date());
 	$('#lugarContacto').val("");
 	$('#horaContacto').val("");
 	$("#conceptoComercial").val("si").slider('refresh');
