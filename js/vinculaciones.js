@@ -167,8 +167,6 @@ function iniciarCampos(){
 	$("#llaveCRM").attr('readonly', true);
 	$("#calificacionInterna").attr('readonly', true);
 	$("#estado").attr('readonly', true);
-	
-	limpiarCamposVinculacion();
 }
 
 function determinarCiiu(){
@@ -805,6 +803,10 @@ function init() {
 			document.location.href = '#vinculacion';
 		}
 	});
+	
+	 $(document).on("pageshow", "#vinculacion", function () {
+	    	limpiarCamposVinculacion();
+	    });
 
 	//$(document).on("pageshow", "#vinculacion", function () {
 
