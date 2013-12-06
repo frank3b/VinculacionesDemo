@@ -158,8 +158,6 @@ function segmentar(){
 
 function iniciarCampos(){
 	
-	limpiarCamposVinculacion();
-	
 	$("#mensaje").hide();
 	$("#mensajeVinculacion").hide();
 	
@@ -170,6 +168,7 @@ function iniciarCampos(){
 	$("#calificacionInterna").attr('readonly', true);
 	$("#estado").attr('readonly', true);
 	
+	limpiarCamposVinculacion();
 }
 
 function determinarCiiu(){
