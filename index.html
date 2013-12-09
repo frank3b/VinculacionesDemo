@@ -93,7 +93,7 @@
 		id="vinculacion" style="background: url('images/fondo.png')">
 		<div id="vinculacionPageHeader" data-theme="b" data-role="header" >
 			<a href="#logon" data-icon="delete" onclick="salir();">Salir</a>
-			<h3 id="headerVinculacion">Vinculaciones</h3>
+			<h5 id="headerVinculacion">Vinculaciones</h5>
 			<a href="#" data-icon="check" onclick="guardar();">Guardar</a>
 		</div>
 		<div align="center">
@@ -970,6 +970,28 @@
 			</form>
 		</div>
 		<!--/Vinculacion-->
+		
+		<!--Detalle de la factura-->
+
+		<div data-role="page" data-control-title="Documento"
+			data-theme="b" id="verDocumento"
+			style="background: url('images/fondo.png'); background-size: 100% 100%;">
+	
+			<div data-theme="b" data-role="header">
+				
+				<h2>Documento</h2>
+				<a data-role="button" data-transition="slide" data-theme="b"
+					href="#vinculacion" data-icon="back" data-iconpos="left"
+					class="ui-btn-left"> Volver </a>
+			</div>
+			
+			<div id="popupDocumento" style="height:100%" class="photopopup ui-popup ui-overlay-shadow ui-body-c" data-overlay-theme="a" 
+						data-corners="false">
+						
+			</div>	
+		</div>
+	
+		<!--Detalle de la factura-->
 		
 	</div>
 
