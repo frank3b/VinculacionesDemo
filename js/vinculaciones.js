@@ -243,8 +243,8 @@ function editarVinculacion(data){
 		$('#guardar').button('enable');
 		vinculado = data;
 		
-		//$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
-		//$('#numeroDocumento').val(data.numero_documento);
+		$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
+		$('#numeroDocumento').val(data.numero_documento);
 		$('#llaveCRM').val(data._id);
 		$('#rolNegocio').val(data.rol_negocio).selectmenu('refresh');
 		$('#primerNombre').val(data.primer_nombre);
@@ -362,10 +362,10 @@ function guardar(){
 			
 			vinculado.llaveSAP = $('#llaveCRM').val();
 			vinculado.rol_negocio = $('#rolNegocio').val();
-			vinculado.primer_nombre = $('#primerNombre').val();
-			vinculado.primer_apellido = $('#primerApellido').val();
-			vinculado.segundo_nombre = $('#segundoNombre').val();
-			vinculado.segundo_apellido = $('#segundoApellido').val();
+			vinculado.primer_nombre = $('#primerNombre').val().toUpperCase();
+			vinculado.primer_apellido = $('#primerApellido').val().toUpperCase();
+			vinculado.segundo_nombre = $('#segundoNombre').val().toUpperCase();
+			vinculado.segundo_apellido = $('#segundoApellido').val().toUpperCase();
 			vinculado.canal_contacto = $('#canalContacto').val();
 			vinculado.fecha_contacto = $('#fechaContacto').val();
 			vinculado.lugar_contacto = $('#lugarContacto').val();
@@ -684,8 +684,8 @@ function consultarVinculados() {
 				$('#guardar').button('disable'); 
 				limpiarMensaje($('#mensajeVinculacion'));	
 				
-			    var primer_nombre = $('#primerNombre').val();
-				var primer_apellido = $('#primerApellido').val();
+			    var primer_nombre = $('#primerNombre').val().toUpperCase();
+				var primer_apellido = $('#primerApellido').val().toUpperCase();
 				
 				var queryName = new Kinvey.Query();
 				var queryApellido = new Kinvey.Query();
