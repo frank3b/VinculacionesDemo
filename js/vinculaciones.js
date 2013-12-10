@@ -117,6 +117,8 @@ function vincular(){
 			agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
 			$.mobile.loading('hide');
 		}, 2000);
+		$('#rolNegocio').val("2").selectmenu('refresh');
+		 
 	} else {
 		agregarMensaje($('#mensajeVinculacion'), 'W', 'Debe ejecutar primero la operaci\u00F3n Segmentar/Calificar.');
 	}
