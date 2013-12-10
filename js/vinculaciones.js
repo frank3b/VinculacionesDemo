@@ -341,12 +341,14 @@ function guardar(){
 		var numero_documento = $('#numeroDocumento').val();
 		var primer_nombre = $('#primerNombre').val();
 		var primer_apellido = $('#primerApellido').val();
+		alert('Primer nombre ' + primer_nombre);
+		alert('Primer apellido ' + primer_apellido);
 		
 		if(tipo_documento == null || tipo_documento == ''){
 			agregarMensaje($('#mensajeVinculacion'), 'E', 'El tipo de documento es requerido.');
 		} else if(numero_documento == null || numero_documento == ''){
 			agregarMensaje($('#mensajeVinculacion'), 'E', 'El numero de documento es requerido.');
-		} else if (primer_nombre != null && primer_nombre != '' && primer_apellido != null && primer_apellido != '') {	
+		} else if (primer_nombre == null && primer_nombre == '' && primer_apellido == null && primer_apellido == '') {	
 			agregarMensaje($('#mensajeVinculacion'), 'E', 'El campo nombre y apellidos es requerido.');
 		} else {
 			$.mobile.loading('show');
