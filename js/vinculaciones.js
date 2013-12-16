@@ -251,9 +251,9 @@ function editarVinculacion(data){
 		$('#primerApellido').val(data.primer_apellido);
 		$('#segundoNombre').val(data.segundo_nombre);
 		$('#segundoApellido').val(data.segundo_apellido);
-		$('#canalContacto').val(data.canal_contacto);
+		$('#canalContacto').val(data.canal_contacto).selectmenu('refresh');
 		$('#fechaContacto').val(data.fecha_contacto);
-		$('#lugarContacto').val(data.lugar_contacto);
+		$('#lugarContacto').val(data.lugar_contacto).selectmenu('refresh');
 		$('#horaContacto').val(data.hora_contacto);
 		$("#conceptoComercial").val(data.concepto_comercial).slider('refresh');
 		$('#paisNacimientoSelect').val(data.pais_nacimiento).selectmenu('refresh');
@@ -623,40 +623,49 @@ function limpiarCamposVinculacion(){
 
 var idImagen = 0;
 function tomarFoto(){
-	console.log('Por tomar foto...');
-	if (!navigator.camera) {
-		alert("Camera API not supported", "Error");
-		return;
-	}
-	var options =   {   quality: 50,
-						destinationType: Camera.DestinationType.FILE_URI,
-						sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
-						encodingType: 0     // 0=JPG 1=PNG
-					};
-	navigator.camera.getPicture(
-		function(imageData) {
-			idImagen += 1;
-			//$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
-			
-			//alert(JSON.stringify(imageData));
-			//alert(imageData);
-			var item = "<li><a href=\"#popupFoto\" onclick=\"verFoto('"+ imageData +"');\" data-rel=\"popup\" data-position-to=\"window\"> "+
-			"<img id='img' " + idImagen + " src='"+ imageData +"'/> " +
-			//"<h3>Nombre Imagen</h3>" +
-			//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
-			//"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
-			"</a></li>";
-			//alert(item);
-			$('#listaAnexos').append(item).listview('refresh');
-			//$('#img' + idImagen).attr('src', "data:image/jpeg;base64," + imageData);
-			
-		},
-		function() {
-			alert('Error tomando foto. Intente de nuevo más tarde', "Error");
-		},
-		options);
+	
+	//if(vinculado.llaveSAP != null && vinculado.llaveSAP != ''){
+	//	agregarMensaje($('#mensajeVinculacion'), 'W', 'Debe almacenar primero la informaci\u00F3n.');
+	//} else {
+		console.log('Por tomar foto...');
+		if (!navigator.camera) {
+			alert("Camera API not supported", "Error");
+			return;
+		}
+		var options =   {   quality: 50,
+							destinationType: Camera.DestinationType.FILE_URI,
+							sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+							encodingType: 0     // 0=JPG 1=PNG
+						};
+		navigator.camera.getPicture(
+			function(imageData) {
+				idImagen += 1;
+				//$('#foto').attr('src', "data:image/jpeg;base64," + imageData);
+				
+				//alert(JSON.stringify(imageData));
+				//alert(imageData);
+				var item = "<li><a href=\"#popupFoto\" onclick=\"verFoto('"+ imageData +"');\" data-rel=\"popup\" data-position-to=\"window\"> "+
+				"<img id='img' " + idImagen + " src='"+ imageData +"'/> " +
+				//"<h3>Nombre Imagen</h3>" +
+				//"<p><strong>Cedula:</strong> "+ obj.cliente.cedula +"</p>" +
+				//"<p class=\"ui-li-aside\"><strong>"+ obj.cliente.estado +"</strong></p>" +
+				"</a></li>";
+				//alert(item);
+				$('#listaAnexos').append(item).listview('refresh');
+				//$('#img' + idImagen).attr('src', "data:image/jpeg;base64," + imageData);
+				
+			},
+			function() {
+				alert('Error tomando foto. Intente de nuevo más tarde', "Error");
+			},
+			options);
+	//}
+	
+	
 	return false;
 }
+
+
 
 function verFoto(src){
 	$('#imagenPopup').attr('src', src);
