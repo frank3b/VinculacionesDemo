@@ -15,7 +15,7 @@
 <script src="js/vinculaciones.js"></script>
 
 <script type="text/javascript" src="js/datebox/jqm-datebox.core.min.js"></script>
-<script type="text/javascript" src="js/datebox/jqm-datebox.mode.calbox.min.js"></script>
+<script type="text/javascript" src="js/datebox/jqm-datebox.mode.datebox.min.js"></script>
 <script type="text/javascript" src="js/datebox/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
 
@@ -241,7 +241,7 @@
 								<div data-role="fieldcontain" data-controltype="textinput"
 									style="margin-top: 1px;">
 									<input name="fechaContacto" id="fechaContacto" type="date" data-role="datebox"
-   										data-options='{"mode": "calbox"}'>	
+   										data-options='{"mode": "datebox"}'>	
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -306,6 +306,10 @@
 										<option value="1">Medellin</option>
 										<option value="2">Bello</option>
 										<option value="3">Envigado</option>
+										<option value="4">Bucaramanga</option>
+										<option value="5">Soledad</option>
+										<option value="6">Cartagena</option>
+										<option value="7">Cali</option>
 									</select>
 								</div>
 							</div>
@@ -317,7 +321,15 @@
 									style="margin-top: 1px;">
 									<select id="deptoNacimientoSelect" name="deptoNacimiento">
 										<option value="1">Antioquia</option>
-										<option value="2">Amazonas</option>
+										<option value="2">Arauca</option>
+										<option value="3">Amazonas</option>
+										<option value="4">Nariño</option>
+										<option value="5">Sucre</option>
+										<option value="6">Meta</option>
+										<option value="7">Valle del Cauca</option>
+										<option value="8">Quindío</option>
+										<option value="9">Magdalena</option>
+										<option value="10">Huila</option>
 
 									</select>
 								</div>
@@ -340,7 +352,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaNacimiento" id="fechaNacimiento" type="date" data-role="datebox"
-   										data-options='{"mode": "calbox"}'>	
+   										data-options='{"mode": "datebox"}'>	
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -464,7 +476,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaIngreso" id="fechaIngreso" type="date" data-role="datebox"
-   										data-options='{"mode": "calbox"}'>		
+   										data-options='{"mode": "datebox"}'>		
 								</div>
 							</div>
 						</div>
@@ -524,7 +536,7 @@
 								<div data-role="fieldcontain" data-controltype="textinput"
 									style="margin-top: 1px;">
 									<input name="fechaVigenciaCalif" id="fechaVigenciaCalif" type="date" data-role="datebox"
-   										data-options='{"mode": "calbox"}'>	
+   										data-options='{"mode": "datebox"}'>	
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -572,6 +584,10 @@
 										<option value="1">Medellin</option>
 										<option value="2">Bello</option>
 										<option value="3">Envigado</option>
+										<option value="4">Bucaramanga</option>
+										<option value="5">Soledad</option>
+										<option value="6">Cartagena</option>
+										<option value="7">Cali</option>
 									</select>
 								</div>
 								<div class="custom-label">
@@ -591,9 +607,15 @@
 									style="margin-top: 1px;">
 									<select id="deptoSelect" name="depto">
 										<option value="1">Antioquia</option>
-										<option value="2">Amazonas</option>
-										<option value="3">Nariño</option>
-										<option value="4">Sucre</option>
+										<option value="2">Arauca</option>
+										<option value="3">Amazonas</option>
+										<option value="4">Nariño</option>
+										<option value="5">Sucre</option>
+										<option value="6">Meta</option>
+										<option value="7">Valle del Cauca</option>
+										<option value="8">Quindío</option>
+										<option value="9">Magdalena</option>
+										<option value="10">Huila</option>	
 									</select>
 								</div>
 								<div class="custom-label">
@@ -620,7 +642,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaInicioVigencia" id="fechaInicioVigencia" type="date" data-role="datebox"
-   										data-options='{"mode": "calbox"}'>	
+   										data-options='{"mode": "datebox"}'>	
 								</div>
 							</div>
 							<div class="ui-block-b">
@@ -630,7 +652,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaFinVigencia" id="fechaFinVigencia" type="date" data-role="datebox"
-   										data-options='{"mode": "calbox"}'>		
+   										data-options='{"mode": "datebox"}'>		
 								</div>
 							</div>
 							<div class="ui-block-a">
@@ -755,9 +777,15 @@
 									style="margin-top: 1px;">
 									<select id="deptoOrigenRecursosSelect" name="">
 										<option value="1">Antioquia</option>
-										<option value="2">Amazonas</option>
-										<option value="3">Nariño</option>
-										<option value="4">Sucre</option>
+										<option value="2">Arauca</option>
+										<option value="3">Amazonas</option>
+										<option value="4">Nariño</option>
+										<option value="5">Sucre</option>
+										<option value="6">Meta</option>
+										<option value="7">Valle del Cauca</option>
+										<option value="8">Quindío</option>
+										<option value="9">Magdalena</option>
+										<option value="10">Huila</option>
 									</select>
 								</div>
 							</div>
@@ -786,7 +814,11 @@
 									<select id="ciudadOrigenRecursosSelect" name="">
 										<option value="1">Medellin</option>
 										<option value="2">Bello</option>
-										<option value="3">Itagui</option>
+										<option value="3">Envigado</option>
+										<option value="4">Bucaramanga</option>
+										<option value="5">Soledad</option>
+										<option value="6">Cartagena</option>
+										<option value="7">Cali</option>
 									</select>
 								</div>
 							</div>
@@ -865,7 +897,7 @@
 								<div data-role="fieldcontain" data-controltype="dateinput"
 									style="margin-top: 1px;">
 									<input name="fechaVentasAnuales" id="fechaVentasAnuales" type="date" data-role="datebox"
-   										data-options='{"mode": "calbox"}'>	
+   										data-options='{"mode": "datebox"}'>	
 								</div>
 							</div>
 						</div>
