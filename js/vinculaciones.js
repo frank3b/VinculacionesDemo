@@ -103,6 +103,10 @@ function validarListasControl(){
 			$('#personaBloqueada').val("no").slider('refresh');
 			$('#estado').val("PENDIENTE");
 			
+			colapsarSecciones();
+			$('#datosGenerales').trigger('expand');
+			$('#calificacionInterna').trigger("focus");
+			
 			agregarMensaje($('#mensajeVinculacion'), 'S', 'No se encuentra en listas de control.');
 			isListasControlValidadas = true;
 			$.mobile.loading('hide');
@@ -120,9 +124,12 @@ function vincular(){
 			$.mobile.loading('hide');
 		}, 2000);
 		$('#rolNegocio').val("2").selectmenu('refresh');
-		 
+		colapsarSecciones();
+		$('#datosGenerales').trigger('focus');
 	} else {
 		agregarMensaje($('#mensajeVinculacion'), 'W', 'Debe ejecutar primero la operaci\u00F3n Segmentar/Calificar.');
+		colapsarSecciones();
+		$('#datosGenerales').trigger('focus');
 	}
 	
 	
@@ -157,8 +164,6 @@ function segmentar(){
 	}
 	
 }
-
-
 
 function iniciarCampos(){
 	
@@ -539,6 +544,13 @@ function agregarMensaje(objeto, tipoError, mensaje){
 	
 }
 
+function colapsarSecciones(){
+	$('#identificacionDiv').trigger('collapse');
+	$('#ubicacion').trigger('collapse');
+	$('#datosFinancieros').trigger('collapse');
+	$('#determinarCiiuButton').trigger('collapse');
+	$('#datosGenerales').trigger('collapse');
+}
 
 function limpiarCamposVinculacion(){
 	
@@ -620,6 +632,12 @@ function limpiarCamposVinculacion(){
 	$('#estado').val("");
 	$('#estadoCivil').val("1").selectmenu('refresh');
 	$('#ocupacion').val("1").selectmenu('refresh');
+	
+	$('#identificacionDiv').trigger('expand');
+	$('#ubicacion').trigger('collapse');
+	$('#datosFinancieros').trigger('collapse');
+	$('#determinarCiiuButton').trigger('collapse');
+	$('#datosGenerales').trigger('collapse');
 	
 }
 
