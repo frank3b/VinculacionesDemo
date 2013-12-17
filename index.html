@@ -734,7 +734,10 @@
 								</div>
 								<div data-role="fieldcontain" data-controltype="textinput"
 									style="margin-top: 1px;">
-									<input name="mes" id="mes" placeholder="" value="" type="month">
+									
+									<input name="mes" id="mes" type="date" data-role="datebox"
+   										data-options='{"mode":"datebox", "overrideDateFormat": "%m/%Y", "overrideDateFieldOrder": ["m", "y"]}'>
+									
 								</div>
 								<div class="custom-label">
 									<b>Tipo de Moneda</b>
