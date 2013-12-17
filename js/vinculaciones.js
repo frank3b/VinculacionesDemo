@@ -103,6 +103,22 @@ function validarListasControl(){
 			$('#personaBloqueada').val("no").slider('refresh');
 			$('#estado').val("PENDIENTE");
 			
+			if(vinculado != null && vinculado._id != null && vinculado._id != ''){
+				vinculado.calificacion_interna = "SIN CALIF";
+				vinculado.fecha_vigencia_calif = "2014-12-31";
+				vinculado.persona_bloqueada = "no";
+				vinculado.estado = "PENDIENTE";
+			} else {
+				vinculado = {};
+				
+				vinculado.calificacion_interna = "SIN CALIF";
+				vinculado.fecha_vigencia_calif = "2014-12-31";
+				vinculado.persona_bloqueada = "no";
+				vinculado.estado = "PENDIENTE";
+			}
+			
+			
+			
 			colapsarSecciones();
 			$('#datosGenerales').trigger('expand');
 			$('#calificacionInterna').trigger("focus");
@@ -118,16 +134,16 @@ function validarListasControl(){
 function vincular(){
 	
 	if(isSegmentado){
-		$.mobile.loading('show');
-		/*setTimeout(function() {
-			agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
-			$.mobile.loading('hide');
-		}, 2000);
-		*/
+		//$.mobile.loading('show');
 		guardar();
-		$('#rolNegocio').val("2").selectmenu('refresh');
-		colapsarSecciones();
-		$('#datosGenerales').trigger('focus');
+		setTimeout(function() {
+			agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
+			//$.mobile.loading('hide');
+			$('#rolNegocio').val("2").selectmenu('refresh');
+			colapsarSecciones();
+			$('#datosGenerales').trigger('focus');
+		}, 2000);
+		
 	} else {
 		agregarMensaje($('#mensajeVinculacion'), 'W', 'Debe ejecutar primero la operaci\u00F3n Segmentar/Calificar.');
 		colapsarSecciones();
@@ -148,6 +164,20 @@ function segmentar(){
 			$('#segmento').val("PERSONAL PLUS");
 			$('#subsegmento').val("Basico");
 			$('#tamanoComercial').val("0.01");
+			if(vinculado != null && vinculado._id != null && vinculado._id != ''){
+				vinculado.segmento = "PERSONAL PLUS";
+				vinculado.tamano_comercial = "0.01";
+				vinculado.subsegmento = "Basico";
+			} else {
+				vinculado = {};
+				vinculado.segmento = "PERSONAL PLUS";
+				vinculado.tamano_comercial = "0.01";
+				vinculado.subsegmento = "Basico";
+			}
+			
+			vinculado.segmento = "PERSONAL PLUS";
+			vinculado.tamano_comercial = "0.01";
+			vinculado.subsegmento = "Basico";
 			
 			$('#identificacionDiv').trigger('collapse');
 			$('#ubicacion').trigger('collapse');
@@ -251,6 +281,10 @@ function editarVinculacion(data){
 	try{
 		$('#guardar').button('enable');
 		vinculado = data;
+		
+		if(vinculado.segmento != null && vinculado.segmento != ''){
+			isSegmentado = true;
+		}
 		
 		$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
 		$('#numeroDocumento').val(data.numero_documento);
