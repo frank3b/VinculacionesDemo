@@ -285,6 +285,9 @@ function editarVinculacion(data){
 		if(vinculado.segmento != null && vinculado.segmento != ''){
 			isSegmentado = true;
 		}
+		if(vinculado.calificacion_interna != null && vinculado.calificacion_interna != ''){
+			isListasControlValidadas = true;
+		}
 		
 		$('#tipoDocumento').val(data.tipo_documento).selectmenu('refresh');
 		$('#numeroDocumento').val(data.numero_documento);
