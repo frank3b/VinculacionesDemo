@@ -573,29 +573,29 @@ function limpiarCamposVinculacion(){
 	$('#lugarContacto').val("");
 	$('#horaContacto').val("");
 	$("#conceptoComercial").val("si").slider('refresh');
-	$('#paisNacimientoSelect').val("1").selectmenu('refresh');
-	$('#ciudadNacimientoSelect').val("1").selectmenu('refresh');
-	$('#deptoNacimientoSelect').val("1").selectmenu('refresh');
-	$('#nacionalidadSelect').val("1").selectmenu('refresh');
+	$('#paisNacimientoSelect').val("0").selectmenu('refresh');
+	$('#ciudadNacimientoSelect').val("0").selectmenu('refresh');
+	$('#deptoNacimientoSelect').val("0").selectmenu('refresh');
+	$('#nacionalidadSelect').val("0").selectmenu('refresh');
 	$('#fechaNacimiento').val("");
 	$('#hijos').val("0");
 	
 	$("#generof").attr("checked", false).checkboxradio("refresh");//radio
 	$("#generom").attr("checked", false).checkboxradio("refresh");
 	
-	$('#profesionSelect').val("1").selectmenu('refresh');
-	$('#estratoSelect').val("1").selectmenu('refresh');
-	$('#cargoSelect').val("1").selectmenu('refresh');
+	$('#profesionSelect').val("0").selectmenu('refresh');
+	$('#estratoSelect').val("0").selectmenu('refresh');
+	$('#cargoSelect').val("0").selectmenu('refresh');
 	$('#empresa').val("");
-	$('#tipoContratoSelect').val("1").selectmenu('refresh');
+	$('#tipoContratoSelect').val("0").selectmenu('refresh');
 	$('#fechaIngreso').val("");
 	$('#segmento').val("");
 	$('#tamanoComercial').val("");
 	$('#subsegmento').val("");
-	$('#paisSelect').val("1").selectmenu('refresh');
-	$('#ciudadSelect').val("1").selectmenu('refresh');
+	$('#paisSelect').val("0").selectmenu('refresh');
+	$('#ciudadSelect').val("0").selectmenu('refresh');
 	$('#direccion').val("");
-	$('#deptoSelect').val("1").selectmenu('refresh');
+	$('#deptoSelect').val("0").selectmenu('refresh');
 	$('#barrio').val("");
 	$('#codigoPostal').val("");
 	$('#fechaInicioVigencia').val("");
@@ -605,13 +605,13 @@ function limpiarCamposVinculacion(){
 	$('#celular').val("");
 	$('#sitioWeb').val("");
 	$('#mes').val("");
-	$('#tipoMonedaSelect').val("1").selectmenu('refresh');
-	$('#fuenteRecursosSelect').val("1").selectmenu('refresh');
+	$('#tipoMonedaSelect').val("0").selectmenu('refresh');
+	$('#fuenteRecursosSelect').val("0").selectmenu('refresh');
 	$('#declarante').val("no").slider('refresh'); //- select - slider
-	$('#fuenteBienesSelect').val("1").selectmenu('refresh');
-	$('#paisOrigenRecursosSelect').val("1").selectmenu('refresh');
-	$('#ciudadOrigenRecursosSelect').val("1").selectmenu('refresh');
-	$('#deptoOrigenRecursosSelect').val("1").selectmenu('refresh');
+	$('#fuenteBienesSelect').val("0").selectmenu('refresh');
+	$('#paisOrigenRecursosSelect').val("0").selectmenu('refresh');
+	$('#ciudadOrigenRecursosSelect').val("0").selectmenu('refresh');
+	$('#deptoOrigenRecursosSelect').val("0").selectmenu('refresh');
 	$('#ingresosMensuales').val("");
 	$('#otrosIngresos').val("");
 	$('#totalIngresos').val("");
@@ -630,8 +630,8 @@ function limpiarCamposVinculacion(){
 	$('#fechaVigenciaCalif').val("");
 	$('#personaBloqueada').val("no").slider('refresh');
 	$('#estado').val("");
-	$('#estadoCivil').val("1").selectmenu('refresh');
-	$('#ocupacion').val("1").selectmenu('refresh');
+	$('#estadoCivil').val("0").selectmenu('refresh');
+	$('#ocupacion').val("0").selectmenu('refresh');
 	
 	$('#identificacionDiv').trigger('expand');
 	$('#ubicacion').trigger('collapse');
