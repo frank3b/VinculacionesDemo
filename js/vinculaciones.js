@@ -119,10 +119,12 @@ function vincular(){
 	
 	if(isSegmentado){
 		$.mobile.loading('show');
-		setTimeout(function() {
+		/*setTimeout(function() {
 			agregarMensaje($('#mensajeVinculacion'), 'S', 'La vinculaci\u00F3n se ejecut\u00F3 correctamentemente.');
 			$.mobile.loading('hide');
 		}, 2000);
+		*/
+		guardar();
 		$('#rolNegocio').val("2").selectmenu('refresh');
 		colapsarSecciones();
 		$('#datosGenerales').trigger('focus');
