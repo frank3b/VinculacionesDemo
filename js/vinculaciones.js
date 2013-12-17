@@ -608,7 +608,7 @@ function limpiarCamposVinculacion(){
 	$('#canalContacto').val("");
 	
 	//document.getElementById("fechaContacto").valueAsDate = new Date();
-	//$('#fechaContacto').val(new Date());
+	$('#fechaContacto').val("");
 	$('#lugarContacto').val("");
 	$('#horaContacto').val("");
 	$("#conceptoComercial").val("si").slider('refresh');
